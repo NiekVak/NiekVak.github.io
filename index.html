@@ -2,1578 +2,1532 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>Nikolas Vaki — HCI Portfolio</title>
-<link rel="icon" type="image/png" href="Photos/NVnewLogo.png">
-<link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Nikolas Vaki | Human Computer Interaction, Research and Product</title>
+<meta name="description" content="Nikolas Vaki. MSc Human Computer Interaction and BSc Computer Science. Mixed methods research, data analysis, product thinking and front end engineering. Based in Utrecht, Netherlands."/>
+<meta name="author" content="Nikolas Vaki"/>
+<meta property="og:title" content="Nikolas Vaki | Human Computer Interaction, Research and Product"/>
+<meta property="og:description" content="I turn how people actually behave into decisions a product can act on."/>
+<meta property="og:type" content="website"/>
+<link rel="icon" type="image/png" href="Photos/NVnewLogo.png"/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600&family=Schibsted+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
-/* ═══════════ RESET & TOKENS ═══════════ */
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth;scroll-padding-top:76px;font-size:16px;-webkit-text-size-adjust:100%}
-::selection{background:#05e8c4;color:#04060c}
-
+/* ============================================================
+   TOKENS
+   Palette borrowed from rail signage: paper, ink, signal blue,
+   and one amber used only for the crowding indicator.
+   ============================================================ */
 :root{
-  --bg:#04060c;
-  --bg1:#080c14;
-  --bg2:#0d1220;
-  --bg3:#121928;
-  --border:rgba(255,255,255,0.06);
-  --border2:rgba(255,255,255,0.11);
-  --cyan:#05e8c4;
-  --cyan2:#00c9a8;
-  --cdim:rgba(5,232,196,0.1);
-  --cglow:rgba(5,232,196,0.2);
-  --pink:#ff3e72;
-  --pdim:rgba(255,62,114,0.1);
-  --text:#e2e8f4;
-  --muted:#5a6a82;
-  --muted2:#8294aa;
-  --sans:'Plus Jakarta Sans',sans-serif;
-  --display:'Clash Display',sans-serif;
-  --ease:cubic-bezier(0.22,1,0.36,1);
-  --spring:cubic-bezier(0.34,1.56,0.64,1);
-  --t:.36s cubic-bezier(0.22,1,0.36,1);
-  --r4:4px;--r8:8px;--r14:14px;--r20:20px;--r28:28px;--rpill:999px
+  --paper:#fbfbfc;
+  --surface:#f3f5f8;
+  --raised:#ffffff;
+  --ink:#0f1620;
+  --ink-2:#39424f;
+  --muted:#616b7a;
+  --line:#e0e4ea;
+  --line-2:#c9cfd8;
+  --accent:#0b3c8c;
+  --accent-ink:#0b3c8c;
+  --accent-soft:#eaf0fb;
+  --amber:#b57500;
+  --amber-soft:#fdf3e0;
+  --focus:#0b3c8c;
+
+  --display:"Schibsted Grotesk",system-ui,sans-serif;
+  --body:"Inter",system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,monospace;
+
+  --r-sm:4px; --r-md:8px; --r-lg:14px;
+  --shadow:0 1px 2px rgba(15,22,32,.04),0 8px 28px rgba(15,22,32,.06);
+  --wrap:1140px;
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+[data-theme="dark"]{
+  --paper:#0d1117;
+  --surface:#141a23;
+  --raised:#151b25;
+  --ink:#eef2f8;
+  --ink-2:#c2cad6;
+  --muted:#94a0b1;
+  --line:#232b37;
+  --line-2:#333d4c;
+  --accent:#8fb0ff;
+  --accent-ink:#a8c1ff;
+  --accent-soft:#16233c;
+  --amber:#e0a640;
+  --amber-soft:#2a2113;
+  --focus:#8fb0ff;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 30px rgba(0,0,0,.35);
 }
 
-body{font-family:var(--sans);background:var(--bg);color:var(--text);line-height:1.65;overflow-x:hidden}
-body::before{content:'';position:fixed;inset:0;
-  background:
-    radial-gradient(ellipse 80% 60% at 0% 15%,rgba(5,232,196,0.045) 0%,transparent 60%),
-    radial-gradient(ellipse 60% 50% at 100% 85%,rgba(255,62,114,0.04) 0%,transparent 60%);
-  pointer-events:none;z-index:0}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;scroll-padding-top:88px}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.001ms !important;transition-duration:.001ms !important}
+}
+body{
+  background:var(--paper);color:var(--ink-2);
+  font-family:var(--body);font-size:16px;line-height:1.65;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
+:focus-visible{outline:3px solid var(--focus);outline-offset:3px;border-radius:2px}
+::selection{background:var(--accent);color:#fff}
 
-::-webkit-scrollbar{width:4px}
-::-webkit-scrollbar-track{background:var(--bg)}
-::-webkit-scrollbar-thumb{background:var(--cyan);border-radius:2px}
+/* ---------- layout ---------- */
+.wrap{width:100%;max-width:var(--wrap);margin:0 auto;padding:0 clamp(20px,5vw,40px)}
+.band{padding:clamp(64px,8vw,116px) 0;border-top:1px solid var(--line)}
+.band:first-of-type{border-top:none}
 
-img{display:block;max-width:100%}
-a{color:inherit;text-decoration:none;transition:var(--t)}
-p{margin-bottom:1.25rem;color:var(--muted2);font-size:.96rem;line-height:1.8}
+/* ---------- type ---------- */
+h1,h2,h3,h4{font-family:var(--display);color:var(--ink);line-height:1.1;letter-spacing:-.02em;font-weight:600}
+.eyebrow{
+  font-family:var(--mono);font-size:.72rem;font-weight:500;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--muted);
+  display:flex;align-items:center;gap:12px;margin-bottom:18px;
+}
+.eyebrow::after{content:"";flex:1;height:1px;background:var(--line)}
+h2.title{font-size:clamp(1.9rem,3.6vw,2.7rem);margin-bottom:14px}
+.lede{font-size:1.05rem;color:var(--muted);max-width:62ch}
+p{margin-bottom:1rem}
 p:last-child{margin-bottom:0}
+strong{color:var(--ink);font-weight:600}
 
-.container{max-width:1240px;margin:0 auto;padding:0 clamp(1.25rem,5vw,2.5rem);position:relative;z-index:1}
-section{padding:clamp(4.5rem,9vw,8rem) 0;position:relative}
-
-/* ═══════════ CURSOR ═══════════ */
-.cdot{width:7px;height:7px;background:var(--cyan);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform .08s,opacity .3s}
-.cring{width:34px;height:34px;border:1.5px solid var(--cyan);border-radius:50%;position:fixed;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);opacity:.45;transition:width .25s,height .25s,opacity .3s}
-@media(hover:none){.cdot,.cring{display:none}}
-
-/* ═══════════ NAV ═══════════ */
-nav{
-  position:fixed;top:1.1rem;left:50%;transform:translateX(-50%);
-  background:rgba(8,12,20,0.88);backdrop-filter:blur(32px) saturate(180%);
-  border:1px solid var(--border2);border-radius:var(--rpill);
-  padding:.4rem .5rem;
-  display:flex;align-items:center;gap:.1rem;
-  z-index:300;
-  box-shadow:0 8px 48px rgba(0,0,0,.55),0 0 0 .5px rgba(5,232,196,.08);
-  transition:box-shadow .4s
+/* ---------- skip link ---------- */
+.skip{
+  position:absolute;left:16px;top:-60px;z-index:900;
+  background:var(--ink);color:var(--paper);padding:10px 18px;border-radius:var(--r-md);
+  font-size:.85rem;font-weight:600;transition:top .2s var(--ease);
 }
-nav:hover{box-shadow:0 8px 48px rgba(0,0,0,.55),0 0 0 1px var(--cglow)}
-nav a{font-size:.78rem;font-weight:600;letter-spacing:.04em;padding:.35rem .82rem;border-radius:var(--rpill);color:var(--muted);transition:var(--t);white-space:nowrap}
-nav a:hover{color:var(--text);background:rgba(255,255,255,.05)}
-nav a.active{background:var(--cyan);color:var(--bg);font-weight:700}
+.skip:focus{top:16px}
 
-/* ═══════════ CV BTN ═══════════ */
-.cv-btn{
-  position:fixed;bottom:1.8rem;left:1.8rem;
-  background:var(--cyan);color:var(--bg);
-  border:none;border-radius:var(--rpill);
-  padding:.7rem 1.5rem;
-  font-family:var(--sans);font-weight:700;font-size:.83rem;
-  display:inline-flex;align-items:center;gap:.45rem;
-  cursor:pointer;z-index:299;
-  box-shadow:0 4px 24px rgba(5,232,196,.3);
-  transition:var(--t)
+/* ---------- header ---------- */
+header{
+  position:sticky;top:0;z-index:400;
+  background:color-mix(in srgb,var(--paper) 88%,transparent);
+  backdrop-filter:saturate(180%) blur(14px);
+  border-bottom:1px solid var(--line);
 }
-.cv-btn:hover{background:var(--pink);color:#fff;box-shadow:0 6px 28px rgba(255,62,114,.35);transform:translateY(-2px)}
-.cv-btn:focus-visible{outline:3px solid var(--cyan);outline-offset:4px}
-
-/* ═══════════ BACK TO TOP ═══════════ */
-.btt{
-  position:fixed;bottom:1.8rem;right:1.8rem;
-  width:42px;height:42px;
-  background:var(--bg2);border:1px solid var(--border2);border-radius:50%;
-  display:flex;align-items:center;justify-content:center;
-  color:var(--cyan);cursor:pointer;
-  opacity:0;visibility:hidden;transition:var(--t);z-index:299;font-size:.85rem
+.bar{display:flex;align-items:center;gap:20px;height:64px}
+.mark{
+  font-family:var(--mono);font-weight:600;font-size:.85rem;letter-spacing:.08em;
+  color:var(--ink);display:flex;align-items:center;gap:9px;padding:6px 4px;
 }
-.btt.on{opacity:1;visibility:visible}
-.btt:hover{background:var(--cyan);color:var(--bg);transform:translateY(-2px)}
-
-/* ═══════════ SECTION LABELS ═══════════ */
-.lbl{
-  display:inline-flex;align-items:center;gap:.55rem;
-  font-size:.68rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
-  color:var(--cyan);margin-bottom:.9rem
+.mark span{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:26px;height:26px;border-radius:var(--r-sm);
+  background:var(--accent);color:#fff;font-size:.7rem;letter-spacing:0;
 }
-.lbl::before{content:'';display:block;width:22px;height:2px;background:var(--cyan)}
-
-.sec-title{
-  font-family:var(--display);
-  font-size:clamp(2.6rem,5.5vw,4.6rem);
-  letter-spacing:.01em;line-height:.95;
-  color:var(--text);
-  margin-bottom:clamp(2.5rem,5vw,4rem)
+[data-theme="dark"] .mark span{color:#0d1117}
+.bar nav{margin-left:auto;display:flex;gap:2px}
+.bar nav a{
+  font-size:.88rem;font-weight:500;color:var(--muted);
+  padding:8px 12px;border-radius:var(--r-md);transition:color .2s,background .2s;
 }
-.sec-title span{color:var(--cyan)}
-
-/* ═══════════ HERO ═══════════ */
-.hero{min-height:100svh;display:grid;grid-template-rows:1fr auto;position:relative;overflow:hidden}
-
-/* Animated dot-grid */
-.hero-dots{
-  position:absolute;inset:0;
-  background-image:radial-gradient(rgba(5,232,196,.18) 1px,transparent 1px);
-  background-size:36px 36px;
-  mask-image:radial-gradient(ellipse 75% 85% at 25% 50%,black 20%,transparent 72%);
-  animation:dotDrift 20s linear infinite;
-  pointer-events:none
+.bar nav a:hover{color:var(--ink);background:var(--surface)}
+.bar nav a[aria-current="true"]{color:var(--accent-ink);background:var(--accent-soft)}
+.bar-tools{display:flex;align-items:center;gap:8px;margin-left:8px}
+.icon-btn{
+  width:36px;height:36px;border:1px solid var(--line);border-radius:var(--r-md);
+  display:flex;align-items:center;justify-content:center;color:var(--ink-2);
+  transition:border-color .2s,color .2s,background .2s;
 }
-@keyframes dotDrift{0%{background-position:0 0}100%{background-position:36px 36px}}
-
-/* Big decorative initials */
-.hero-deco{
-  position:absolute;right:clamp(-4rem,-5vw,-1rem);top:50%;transform:translateY(-50%);
-  font-family:var(--display);
-  font-size:clamp(10rem,22vw,22rem);
-  line-height:1;
-  color:transparent;
-  -webkit-text-stroke:1px rgba(5,232,196,.055);
-  pointer-events:none;user-select:none;letter-spacing:-.04em
+.icon-btn:hover{border-color:var(--line-2);color:var(--ink);background:var(--surface)}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:9px;
+  padding:11px 20px;border-radius:var(--r-md);font-size:.9rem;font-weight:600;
+  border:1px solid transparent;transition:background .2s,border-color .2s,color .2s,transform .2s;
+}
+.btn-primary{background:var(--accent);color:#fff}
+[data-theme="dark"] .btn-primary{color:#0d1117}
+.btn-primary:hover{background:var(--ink)}
+[data-theme="dark"] .btn-primary:hover{background:#fff}
+.btn-ghost{border-color:var(--line-2);color:var(--ink)}
+.btn-ghost:hover{background:var(--surface);border-color:var(--ink)}
+.btn-sm{padding:8px 14px;font-size:.84rem}
+@media(max-width:860px){
+  .bar nav{display:none}
+  .bar-tools{margin-left:auto}
 }
 
-.hero-inner{display:flex;align-items:center;padding-top:6.5rem;position:relative;z-index:2}
-.hero-content{max-width:800px}
-
-.hero-eyebrow{
-  display:inline-flex;align-items:center;gap:.55rem;
-  font-size:.68rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
-  color:var(--cyan);margin-bottom:1.4rem;
-  opacity:0;animation:fadeUp .8s .15s var(--ease) forwards
+/* ---------- hero ---------- */
+.hero{padding:clamp(56px,9vw,104px) 0 clamp(48px,6vw,72px)}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:clamp(32px,5vw,72px);align-items:start}
+.status{
+  display:inline-flex;align-items:center;gap:9px;
+  font-family:var(--mono);font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink);background:var(--surface);border:1px solid var(--line);
+  padding:6px 12px;border-radius:100px;margin-bottom:26px;
 }
-.hero-eyebrow::before{content:'';display:block;width:22px;height:2px;background:var(--cyan)}
-
-.hero-name{
-  font-family:var(--display);
-  font-size:clamp(3.8rem,10vw,9.5rem);
-  letter-spacing:.01em;line-height:.9;
-  color:var(--text);margin-bottom:1rem;
-  opacity:0;animation:fadeUp .9s .28s var(--ease) forwards
-}
-.hero-name .grad{
-  display:block;
-  background:linear-gradient(120deg,var(--cyan) 0%,#40e4ff 100%);
-  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent
-}
-
-.hero-sub{
-  font-size:clamp(.95rem,2vw,1.2rem);font-weight:300;
-  color:var(--muted2);max-width:540px;line-height:1.78;
-  margin-bottom:.5rem;
-  opacity:0;animation:fadeUp .9s .42s var(--ease) forwards
-}
-
-/* Discipline chips — static, not interactive */
-.hero-chips{
-  display:flex;flex-wrap:wrap;gap:.45rem;
-  margin-top:1.6rem;
-  opacity:0;animation:fadeUp .9s .56s var(--ease) forwards
-}
-.chip{
-  font-size:.72rem;font-weight:600;letter-spacing:.05em;
-  padding:.3rem .8rem;
-  border:1px solid rgba(5,232,196,.28);
-  border-radius:var(--rpill);
-  color:var(--cyan);background:var(--cdim);
-  cursor:default;pointer-events:none
-}
-
-.hero-scroll{
-  padding:1.8rem 0;display:flex;justify-content:center;
-  position:relative;z-index:2;
-  opacity:0;animation:fadeIn 1s 1.1s ease forwards
-}
-.scroll-line{
-  display:flex;flex-direction:column;align-items:center;gap:.4rem;
-  font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted)
-}
-.scroll-line::after{
-  content:'';width:1px;height:44px;
-  background:linear-gradient(to bottom,var(--cyan),transparent);
-  animation:pY 2.4s ease-in-out infinite
-}
-@keyframes pY{0%,100%{transform:scaleY(1);opacity:1}50%{transform:scaleY(.5);opacity:.35}}
-@keyframes fadeUp{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:translateY(0)}}
-@keyframes fadeIn{from{opacity:0}to{opacity:1}}
-
-/* ═══════════ ABOUT ═══════════ */
-.about-grid{
-  display:grid;
-  grid-template-columns:300px 1fr;
-  gap:clamp(2.5rem,5vw,5.5rem);
-  align-items:start
-}
-
-.about-img-col{position:sticky;top:5.5rem}
-
-/* Clean circular/rounded portrait — no frame gimmicks */
+.dot{width:7px;height:7px;border-radius:50%;background:#16a34a;flex:none}
+[data-theme="dark"] .dot{background:#4ade80}
+h1{font-size:clamp(2.9rem,7vw,4.9rem);letter-spacing:-.035em;margin-bottom:22px}
+.hero p.intro{font-size:clamp(1.05rem,1.7vw,1.22rem);color:var(--ink-2);max-width:36ch;line-height:1.55}
+.hero p.sub{margin-top:16px;color:var(--muted);max-width:52ch;font-size:.98rem}
+.hero-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:30px}
 .portrait{
-  width:100%;aspect-ratio:1;border-radius:var(--r20);overflow:hidden;
-  border:1px solid var(--border2);
-  background:var(--bg2);
-  position:relative
+  border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;
+  background:var(--surface);aspect-ratio:1;
 }
 .portrait img{width:100%;height:100%;object-fit:cover}
-.portrait::after{
-  content:'';position:absolute;inset:0;
-  background:linear-gradient(to bottom,transparent 55%,rgba(4,6,12,.7))
-}
-
-/* Discipline badge strip under photo */
-.discipline-strip{
-  margin-top:1.2rem;
-  display:flex;flex-direction:column;gap:.5rem
-}
-.disc-badge{
-  display:flex;align-items:center;gap:.7rem;
-  background:var(--bg2);border:1px solid var(--border);border-radius:var(--r8);
-  padding:.65rem .9rem;
-  transition:var(--t)
-}
-.disc-badge:hover{border-color:var(--border2)}
-.disc-badge-icon{
-  width:30px;height:30px;border-radius:var(--r8);
-  background:var(--cdim);border:1px solid rgba(5,232,196,.2);
-  display:flex;align-items:center;justify-content:center;
-  color:var(--cyan);font-size:.75rem;flex-shrink:0
-}
-.disc-badge-text{font-size:.78rem;font-weight:600;color:var(--muted2);line-height:1.3}
-.disc-badge-text strong{display:block;color:var(--text);font-size:.82rem}
-
-.about-text .divider{width:36px;height:3px;background:linear-gradient(90deg,var(--cyan),var(--pink));border-radius:2px;margin-bottom:1.75rem}
-
-/* Skill tags — display only, no hover */
-.skill-group{margin-top:2rem}
-.skill-group h4{font-size:.66rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:.8rem}
-.skill-tags{display:flex;flex-wrap:wrap;gap:.4rem}
-.stag{
-  font-size:.76rem;font-weight:500;
-  padding:.28rem .72rem;
-  background:var(--bg3);border:1px solid var(--border2);
-  border-radius:var(--r4);color:var(--muted2);
-  cursor:default;pointer-events:none
-}
-
-/* ═══════════ TIMELINE ═══════════ */
-.tl{position:relative;padding-left:0}
-.tl::before{
-  content:'';position:absolute;
-  left:130px;top:8px;bottom:0;
-  width:1px;
-  background:linear-gradient(to bottom,var(--cyan) 0%,rgba(5,232,196,.1) 80%,transparent)
-}
-
-.tl-row{
-  display:grid;grid-template-columns:130px 1fr;
-  padding-bottom:2.75rem;position:relative;
-  opacity:0;transform:translateY(22px);
-  transition:opacity .55s var(--ease),transform .55s var(--ease)
-}
-.tl-row.vis{opacity:1;transform:translateY(0)}
-
-/* Timeline dot */
-.tl-row::after{
-  content:'';position:absolute;
-  left:calc(130px - 5px);top:7px;
-  width:10px;height:10px;
-  background:var(--cyan);
-  border:2px solid var(--bg);border-radius:50%;
-  box-shadow:0 0 10px var(--cglow)
-}
-
-.tl-date{
-  font-size:.74rem;font-weight:700;letter-spacing:.04em;
-  color:var(--cyan);padding-top:.15rem;
-  text-align:right;padding-right:2.5rem;
-  line-height:1.4
-}
-.tl-body{}
-.tl-role{font-family:var(--display);font-size:1.15rem;letter-spacing:.02em;color:var(--text);margin-bottom:.15rem}
-.tl-org{font-size:.84rem;font-weight:600;color:var(--cyan);display:block;margin-bottom:.8rem}
-.tl-body ul{padding-left:0;margin-bottom:.6rem}
-.tl-body ul li{
-  list-style:none;font-size:.88rem;color:var(--muted2);
-  padding:.22rem 0 .22rem 1.1rem;position:relative
-}
-.tl-body ul li::before{content:'→';position:absolute;left:0;color:var(--cyan);font-size:.72rem;top:.28rem}
-.tl-note{font-size:.88rem;color:var(--muted2);margin-top:.1rem}
-.tl-chips{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.7rem}
-.tl-chip{
-  font-size:.65rem;font-weight:700;letter-spacing:.06em;
-  padding:.18rem .58rem;
-  background:var(--cdim);border:1px solid rgba(5,232,196,.22);
-  color:var(--cyan);border-radius:var(--r4)
-}
-
-/* ═══════════ PROJECT CARDS ═══════════ */
-.proj-grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:1.25rem
-}
-/* 5th card spans full width */
-.pcard-thesis{
-  grid-column:1/-1;
-  display:grid;
-  grid-template-columns:340px 1fr;
-  grid-template-rows:auto;
-}
-.pcard-thesis .pthumb{ height:100%;min-height:180px; }
-.pcard-thesis .pfooter{ grid-column:2/3; }
-.pcard-thesis .pbody{ grid-column:2/3; }
-.pcard-thesis .pthumb{ grid-column:1/2; grid-row:1/3; }
-
-/* Thesis thumb — gradient placeholder since no photo */
-.pthumb-thesis{
-  background:linear-gradient(135deg,#0d1220 0%,#0a1628 40%,#061420 100%);
-  position:relative;overflow:hidden;
-}
-.pthumb-thesis::before{
-  content:'';position:absolute;inset:0;
-  background:
-    radial-gradient(ellipse 60% 60% at 30% 50%,rgba(5,232,196,.14) 0%,transparent 65%),
-    radial-gradient(ellipse 40% 40% at 75% 30%,rgba(255,62,114,.08) 0%,transparent 60%);
-}
-.pthumb-thesis::after{
-  content:'MSc\A THESIS';white-space:pre;
-  position:absolute;inset:0;
-  display:flex;align-items:center;justify-content:center;
-  font-family:var(--display);font-size:3.5rem;letter-spacing:.06em;line-height:1;
-  color:transparent;-webkit-text-stroke:1px rgba(5,232,196,.2);
-  text-align:center;
-}
-
-@media(max-width:700px){
-  .pcard-thesis{
-    grid-column:1/-1;
-    display:flex;flex-direction:column;
-  }
-  .pcard-thesis .pthumb{height:180px;min-height:unset;}
-}
-
-.pcard{
-  background:var(--bg1);border:1px solid var(--border);border-radius:var(--r20);
-  overflow:hidden;cursor:pointer;display:flex;flex-direction:column;
-  transition:var(--t);
-  opacity:0;transform:translateY(26px);
-  outline:none
-}
-.pcard.vis{opacity:1;transform:translateY(0)}
-.pcard:hover{
-  border-color:rgba(5,232,196,.3);
-  transform:translateY(-6px);
-  box-shadow:0 20px 60px rgba(0,0,0,.5),0 0 0 1px rgba(5,232,196,.12),inset 0 0 60px rgba(5,232,196,.02)
-}
-.pcard:focus-visible{outline:3px solid var(--cyan);outline-offset:4px;border-radius:var(--r20)}
-
-.pthumb{
-  height:200px;background-size:cover;background-position:center;
-  position:relative;overflow:hidden
-}
-.pthumb-overlay{
-  position:absolute;inset:0;
-  background:linear-gradient(to top,var(--bg1) 0%,rgba(8,12,20,.25) 65%,transparent);
-  transition:var(--t)
-}
-.pcard:hover .pthumb-overlay{background:linear-gradient(to top,var(--bg1) 0%,rgba(8,12,20,.45) 65%,rgba(5,232,196,.08))}
-
-/* Hover play arrow */
-.pthumb-cta{
-  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
-  opacity:0;transition:var(--t);z-index:2
-}
-.pthumb-cta-inner{
-  width:50px;height:50px;background:var(--cyan);border-radius:50%;
-  display:flex;align-items:center;justify-content:center;
-  color:var(--bg);font-size:1rem;
-  transform:scale(.7);transition:var(--t)
-}
-.pcard:hover .pthumb-cta{opacity:1}
-.pcard:hover .pthumb-cta-inner{transform:scale(1)}
-
-.pcard:nth-child(1) .pthumb{background-image:url('Photos/festiffy.png')}
-.pcard:nth-child(2) .pthumb{background-image:url('Photos/webwiselogo.jpg')}
-.pcard:nth-child(3) .pthumb{background-image:url('Photos/skoupa2.jpg')}
-.pcard:nth-child(4) .pthumb{background-image:url('Photos/petopialogo.jpg')}
-
-.pbody{padding:1.4rem;flex:1;display:flex;flex-direction:column}
-.pnum{font-size:.65rem;font-weight:700;letter-spacing:.15em;color:var(--muted);margin-bottom:.35rem}
-.pbody h3{font-size:1.1rem;font-weight:700;color:var(--text);margin-bottom:.45rem}
-.pbody p{font-size:.85rem;color:var(--muted2);flex:1;margin-bottom:.9rem}
-.ptags{display:flex;flex-wrap:wrap;gap:.35rem}
-.ptag{font-size:.63rem;font-weight:600;padding:.18rem .58rem;background:var(--bg3);border:1px solid var(--border2);color:var(--muted);border-radius:var(--r4)}
-
-.pfooter{
-  padding:.9rem 1.4rem;border-top:1px solid var(--border);
-  display:flex;align-items:center;justify-content:space-between;
-  font-size:.76rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--cyan)
-}
-.pfooter i{transition:transform .3s var(--spring)}
-.pcard:hover .pfooter i{transform:translateX(4px)}
-
-/* ═══════════ MODALS ═══════════ */
-.modal{
-  position:fixed;inset:0;
-  background:rgba(3,5,10,.93);backdrop-filter:blur(22px);
-  z-index:500;
-  display:flex;justify-content:center;align-items:flex-start;
-  padding:2rem 1rem;overflow-y:auto;
-  opacity:0;visibility:hidden;transition:opacity .32s,visibility .32s
-}
-.modal.on{opacity:1;visibility:visible}
-
-.modal-box{
-  background:var(--bg1);border:1px solid var(--border2);border-radius:var(--r20);
-  width:100%;max-width:860px;margin:auto;
-  padding:clamp(1.5rem,4vw,2.5rem);
-  position:relative;
-  transform:translateY(36px) scale(.98);
-  transition:transform .4s var(--ease)
-}
-.modal.on .modal-box{transform:translateY(0) scale(1)}
-
-.modal-x{
-  position:absolute;top:1.1rem;right:1.1rem;
-  width:38px;height:38px;background:var(--pink);border:none;border-radius:50%;
-  display:flex;align-items:center;justify-content:center;
-  color:#fff;font-size:.95rem;cursor:pointer;transition:var(--t);z-index:2
-}
-.modal-x:hover{background:var(--cyan);color:var(--bg);transform:rotate(90deg)}
-.modal-x:focus-visible{outline:3px solid var(--cyan);outline-offset:3px}
-
-.modal-box h2{
-  font-family:var(--display);font-size:clamp(1.9rem,4.5vw,2.8rem);
-  letter-spacing:.02em;color:var(--text);margin-bottom:.5rem
-}
-.modal-intro{font-size:.96rem;color:var(--muted2);line-height:1.78;margin-bottom:1.75rem}
-
-/* Horizontal gallery strip */
-.gstrip{
-  display:flex;gap:.65rem;overflow-x:auto;overflow-y:hidden;
-  scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;
-  padding-bottom:.6rem;margin-bottom:1.75rem
-}
-.gstrip::-webkit-scrollbar{height:3px}
-.gstrip::-webkit-scrollbar-thumb{background:var(--cyan);border-radius:2px}
-.gthumb{
-  flex-shrink:0;width:200px;height:140px;border-radius:var(--r8);overflow:hidden;
-  scroll-snap-align:start;border:1px solid var(--border);cursor:zoom-in;
-  transition:border-color .2s,transform .25s var(--spring)
-}
-.gthumb:hover{border-color:var(--cyan);transform:scale(1.02)}
-.gthumb img{width:100%;height:100%;object-fit:cover;display:block}
-
-/* Video */
-.vid-wrap{width:100%;aspect-ratio:16/9;border-radius:var(--r14);overflow:hidden;border:1px solid var(--border);margin-bottom:1.75rem}
-.vid-wrap iframe{width:100%;height:100%;border:none;display:block}
-
-/* STARR */
-.starr{display:grid;grid-template-columns:1fr 1fr;gap:.65rem;margin-bottom:1.75rem}
-.sbox{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r14);padding:1rem 1.2rem}
-.sbox.full{grid-column:1/-1}
-.sbox h4{font-size:.62rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--cyan);margin-bottom:.45rem}
-.sbox p{font-size:.86rem;margin:0}
-
-.msec{margin-bottom:1.6rem}
-.msec h3{
-  font-size:.72rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;
-  color:var(--pink);padding-bottom:.45rem;border-bottom:1px solid var(--border);margin-bottom:.9rem
-}
-.msec ul{padding-left:0}
-.msec ul li{
-  list-style:none;font-size:.88rem;color:var(--muted2);
-  padding:.3rem 0 .3rem 1.2rem;border-bottom:1px solid var(--border);position:relative
-}
-.msec ul li:last-child{border-bottom:none}
-.msec ul li::before{content:'›';position:absolute;left:0;color:var(--cyan);font-size:1.1rem;line-height:1.4}
-
-/* ═══════════ LIGHTBOX ═══════════ */
-.lb{
-  position:fixed;inset:0;background:rgba(0,0,0,.97);
-  z-index:1000;display:flex;align-items:center;justify-content:center;
-  opacity:0;visibility:hidden;transition:opacity .28s
-}
-.lb.on{opacity:1;visibility:visible}
-.lb img{max-width:90vw;max-height:88vh;object-fit:contain;border-radius:var(--r14);transform:scale(.94);transition:transform .36s var(--ease)}
-.lb.on img{transform:scale(1)}
-.lb-x{position:absolute;top:1.4rem;right:1.4rem;width:42px;height:42px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.12);border-radius:50%;color:#fff;font-size:1rem;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:var(--t)}
-.lb-x:hover{background:var(--cyan);color:var(--bg)}
-.lb-nav{position:absolute;width:100%;display:flex;justify-content:space-between;padding:0 1rem;pointer-events:none}
-.lb-btn{width:46px;height:46px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);border-radius:50%;color:#fff;font-size:.9rem;display:flex;align-items:center;justify-content:center;cursor:pointer;pointer-events:all;transition:var(--t)}
-.lb-btn:hover{background:var(--cyan);color:var(--bg)}
-
-/* ═══════════ THESIS SECTION ═══════════ */
-.thesis-hero{
-  display:grid;grid-template-columns:1fr 320px;gap:2.5rem;
-  background:var(--bg1);border:1px solid var(--border2);border-radius:var(--r20);
-  padding:2.25rem;margin-bottom:1.5rem;align-items:start
-}
-.thesis-label{
-  font-size:.65rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;
-  color:var(--cyan);margin-bottom:.75rem
-}
-.thesis-label::before{content:none}
-.thesis-title{
-  font-family:var(--display);font-size:clamp(1.5rem,3vw,2.2rem);
-  letter-spacing:.02em;color:var(--text);line-height:1.15;margin-bottom:1.25rem
-}
-.thesis-body{font-size:.92rem;line-height:1.8;color:var(--muted2);margin:0}
-.thesis-meta-col{display:flex;flex-direction:column;gap:0;border-left:1px solid var(--border);padding-left:2rem}
-.thesis-meta-block{padding:.75rem 0;border-bottom:1px solid var(--border)}
-.thesis-meta-block:last-child{border-bottom:none}
-.thesis-meta-label{font-size:.62rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:.2rem}
-.thesis-meta-val{font-size:.83rem;color:var(--text);font-weight:500;display:block}
-.thesis-status{color:var(--cyan)!important;font-weight:700!important}
-
-.thesis-row{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem}
-.thesis-col{
-  background:var(--bg1);border:1px solid var(--border);border-radius:var(--r20);padding:1.75rem
-}
-.thesis-col-head{
-  font-size:.68rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;
-  color:var(--cyan);margin-bottom:1.1rem;
-  display:flex;align-items:center;gap:.5rem
-}
-.thesis-list{list-style:none;padding:0}
-.thesis-list li{
-  font-size:.88rem;color:var(--muted2);
-  padding:.35rem 0 .35rem 1.1rem;border-bottom:1px solid var(--border);position:relative
-}
-.thesis-list li:last-child{border-bottom:none}
-.thesis-list li::before{content:'→';position:absolute;left:0;color:var(--cyan);font-size:.72rem;top:.42rem}
-
+.side-facts{margin-top:16px;border:1px solid var(--line);border-radius:var(--r-lg);background:var(--raised)}
+.side-facts div{display:flex;justify-content:space-between;gap:14px;padding:11px 16px;border-bottom:1px solid var(--line);font-size:.84rem}
+.side-facts div:last-child{border-bottom:none}
+.side-facts dt{font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.side-facts dd{color:var(--ink);font-weight:500;text-align:right}
 @media(max-width:900px){
-  .thesis-hero{grid-template-columns:1fr;gap:1.75rem}
-  .thesis-meta-col{border-left:none;padding-left:0;border-top:1px solid var(--border);padding-top:1.25rem}
-  .thesis-row{grid-template-columns:1fr}
+  .hero-grid{grid-template-columns:1fr}
+  .portrait{max-width:220px}
+  .side-facts{max-width:100%}
 }
 
-/* ═══════════ STUDY PLAN ═══════════ */
-.sp-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin-bottom:2rem}
-.sp-block{background:var(--bg1);border:1px solid var(--border);border-radius:var(--r20);padding:1.75rem}
-.sp-block-title{
-  display:flex;align-items:center;gap:.55rem;
-  font-size:.68rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;
-  color:var(--cyan);margin-bottom:1.2rem
-}
-.clist{list-style:none}
-.clist li{
-  display:flex;justify-content:space-between;align-items:center;gap:1rem;
-  padding:.42rem 0;border-bottom:1px solid var(--border);
-  font-size:.83rem;color:var(--muted2)
-}
-.clist li:last-child{border-bottom:none}
-.ec{font-size:.64rem;font-weight:800;letter-spacing:.07em;color:var(--cyan);background:var(--cdim);border:1px solid rgba(5,232,196,.2);padding:.14rem .42rem;border-radius:4px;flex-shrink:0}
-
-.refl{background:var(--bg1);border:1px solid var(--border);border-left:3px solid var(--cyan);border-radius:0 var(--r20) var(--r20) 0;padding:2rem 2.25rem}
-.refl h3{font-family:var(--display);font-size:1.5rem;letter-spacing:.02em;color:var(--text);margin-bottom:1.1rem}
-
-/* ═══════════ FUTURE ═══════════ */
-.fut-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-bottom:2rem}
-.fcard{
-  background:var(--bg1);border:1px solid var(--border);border-radius:var(--r20);
-  padding:1.75rem;transition:var(--t);
-  opacity:0;transform:translateY(20px)
-}
-.fcard.vis{opacity:1;transform:translateY(0)}
-.fcard:hover{border-color:rgba(5,232,196,.25);transform:translateY(-4px);box-shadow:0 14px 44px rgba(0,0,0,.4)}
-.ficon{width:44px;height:44px;background:var(--cdim);border:1px solid rgba(5,232,196,.22);border-radius:var(--r14);display:flex;align-items:center;justify-content:center;color:var(--cyan);font-size:1.1rem;margin-bottom:1.1rem}
-.fcard h3{font-size:.96rem;font-weight:700;color:var(--text);margin-bottom:.65rem}
-.fcard p{font-size:.85rem;margin:0}
-
-/* ═══════════ CV MODAL ═══════════ */
-.cv-modal{
-  position:fixed;inset:0;background:rgba(3,5,10,.93);backdrop-filter:blur(22px);
-  z-index:500;display:flex;justify-content:center;align-items:flex-start;
-  padding:2rem 1rem;overflow-y:auto;
-  opacity:0;visibility:hidden;transition:opacity .32s,visibility .32s
-}
-.cv-modal.on{opacity:1;visibility:visible}
-.cv-box{
-  background:var(--bg1);border:1px solid var(--border2);border-radius:var(--r20);
-  width:100%;max-width:800px;margin:auto;
-  padding:clamp(1.5rem,4vw,2.5rem);position:relative;
-  transform:translateY(36px);transition:transform .4s var(--ease)
-}
-.cv-modal.on .cv-box{transform:translateY(0)}
-.cv-box > h2{font-family:var(--display);font-size:2.4rem;letter-spacing:.02em;color:var(--text);margin-bottom:1.4rem}
-.cv-viewer{background:#fff;color:#1a2030;padding:2rem;border-radius:var(--r14);max-height:70vh;overflow-y:auto;font-family:var(--sans)}
-.cv-viewer::-webkit-scrollbar{width:4px}
-.cv-viewer::-webkit-scrollbar-thumb{background:#00b8a0;border-radius:2px}
-.cv-viewer h3{font-family:var(--display);font-size:1.75rem;color:#00a090;border-bottom:2px solid #00a090;padding-bottom:.35rem;margin-bottom:.5rem}
-.cv-viewer h4{font-size:.72rem;font-weight:800;letter-spacing:.15em;text-transform:uppercase;color:#dd304e;margin:1.4rem 0 .65rem;border-bottom:1px solid #eee;padding-bottom:.3rem}
-.cv-viewer p{color:#556;font-size:.88rem;margin-bottom:.55rem}
-.cv-viewer ul{padding-left:1.1rem;margin-bottom:.9rem}
-.cv-viewer li{color:#445;font-size:.86rem;margin-bottom:.28rem}
-.cv-viewer strong{color:#111;font-weight:700}
-.cv-viewer em{color:#778;font-style:normal;font-size:.8em;display:block;margin:.1rem 0 .35rem}
-
-/* ═══════════ CONTACT ═══════════ */
-.contact-wrap{display:grid;grid-template-columns:1fr 1.5fr;gap:clamp(2rem,5vw,5rem);align-items:start}
-.cinfo{display:flex;flex-direction:column;gap:1.75rem}
-.cmeth{display:flex;align-items:center;gap:1.1rem}
-.cico{width:48px;height:48px;background:var(--bg2);border:1px solid var(--border2);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--cyan);font-size:1rem;flex-shrink:0;transition:var(--t)}
-.cmeth:hover .cico{background:var(--cyan);color:var(--bg)}
-.cmeth h3{font-size:.88rem;font-weight:700;margin-bottom:.12rem;color:var(--text)}
-.cmeth a{font-size:.82rem;color:var(--muted2)}
-.cmeth a:hover{color:var(--cyan)}
-
-.cform{display:flex;flex-direction:column;gap:1rem}
-.fg{display:flex;flex-direction:column;gap:.35rem}
-.fg label{font-size:.66rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
-.fg input,.fg textarea{
-  background:var(--bg2);border:1px solid var(--border2);border-radius:var(--r8);
-  padding:.78rem .95rem;color:var(--text);font-family:var(--sans);font-size:.92rem;
-  transition:border-color .22s,box-shadow .22s
-}
-.fg input:focus,.fg textarea:focus{outline:none;border-color:var(--cyan);box-shadow:0 0 0 3px rgba(5,232,196,.1)}
-.fg textarea{min-height:130px;resize:vertical}
-.sbtn{
-  background:var(--cyan);color:var(--bg);border:none;border-radius:var(--r8);
-  padding:.82rem 1.9rem;font-family:var(--sans);font-weight:700;font-size:.88rem;
-  cursor:pointer;display:inline-flex;align-items:center;gap:.45rem;align-self:flex-start;
-  transition:var(--t)
-}
-.sbtn:hover{background:var(--pink);color:#fff;transform:translateY(-2px);box-shadow:0 8px 24px rgba(255,62,114,.3)}
-.sbtn:focus-visible{outline:3px solid var(--cyan);outline-offset:3px}
-.sbtn:disabled{opacity:.5;cursor:not-allowed;transform:none}
-.form-ok{background:var(--cdim);border:1px solid rgba(5,232,196,.22);border-radius:var(--r14);padding:2rem;text-align:center;display:none}
-.form-ok i{font-size:2.2rem;color:var(--cyan);display:block;margin-bottom:.65rem}
-.form-ok p{color:var(--text);font-size:.96rem;margin:0}
-
-/* ═══════════ FOOTER ═══════════ */
-footer{padding:2.75rem 0;border-top:1px solid var(--border);text-align:center}
-.fsoc{display:flex;justify-content:center;gap:.9rem;margin-bottom:1.25rem}
-.fsoc a{width:42px;height:42px;background:var(--bg1);border:1px solid var(--border2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.9rem;transition:var(--t)}
-.fsoc a:hover{background:var(--cyan);color:var(--bg);transform:translateY(-3px);border-color:var(--cyan)}
-footer p{font-size:.75rem;color:var(--muted)}
-
-/* ═══════════ SCROLL REVEAL ═══════════ */
-.rev{opacity:0;transform:translateY(24px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
-.rev.vis{opacity:1;transform:translateY(0)}
-/* Stagger children */
-.rev-stagger > *{opacity:0;transform:translateY(20px);transition:opacity .55s var(--ease),transform .55s var(--ease)}
-.rev-stagger > *.vis{opacity:1;transform:translateY(0)}
-.rev-stagger > *:nth-child(2){transition-delay:.08s}
-.rev-stagger > *:nth-child(3){transition-delay:.16s}
-.rev-stagger > *:nth-child(4){transition-delay:.24s}
-
-/* ═══════════ RESPONSIVE ═══════════ */
-@media(max-width:1100px){
-  .about-grid{grid-template-columns:260px 1fr}
-  .fut-grid{grid-template-columns:1fr 1fr}
+/* ---------- proof strip ---------- */
+.proof{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--surface)}
+.proof-grid{display:grid;grid-template-columns:repeat(4,1fr)}
+.proof-grid > div{padding:26px clamp(16px,3vw,28px);border-left:1px solid var(--line)}
+.proof-grid > div:first-child{border-left:none}
+.proof-num{font-family:var(--display);font-size:clamp(1.5rem,2.6vw,2rem);color:var(--ink);letter-spacing:-.02em}
+.proof-lab{font-size:.83rem;color:var(--muted);margin-top:4px;line-height:1.45}
+@media(max-width:760px){
+  .proof-grid{grid-template-columns:1fr 1fr}
+  .proof-grid > div:nth-child(3){border-left:none}
+  .proof-grid > div:nth-child(n+3){border-top:1px solid var(--line)}
 }
 
-@media(max-width:900px){
-  .about-grid{grid-template-columns:1fr;gap:2.5rem}
-  .about-img-col{position:static}
-  .portrait{max-width:280px;aspect-ratio:1/1}
-  .discipline-strip{flex-direction:row;flex-wrap:wrap}
-  .disc-badge{flex:1;min-width:200px}
-  .proj-grid{grid-template-columns:1fr 1fr}
-  .contact-wrap{grid-template-columns:1fr;gap:2.5rem}
-  .sp-grid{grid-template-columns:1fr}
-  .fut-grid{grid-template-columns:1fr 1fr}
-  .starr{grid-template-columns:1fr}
+/* ---------- about ---------- */
+.split{display:grid;grid-template-columns:210px minmax(0,1fr);gap:clamp(28px,5vw,68px);align-items:start}
+.split-head{position:sticky;top:96px}
+@media(max-width:860px){.split{grid-template-columns:1fr}.split-head{position:static}}
+.about-copy p{max-width:64ch;font-size:1rem}
+.skill-block{margin-top:34px;display:grid;grid-template-columns:repeat(2,1fr);gap:26px}
+.skill-block h4{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:500;margin-bottom:10px}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag{
+  font-size:.8rem;color:var(--ink-2);background:var(--raised);
+  border:1px solid var(--line);padding:4px 10px;border-radius:100px;
+}
+@media(max-width:620px){.skill-block{grid-template-columns:1fr}}
+
+/* ---------- role fit ---------- */
+.roles{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;background:var(--raised)}
+.role{padding:24px;border-left:1px solid var(--line)}
+.role:first-child{border-left:none}
+.role h3{font-size:1rem;margin-bottom:10px}
+.role ul{list-style:none;display:flex;flex-direction:column;gap:8px}
+.role li{font-size:.87rem;color:var(--muted);padding-left:16px;position:relative;line-height:1.5}
+.role li::before{content:"";position:absolute;left:0;top:8px;width:6px;height:6px;border-radius:50%;background:var(--accent)}
+@media(max-width:960px){
+  .roles{grid-template-columns:1fr 1fr}
+  .role:nth-child(3){border-left:none}
+  .role:nth-child(n+3){border-top:1px solid var(--line)}
+}
+@media(max-width:560px){
+  .roles{grid-template-columns:1fr}
+  .role{border-left:none;border-top:1px solid var(--line)}
+  .role:first-child{border-top:none}
 }
 
+/* ---------- thesis case study (signature block) ---------- */
+.case{
+  border:1px solid var(--line);border-radius:var(--r-lg);
+  background:var(--raised);overflow:hidden;box-shadow:var(--shadow);
+}
+.case-head{padding:clamp(26px,4vw,42px);border-bottom:1px solid var(--line)}
+.case-meta{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.pill{
+  font-family:var(--mono);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;
+  padding:5px 10px;border-radius:100px;border:1px solid var(--line);color:var(--muted);
+}
+.pill-done{background:var(--accent-soft);border-color:transparent;color:var(--accent-ink);font-weight:500}
+.case-head h3{font-size:clamp(1.5rem,3vw,2.1rem);max-width:22ch;margin-bottom:14px}
+.case-head p{max-width:66ch;color:var(--muted)}
+.case-body{display:grid;grid-template-columns:1fr 1fr;gap:0}
+.case-col{padding:clamp(24px,3.4vw,36px);border-left:1px solid var(--line)}
+.case-col:first-child{border-left:none}
+.case-col h4{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:500;margin-bottom:16px}
+.rows{list-style:none}
+.rows li{padding:10px 0;border-top:1px solid var(--line);font-size:.9rem;color:var(--muted);display:grid;grid-template-columns:118px 1fr;gap:14px}
+.rows li:first-child{border-top:none;padding-top:0}
+.rows li b{font-weight:500;color:var(--ink);font-family:var(--mono);font-size:.76rem;letter-spacing:.04em;text-transform:uppercase;padding-top:3px}
+@media(max-width:800px){
+  .case-body{grid-template-columns:1fr}
+  .case-col{border-left:none;border-top:1px solid var(--line)}
+  .rows li{grid-template-columns:1fr;gap:2px}
+}
+
+/* headline result */
+.result{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  border-top:1px solid var(--line);background:var(--surface);
+}
+.result > div{padding:24px clamp(18px,3vw,32px);border-left:1px solid var(--line)}
+.result > div:first-child{border-left:none}
+.result .big{font-family:var(--display);font-size:1.9rem;color:var(--accent-ink);letter-spacing:-.02em}
+.result .cap{font-size:.84rem;color:var(--muted);margin-top:5px;line-height:1.45}
 @media(max-width:700px){
-  nav{width:calc(100% - 2rem);flex-wrap:wrap;justify-content:center;top:.7rem;border-radius:var(--r20)}
-  nav a{font-size:.72rem;padding:.3rem .6rem}
-  .hero-deco{display:none}
-  .proj-grid{grid-template-columns:1fr}
-  .fut-grid{grid-template-columns:1fr}
-  .tl::before{left:0}
-  .tl-row{grid-template-columns:1fr;padding-left:1.4rem}
-  .tl-row::after{left:-5px}
-  .tl-date{text-align:left;padding-right:0;padding-bottom:.25rem}
-  .sp-grid{grid-template-columns:1fr}
-  .starr{grid-template-columns:1fr}
-  .cv-btn{bottom:1rem;left:1rem;padding:.62rem 1.2rem;font-size:.78rem}
-  .btt{bottom:1rem;right:1rem}
-  .modal-box,.cv-box{padding:1.4rem}
-  .gthumb{width:170px;height:120px}
+  .result{grid-template-columns:1fr}
+  .result > div{border-left:none;border-top:1px solid var(--line)}
+  .result > div:first-child{border-top:none}
 }
 
-@media(max-width:440px){
-  html{font-size:15px}
-  .portrait{max-width:100%;aspect-ratio:4/3}
-  section{padding:3.5rem 0}
+/* charts */
+.charts{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--line)}
+.chart{padding:clamp(22px,3vw,34px);border-left:1px solid var(--line)}
+.chart:first-child{border-left:none}
+.chart h4{font-size:.95rem;margin-bottom:4px;font-family:var(--body);font-weight:600}
+.chart p.note{font-size:.82rem;color:var(--muted);margin-bottom:18px}
+.chart svg{width:100%;height:auto;overflow:visible}
+.bar{fill:var(--accent)}
+.bar-alt{fill:var(--amber)}
+.axis{stroke:var(--line-2);stroke-width:1}
+.grid-line{stroke:var(--line-2);stroke-width:1;stroke-dasharray:3 4}
+.tick{font-family:var(--mono);font-size:11px;fill:var(--muted)}
+.val{font-family:var(--mono);font-size:12px;fill:var(--ink);font-weight:500}
+@media(max-width:800px){
+  .charts{grid-template-columns:1fr}
+  .chart{border-left:none;border-top:1px solid var(--line)}
+  .chart:first-child{border-top:none}
+}
+
+/* crowding indicator, the one playful detail, used only here */
+.indicator{display:inline-flex;gap:3px;vertical-align:middle;margin:0 2px}
+.indicator i{width:5px;height:12px;border-radius:1px;background:var(--line-2);display:block}
+.indicator i.on{background:var(--amber)}
+
+/* ---------- work grid ---------- */
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:28px}
+.filter{
+  font-family:var(--mono);font-size:.76rem;letter-spacing:.06em;text-transform:uppercase;
+  padding:8px 14px;border:1px solid var(--line);border-radius:100px;color:var(--muted);
+  transition:all .2s;
+}
+.filter:hover{border-color:var(--line-2);color:var(--ink)}
+.filter[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+@media(max-width:900px){.grid{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.grid{grid-template-columns:1fr}}
+.card{
+  text-align:left;width:100%;
+  border:1px solid var(--line);border-radius:var(--r-lg);background:var(--raised);
+  overflow:hidden;display:flex;flex-direction:column;
+  transition:border-color .25s,transform .25s var(--ease),box-shadow .25s;
+}
+.card:hover{border-color:var(--line-2);transform:translateY(-3px);box-shadow:var(--shadow)}
+.card-cover{
+  height:150px;background-color:var(--surface);
+  background-image:var(--cover);background-size:cover;background-position:center;
+  border-bottom:1px solid var(--line);position:relative;
+}
+.card-cover.plain{display:flex;align-items:flex-end;padding:16px;background-image:none}
+.card-cover.plain::before{
+  content:attr(data-label);font-family:var(--mono);font-size:.74rem;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--muted);
+}
+.card-body{padding:18px;display:flex;flex-direction:column;flex:1;gap:8px}
+.card-kind{font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent-ink)}
+.card h3{font-size:1.02rem}
+.card p{font-size:.88rem;color:var(--muted);flex:1;margin:0}
+.card-foot{display:flex;align-items:center;gap:7px;font-size:.83rem;font-weight:600;color:var(--ink);margin-top:4px}
+.card-foot svg{transition:transform .25s var(--ease)}
+.card:hover .card-foot svg{transform:translateX(4px)}
+
+/* ---------- timeline ---------- */
+.entry{display:grid;grid-template-columns:170px minmax(0,1fr);gap:clamp(20px,4vw,48px);padding:26px 0;border-top:1px solid var(--line)}
+.entry:first-of-type{border-top:none;padding-top:0}
+.when{font-family:var(--mono);font-size:.78rem;color:var(--muted);letter-spacing:.03em;padding-top:3px}
+.entry h3{font-size:1.08rem;margin-bottom:3px}
+.where{font-size:.9rem;color:var(--accent-ink);font-weight:500;margin-bottom:12px;display:block}
+.entry ul{list-style:none;display:flex;flex-direction:column;gap:6px}
+.entry li{font-size:.92rem;color:var(--muted);padding-left:16px;position:relative}
+.entry li::before{content:"";position:absolute;left:0;top:9px;width:6px;height:1px;background:var(--line-2)}
+@media(max-width:700px){.entry{grid-template-columns:1fr;gap:6px}}
+
+/* ---------- contact ---------- */
+.contact{display:grid;grid-template-columns:1fr 1.2fr;gap:clamp(28px,5vw,64px);align-items:start}
+@media(max-width:860px){.contact{grid-template-columns:1fr}}
+.channels{display:flex;flex-direction:column;gap:2px;margin-top:24px}
+.channel{
+  display:flex;align-items:center;gap:14px;padding:14px 0;border-top:1px solid var(--line);
+  transition:padding-left .2s var(--ease);
+}
+.channel:hover{padding-left:6px}
+.channel svg{color:var(--accent-ink);flex:none}
+.channel span{display:block;font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.channel b{font-weight:500;color:var(--ink);font-size:.94rem}
+form{display:flex;flex-direction:column;gap:16px}
+.field{display:flex;flex-direction:column;gap:6px}
+.field label{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.field input,.field textarea{
+  font-family:var(--body);font-size:.95rem;color:var(--ink);
+  background:var(--raised);border:1px solid var(--line-2);border-radius:var(--r-md);
+  padding:12px 14px;transition:border-color .2s,box-shadow .2s;width:100%;
+}
+.field input::placeholder,.field textarea::placeholder{color:var(--muted);opacity:.7}
+.field input:focus,.field textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.field textarea{min-height:132px;resize:vertical}
+.field .err{font-size:.8rem;color:#b3261e;min-height:0}
+[data-theme="dark"] .field .err{color:#ff8a80}
+.field input[aria-invalid="true"],.field textarea[aria-invalid="true"]{border-color:#b3261e}
+.form-note{font-size:.82rem;color:var(--muted)}
+.sent{
+  border:1px solid var(--line);background:var(--surface);border-radius:var(--r-lg);
+  padding:28px;display:none;
+}
+.sent h3{font-size:1.1rem;margin-bottom:6px}
+.sent p{font-size:.9rem;color:var(--muted)}
+
+/* ---------- footer ---------- */
+footer{border-top:1px solid var(--line);padding:32px 0;background:var(--surface)}
+.foot{display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between}
+.foot p{font-size:.83rem;color:var(--muted);margin:0}
+.foot nav{display:flex;gap:16px}
+.foot nav a{font-size:.83rem;color:var(--muted)}
+.foot nav a:hover{color:var(--ink)}
+
+/* ---------- dialogs ---------- */
+.overlay{
+  position:fixed;inset:0;z-index:600;display:none;
+  background:rgba(15,22,32,.55);backdrop-filter:blur(6px);
+  padding:clamp(12px,4vw,48px);overflow-y:auto;
+}
+[data-theme="dark"] .overlay{background:rgba(0,0,0,.7)}
+.overlay.open{display:block}
+.sheet{
+  background:var(--paper);border:1px solid var(--line);border-radius:var(--r-lg);
+  max-width:820px;margin:0 auto;position:relative;
+  animation:rise .32s var(--ease) both;
+}
+@keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+.sheet-head{
+  position:sticky;top:0;background:var(--paper);z-index:2;
+  display:flex;align-items:flex-start;gap:16px;
+  padding:24px clamp(20px,3.4vw,34px);border-bottom:1px solid var(--line);
+  border-radius:var(--r-lg) var(--r-lg) 0 0;
+}
+.sheet-head h2{font-size:clamp(1.3rem,2.6vw,1.7rem);margin-bottom:4px}
+.sheet-head .kicker{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.close{
+  margin-left:auto;width:36px;height:36px;flex:none;border:1px solid var(--line);
+  border-radius:var(--r-md);display:flex;align-items:center;justify-content:center;
+  color:var(--ink);transition:background .2s,border-color .2s;
+}
+.close:hover{background:var(--surface);border-color:var(--ink)}
+.sheet-body{padding:clamp(20px,3.4vw,34px)}
+.sheet-body h3{
+  font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--muted);font-weight:500;margin:26px 0 12px;padding-bottom:8px;border-bottom:1px solid var(--line);
+}
+.sheet-body h3:first-child{margin-top:0}
+.sheet-body p{font-size:.94rem;color:var(--muted)}
+.sheet-body ul{list-style:none;display:flex;flex-direction:column;gap:8px}
+.sheet-body ul li{font-size:.92rem;color:var(--muted);padding-left:17px;position:relative}
+.sheet-body ul li::before{content:"";position:absolute;left:0;top:9px;width:7px;height:1px;background:var(--accent)}
+.starr{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.starr .box{border:1px solid var(--line);border-radius:var(--r-md);padding:16px;background:var(--raised)}
+.starr .box.wide{grid-column:1/-1}
+.starr h4{font-family:var(--mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent-ink);margin-bottom:6px;font-weight:500}
+.starr p{font-size:.89rem;margin:0}
+@media(max-width:620px){.starr{grid-template-columns:1fr}}
+.strip{display:flex;gap:10px;overflow-x:auto;padding-bottom:10px;scroll-snap-type:x mandatory}
+.strip::-webkit-scrollbar{height:6px}
+.strip::-webkit-scrollbar-thumb{background:var(--line-2);border-radius:3px}
+.shot{
+  flex:none;width:196px;height:138px;border:1px solid var(--line);border-radius:var(--r-md);
+  overflow:hidden;scroll-snap-align:start;cursor:zoom-in;background:var(--surface);
+  transition:border-color .2s;
+}
+.shot:hover{border-color:var(--accent)}
+.shot img{width:100%;height:100%;object-fit:cover}
+.embed{aspect-ratio:16/9;border:1px solid var(--line);border-radius:var(--r-md);overflow:hidden}
+.embed iframe{width:100%;height:100%;border:0;display:block}
+.repo{
+  display:inline-flex;align-items:center;gap:8px;font-size:.88rem;font-weight:600;color:var(--accent-ink);
+  border:1px solid var(--line);border-radius:var(--r-md);padding:9px 14px;transition:background .2s,border-color .2s;
+}
+.repo:hover{background:var(--surface);border-color:var(--line-2)}
+
+/* CV sheet */
+.cv{background:var(--raised);border:1px solid var(--line);border-radius:var(--r-md);padding:clamp(20px,3vw,32px)}
+.cv h4{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:500;margin:24px 0 10px;padding-bottom:7px;border-bottom:1px solid var(--line)}
+.cv h4:first-child{margin-top:0}
+.cv .job{padding:10px 0;border-bottom:1px solid var(--line)}
+.cv .job:last-child{border-bottom:none}
+.cv .job b{display:block;color:var(--ink);font-size:.95rem;font-weight:600;font-family:var(--display)}
+.cv .job em{font-style:normal;font-family:var(--mono);font-size:.74rem;color:var(--muted);letter-spacing:.04em;display:block;margin:2px 0 5px}
+.cv .job span{font-size:.89rem;color:var(--muted);display:block}
+
+/* lightbox */
+#lightbox{background:rgba(8,10,14,.94);display:none;align-items:center;justify-content:center;padding:24px}
+#lightbox.open{display:flex}
+#lightbox img{max-width:min(94vw,1100px);max-height:86vh;border-radius:var(--r-md)}
+.lb-btn{
+  position:absolute;width:44px;height:44px;border-radius:50%;
+  background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:#fff;
+  display:flex;align-items:center;justify-content:center;transition:background .2s;
+}
+.lb-btn:hover{background:rgba(255,255,255,.28)}
+#lb-close{top:20px;right:20px}
+#lb-prev{left:20px;top:50%;transform:translateY(-50%)}
+#lb-next{right:20px;top:50%;transform:translateY(-50%)}
+
+/* ---------- reveal ---------- */
+.reveal{opacity:0;transform:translateY(16px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none}}
+
+@media print{
+  header,.overlay,.filters,form,.hero-actions{display:none !important}
+  body{background:#fff}
 }
 </style>
 </head>
 <body>
 
-<div class="cdot" id="cdot" aria-hidden="true"></div>
-<div class="cring" id="cring" aria-hidden="true"></div>
+<a class="skip" href="#main">Skip to content</a>
 
-<button class="cv-btn" id="cv-btn" aria-label="View full CV">
-  <i class="fas fa-file-alt" aria-hidden="true"></i> View CV
-</button>
-<button class="btt" id="btt" aria-label="Back to top">
-  <i class="fas fa-arrow-up" aria-hidden="true"></i>
-</button>
-
-<!-- NAV -->
-<nav role="navigation" aria-label="Main navigation">
-  <a href="#about">About</a>
-  <a href="#experience">Experience</a>
-  <a href="#projects">Projects</a>
-  <a href="#thesis">Thesis</a>
-  <a href="#studyplan">Study Plan</a>
-  <a href="#future">Future</a>
-  <a href="#contact">Contact</a>
-</nav>
-
-<!-- ══════════════════ HERO ══════════════════ -->
-<section class="hero" aria-labelledby="hero-name">
-  <div class="hero-dots" aria-hidden="true"></div>
-  <div class="hero-deco" aria-hidden="true">NV</div>
-  <div class="hero-inner">
-    <div class="container">
-      <div class="hero-content">
-        <p class="hero-eyebrow">HCI Portfolio · Utrecht University 2026</p>
-        <h1 class="hero-name" id="hero-name">
-          Nikolas
-          <span class="grad">Vaki</span>
-        </h1>
-        <p class="hero-sub">MSc Human-Computer Interaction student bridging <strong style="color:var(--text);font-weight:600">computer science, behavioural research, and user-centred design</strong> — focused on making technology genuinely accessible and useful for everyone.</p>
-        <div class="hero-chips" aria-label="Key disciplines">
-          <span class="chip">HCI Research</span>
-          <span class="chip">Accessibility</span>
-          <span class="chip">Interaction Design</span>
-          <span class="chip">UX Methods</span>
-          <span class="chip">Inclusive Design</span>
-        </div>
-      </div>
+<header>
+  <div class="wrap bar">
+    <a class="mark" href="#top"><span>NV</span> Nikolas Vaki</a>
+    <nav id="mainnav" aria-label="Sections">
+      <a href="#work">Work</a>
+      <a href="#thesis">Thesis</a>
+      <a href="#roles">Fit</a>
+      <a href="#experience">Experience</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="bar-tools">
+      <button class="icon-btn" id="theme-toggle" aria-label="Switch to dark theme" aria-pressed="false">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+      </button>
+      <button class="btn btn-primary btn-sm" id="open-cv" aria-haspopup="dialog">CV</button>
     </div>
   </div>
-  <div class="hero-scroll" aria-hidden="true">
-    <div class="scroll-line">Scroll</div>
-  </div>
-</section>
+</header>
 
-<!-- ══════════════════ ABOUT ══════════════════ -->
-<section id="about" aria-labelledby="about-h">
-  <div class="container">
-    <div class="about-grid">
+<main id="main">
 
-      <div class="about-img-col rev">
-        <div class="portrait">
-          <img src="Photos/NVnewLogo.png" alt="Nikolas Vaki">
-        </div>
-        <!-- Discipline badges — clean info display under photo -->
-        <div class="discipline-strip">
-          <div class="disc-badge">
-            <div class="disc-badge-icon"><i class="fas fa-graduation-cap"></i></div>
-            <div class="disc-badge-text">
-              <strong>MSc Human-Computer Interaction</strong>
-              Utrecht University · 2024–2026
-            </div>
-          </div>
-          <div class="disc-badge">
-            <div class="disc-badge-icon"><i class="fas fa-code"></i></div>
-            <div class="disc-badge-text">
-              <strong>BSc Computer Science</strong>
-              Minor: Business Administration · UCY
-            </div>
-          </div>
-          <div class="disc-badge">
-            <div class="disc-badge-icon"><i class="fas fa-briefcase"></i></div>
-            <div class="disc-badge-text">
-              <strong>Open to Opportunities</strong>
-              UX Research · Interaction Design
-            </div>
-          </div>
-        </div>
+<!-- ══════════ HERO ══════════ -->
+<section class="hero wrap" id="top" aria-labelledby="name">
+  <div class="hero-grid">
+    <div>
+      <p class="status"><span class="dot" aria-hidden="true"></span> Available from September 2026</p>
+      <h1 id="name">Nikolas Vaki</h1>
+      <p class="intro">I turn how people actually behave into decisions a product can act on.</p>
+      <p class="sub">MSc Human Computer Interaction at Utrecht University and BSc Computer Science with a minor in Business Administration. I work across research, data analysis, product thinking and code. Based in Utrecht, open to roles across the Netherlands and remote.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#thesis">See the thesis results</a>
+        <a class="btn btn-ghost" href="#work">Browse all work</a>
+        <a class="btn btn-ghost" href="mailto:nikolasvk@outlook.com">Email me</a>
       </div>
-
-      <div class="about-text rev">
-        <p class="lbl">About Me</p>
-        <h2 class="sec-title" id="about-h">Designing for<br><span>people</span>.</h2>
-        <div class="divider"></div>
-
-        <p>I'm a Master's student in Human-Computer Interaction at Utrecht University, coming from a strong background in Computer Science with a minor in Business Administration. My work combines <strong style="color:var(--text);font-weight:600">technical rigour, design thinking, and behavioural research</strong> — with a particular focus on accessibility and inclusive design.</p>
-        <p>My BSc thesis was a full-stack Learning Management System specifically designed to teach developers how to build accessible websites for visually impaired users — a project that fused my engineering background with my growing conviction that accessibility should be engineered in from the start, not patched in later.</p>
-        <p>My MSc thesis explores <em style="color:var(--text);font-style:normal;font-weight:500">passengers' willingness to wait for a less crowded train</em> — examining the reasons behind their choices and how long they are willing to wait. The goal is to better understand user preferences in order to support more personalised recommendations and improved communication of crowdedness in travel planners. This takes me into behavioural research, preference modelling, and the design of information systems that adapt to real human decision-making.</p>
-        <p>What drives me is the conviction that good HCI work requires both depth — in methods, in code, in research — and genuine empathy for the people using the system. I aim to bring both to every project.</p>
-
-        <div class="skill-group">
-          <h4>Skills &amp; Tools</h4>
-          <div class="skill-tags rev-stagger" role="list" aria-label="Skills and tools">
-            <span class="stag" role="listitem">UX Research</span>
-            <span class="stag" role="listitem">Usability Testing</span>
-            <span class="stag" role="listitem">Interaction Design</span>
-            <span class="stag" role="listitem">Accessibility (WCAG)</span>
-            <span class="stag" role="listitem">Prototyping (Figma)</span>
-            <span class="stag" role="listitem">HTML / CSS / JS</span>
-            <span class="stag" role="listitem">Python</span>
-            <span class="stag" role="listitem">Qualitative Methods</span>
-            <span class="stag" role="listitem">Quantitative Methods</span>
-            <span class="stag" role="listitem">Design Thinking</span>
-            <span class="stag" role="listitem">Adaptive Systems</span>
-            <span class="stag" role="listitem">Information Visualisation</span>
-          </div>
-        </div>
-      </div>
-
+    </div>
+    <div>
+      <div class="portrait"><img src="Photos/NVnewLogo.png" alt="Portrait of Nikolas Vaki" width="300" height="300"></div>
+      <dl class="side-facts">
+        <div><dt>Based in</dt><dd>Utrecht, NL</dd></div>
+        <div><dt>Degree</dt><dd>MSc HCI, 2026</dd></div>
+        <div><dt>Languages</dt><dd>Greek, English</dd></div>
+        <div><dt>Work status</dt><dd>EU citizen</dd></div>
+      </dl>
     </div>
   </div>
 </section>
 
-<!-- ══════════════════ EXPERIENCE ══════════════════ -->
-<section id="experience" aria-labelledby="exp-h">
-  <div class="container">
-    <p class="lbl rev">Experience</p>
-    <h2 class="sec-title rev" id="exp-h">Where I've<br><span>worked</span>.</h2>
+<!-- ══════════ PROOF ══════════ -->
+<section class="proof" aria-label="Key numbers from recent work">
+  <div class="wrap">
+    <div class="proof-grid">
+      <div><div class="proof-num">759</div><p class="proof-lab">Passengers surveyed for my master thesis with Dutch Railways</p></div>
+      <div><div class="proof-num">9,108</div><p class="proof-lab">Choice observations modelled in Python</p></div>
+      <div><div class="proof-num">12</div><p class="proof-lab">Focus group participants coded in NVivo</p></div>
+      <div><div class="proof-num">6</div><p class="proof-lab">Languages coordinated on an EU funded course platform</p></div>
+    </div>
+  </div>
+</section>
 
-    <div class="tl">
+<!-- ══════════ ABOUT ══════════ -->
+<section class="band wrap" id="about" aria-labelledby="about-h">
+  <div class="split">
+    <div class="split-head">
+      <p class="eyebrow">About</p>
+      <h2 class="title" id="about-h">Profile</h2>
+    </div>
+    <div class="about-copy reveal">
+      <p>I started in Computer Science, so I am comfortable reading a codebase, writing Python and shipping a working product. I moved into Human Computer Interaction because the harder question is usually not whether something can be built, but whether people will use it and why.</p>
+      <p>My master thesis is a good example of how I work. Dutch Railways wanted to know if passengers would take a later, quieter train. I ran focus groups to find out what actually drives that decision, designed a choice experiment around what passengers said, collected 9,108 choices from 759 people, modelled them in Python, and turned the result into a concrete rule a product team can build. The answer is roughly ten minutes at the platform and fourteen minutes at home.</p>
+      <p>My business minor means I can also frame that work in terms a stakeholder cares about. I like teams where research, data and delivery sit close together, and where I can move between them instead of staying in one lane.</p>
 
-      <div class="tl-row">
-        <div class="tl-date">Apr – Jun<br>2026</div>
-        <div class="tl-body">
-          <div class="tl-role">Teaching Assistant</div>
-          <span class="tl-org">Utrecht University · Interaction Technology Innovation (INFOMITI)</span>
+      <div class="skill-block">
+        <div>
+          <h4>Research</h4>
+          <div class="tags">
+            <span class="tag">Focus groups</span><span class="tag">Interviews</span><span class="tag">Thematic analysis</span><span class="tag">NVivo</span><span class="tag">Usability testing</span><span class="tag">Survey design</span><span class="tag">Qualtrics</span>
+          </div>
+        </div>
+        <div>
+          <h4>Data and AI</h4>
+          <div class="tags">
+            <span class="tag">Python</span><span class="tag">pandas</span><span class="tag">statsmodels</span><span class="tag">scikit learn</span><span class="tag">OpenCV</span><span class="tag">Discrete choice models</span><span class="tag">SQL</span>
+          </div>
+        </div>
+        <div>
+          <h4>Design</h4>
+          <div class="tags">
+            <span class="tag">Interaction design</span><span class="tag">Figma</span><span class="tag">Prototyping</span><span class="tag">Accessibility (WCAG)</span><span class="tag">Information visualisation</span>
+          </div>
+        </div>
+        <div>
+          <h4>Engineering and delivery</h4>
+          <div class="tags">
+            <span class="tag">JavaScript</span><span class="tag">HTML and CSS</span><span class="tag">Java</span><span class="tag">C and C++</span><span class="tag">Agile and Scrum</span><span class="tag">Test automation</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ THESIS ══════════ -->
+<section class="band wrap" id="thesis" aria-labelledby="thesis-h">
+  <p class="eyebrow">Master thesis, submitted August 2026</p>
+  <h2 class="title" id="thesis-h">Worth the wait</h2>
+  <p class="lede" style="margin-bottom:34px">How long will a train passenger wait for a quieter train, and what changes that answer.</p>
+
+  <article class="case reveal">
+    <div class="case-head">
+      <div class="case-meta">
+        <span class="pill pill-done">Submitted</span>
+        <span class="pill">Nederlandse Spoorwegen</span>
+        <span class="pill">Mixed methods</span>
+        <span class="pill">Python</span>
+      </div>
+      <h3>Exploring passengers' willingness to avoid crowded trains</h3>
+      <p>A crowded train arrives. You can board now and stand, or wait for a quieter one and lose time. The NS journey planner already shows a crowding indicator
+        <span class="indicator" role="img" aria-label="crowding indicator showing three of three levels"><i class="on"></i><i class="on"></i><i class="on"></i></span>
+        for every departure, but nobody had measured what that information is worth in minutes. I measured it, and turned the number into design rules for the app.</p>
+    </div>
+
+    <div class="case-body">
+      <div class="case-col">
+        <h4>What I did</h4>
+        <ul class="rows">
+          <li><b>Phase 1</b><span>Two focus groups with 12 passengers, transcribed and coded in NVivo, analysed with reflexive thematic analysis. Participants set the agenda for what to test.</span></li>
+          <li><b>Phase 2</b><span>A discrete choice experiment built from those findings. 759 respondents, 9,108 binary choices, run in Qualtrics in Dutch and English through the NS panel and an open link.</span></li>
+          <li><b>Analysis</b><span>Logistic regression with generalised estimating equations in Python, stepwise model selection on QIC, confidence intervals by the delta method, and a mixed logit model as a robustness check.</span></li>
+        </ul>
+      </div>
+      <div class="case-col">
+        <h4>What it changed</h4>
+        <ul class="rows">
+          <li><b>Timing</b><span>Crowding advice works best before the passenger leaves home, where tolerance for waiting is about four minutes higher.</span></li>
+          <li><b>Limits</b><span>Keep suggested waits inside ten to fifteen minutes. At thirty minutes roughly three passengers in four refuse.</span></li>
+          <li><b>Framing</b><span>Emphasise the size of the improvement, not the fact that a quieter train exists. Two levels quieter nearly doubles uptake.</span></li>
+          <li><b>Personalisation</b><span>Learn from behaviour rather than demographics, and only to withdraw a suggestion, never to push harder.</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="result">
+      <div><div class="big">10.3 min</div><p class="cap">Willingness to wait for one level less crowding, decided on the platform. 95% CI 9.2 to 11.5.</p></div>
+      <div><div class="big">14.2 min</div><p class="cap">The same trade off when the decision is made at home. The only context that moved the exchange rate.</p></div>
+      <div><div class="big">41.3%</div><p class="cap">Share of all 9,108 choices where passengers chose to wait rather than board.</p></div>
+    </div>
+
+    <div class="charts">
+      <div class="chart">
+        <h4>Willingness drops as the wait grows</h4>
+        <p class="note">Share of choices where passengers waited, by extra waiting time offered.</p>
+        <svg viewBox="0 0 480 210" role="img" aria-label="Bar chart. Passengers chose to wait in 58.8 percent of choices at a 10 minute wait, 46.2 percent at 15 minutes, 36.5 percent at 20 minutes and 23.7 percent at 30 minutes.">
+          <line class="grid-line" x1="60" y1="46.7" x2="460" y2="46.7"/>
+          <text class="tick" x="52" y="50" text-anchor="end">50%</text>
+          <line class="axis" x1="60" y1="180" x2="460" y2="180"/>
+          <text class="tick" x="52" y="184" text-anchor="end">0%</text>
+
+          <rect class="bar" x="83" y="23.2" width="54" height="156.8" rx="2"/>
+          <rect class="bar" x="183" y="56.8" width="54" height="123.2" rx="2"/>
+          <rect class="bar" x="283" y="82.7" width="54" height="97.3" rx="2"/>
+          <rect class="bar" x="383" y="116.8" width="54" height="63.2" rx="2"/>
+
+          <text class="val" x="110" y="16" text-anchor="middle">58.8</text>
+          <text class="val" x="210" y="50" text-anchor="middle">46.2</text>
+          <text class="val" x="310" y="76" text-anchor="middle">36.5</text>
+          <text class="val" x="410" y="110" text-anchor="middle">23.7</text>
+
+          <text class="tick" x="110" y="197" text-anchor="middle">10 min</text>
+          <text class="tick" x="210" y="197" text-anchor="middle">15 min</text>
+          <text class="tick" x="310" y="197" text-anchor="middle">20 min</text>
+          <text class="tick" x="410" y="197" text-anchor="middle">30 min</text>
+        </svg>
+      </div>
+      <div class="chart">
+        <h4>Where the decision is made matters</h4>
+        <p class="note">Minutes traded for one level less crowding, with 95% confidence intervals.</p>
+        <svg viewBox="0 0 480 210" role="img" aria-label="Chart. Willingness to wait is 10.3 minutes when deciding on the platform and 14.2 minutes when deciding at home. The confidence intervals do not overlap.">
+          <line class="axis" x1="110" y1="165" x2="440" y2="165"/>
+          <text class="tick" x="110" y="182" text-anchor="middle">0</text>
+          <text class="tick" x="201" y="182" text-anchor="middle">5</text>
+          <text class="tick" x="293" y="182" text-anchor="middle">10</text>
+          <text class="tick" x="385" y="182" text-anchor="middle">15 min</text>
+
+          <text class="tick" x="102" y="72" text-anchor="end">On platform</text>
+          <rect class="bar" x="110" y="52" width="189" height="30" rx="2"/>
+          <line class="axis" x1="279" y1="67" x2="321" y2="67"/>
+          <line class="axis" x1="279" y1="60" x2="279" y2="74"/>
+          <line class="axis" x1="321" y1="60" x2="321" y2="74"/>
+          <text class="val" x="332" y="71">10.3</text>
+
+          <text class="tick" x="102" y="130" text-anchor="end">At home</text>
+          <rect class="bar-alt" x="110" y="110" width="260" height="30" rx="2"/>
+          <line class="axis" x1="337" y1="125" x2="401" y2="125"/>
+          <line class="axis" x1="337" y1="118" x2="337" y2="132"/>
+          <line class="axis" x1="401" y1="118" x2="401" y2="132"/>
+          <text class="val" x="412" y="129">14.2</text>
+        </svg>
+      </div>
+    </div>
+
+    <div class="case-body">
+      <div class="case-col">
+        <h4>What I would do differently</h4>
+        <p style="font-size:.92rem;color:var(--muted)">Passengers said in the focus groups that an acceptable wait scales with journey length, so I expected a long journey to raise the exchange rate. It did not. It raised the chance of waiting at all and left the trade off unchanged. The gap between what people say and what their choices reveal is the part of this project I found most useful, and it is why I would not ship a rule based on interviews alone.</p>
+      </div>
+      <div class="case-col">
+        <h4>Details</h4>
+        <ul class="rows">
+          <li><b>Programme</b><span>MSc Human Computer Interaction, Utrecht University</span></li>
+          <li><b>Partner</b><span>Nederlandse Spoorwegen, panel access and daily supervision</span></li>
+          <li><b>Supervisors</b><span>Judith Masthoff, Christof van Nimwegen, Anouk van Kasteren</span></li>
+          <li><b>Stack</b><span>Python, pandas, statsmodels, Qualtrics, NVivo</span></li>
+        </ul>
+      </div>
+    </div>
+  </article>
+</section>
+
+<!-- ══════════ WORK ══════════ -->
+<section class="band wrap" id="work" aria-labelledby="work-h">
+  <p class="eyebrow">Selected work</p>
+  <h2 class="title" id="work-h">Projects</h2>
+  <p class="lede" style="margin-bottom:26px">Research, design, machine learning and full stack builds. Filter by the kind of work you are hiring for.</p>
+
+  <div class="filters" role="group" aria-label="Filter projects by discipline">
+    <button class="filter" data-filter="all" aria-pressed="true">All</button>
+    <button class="filter" data-filter="research" aria-pressed="false">Research</button>
+    <button class="filter" data-filter="design" aria-pressed="false">Design</button>
+    <button class="filter" data-filter="ai" aria-pressed="false">AI and data</button>
+    <button class="filter" data-filter="eng" aria-pressed="false">Engineering</button>
+  </div>
+
+  <div class="grid" id="project-grid">
+
+    <button class="card" data-tags="research ai" data-dialog="d-thesis" aria-haspopup="dialog">
+      <div class="card-cover plain" data-label="MSc thesis" style="background:linear-gradient(135deg,var(--accent-soft),var(--surface))"></div>
+      <div class="card-body">
+        <p class="card-kind">Research and data</p>
+        <h3>Worth the wait</h3>
+        <p>Mixed methods study with Dutch Railways measuring how long passengers will wait for a quieter train.</p>
+        <span class="card-foot">Read the case study <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </div>
+    </button>
+
+    <button class="card" data-tags="design eng research" data-dialog="d-webwise" aria-haspopup="dialog">
+      <div class="card-cover" style="--cover:url('Photos/webwiselogo.jpg')"></div>
+      <div class="card-body">
+        <p class="card-kind">Bachelor thesis</p>
+        <h3>WebWise Academy</h3>
+        <p>A learning platform that teaches developers to build websites people with visual impairments can actually use.</p>
+        <span class="card-foot">Read the case study <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </div>
+    </button>
+
+    <button class="card" data-tags="ai eng" data-dialog="d-vision" aria-haspopup="dialog">
+      <div class="card-cover plain" data-label="Python, OpenCV" style="background:linear-gradient(135deg,var(--surface),var(--accent-soft))"></div>
+      <div class="card-body">
+        <p class="card-kind">Computer vision</p>
+        <h3>Motion detection camera</h3>
+        <p>A vision system that spots movement in live or recorded video, marks the object and saves an alert.</p>
+        <span class="card-foot">Read the case study <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </div>
+    </button>
+
+    <button class="card" data-tags="ai" data-dialog="d-houses" aria-haspopup="dialog">
+      <div class="card-cover plain" data-label="scikit learn" style="background:linear-gradient(135deg,var(--amber-soft),var(--surface))"></div>
+      <div class="card-body">
+        <p class="card-kind">Machine learning</p>
+        <h3>House price prediction</h3>
+        <p>Regression models on Bengaluru housing data, from cleaning and feature engineering to tuning. Best score 0.86.</p>
+        <span class="card-foot">Read the case study <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </div>
+    </button>
+
+    <button class="card" data-tags="ai eng" data-dialog="d-prolog" aria-haspopup="dialog">
+      <div class="card-cover plain" data-label="Prolog, logic AI" style="background:linear-gradient(135deg,var(--surface),var(--amber-soft))"></div>
+      <div class="card-body">
+        <p class="card-kind">Symbolic AI</p>
+        <h3>Context aware food advisor</h3>
+        <p>A rule based reasoner that decides whether to cook, order or eat out from ingredients, weather and guests.</p>
+        <span class="card-foot">Read the case study <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </div>
+    </button>
+
+    <button class="card" data-tags="design research" data-dialog="d-skoupa" aria-haspopup="dialog">
+      <div class="card-cover" style="--cover:url('Photos/skoupa2.jpg')"></div>
+      <div class="card-body">
+        <p class="card-kind">Tangible interaction</p>
+        <h3>Skoupa meditation lamp</h3>
+        <p>A voice driven lamp for winding down before sleep, built from diary studies with students.</p>
+        <span class="card-foot">Read the case study <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </div>
+    </button>
+
+    <button class="card" data-tags="design research" data-dialog="d-festify" aria-haspopup="dialog">
+      <div class="card-cover" style="--cover:url('Photos/festiffy.png')"></div>
+      <div class="card-body">
+        <p class="card-kind">Product design</p>
+        <h3>Festify</h3>
+        <p>Event discovery app where onboarding earns the right to ask for preferences instead of demanding them.</p>
+        <span class="card-foot">Read the case study <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </div>
+    </button>
+
+    <button class="card" data-tags="design" data-dialog="d-petopia" aria-haspopup="dialog">
+      <div class="card-cover" style="--cover:url('Photos/petopialogo.jpg')"></div>
+      <div class="card-body">
+        <p class="card-kind">Mobile design</p>
+        <h3>Petopia</h3>
+        <p>Social platform for pet owners with a lost and found flow designed for people who are panicking.</p>
+        <span class="card-foot">Read the case study <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </div>
+    </button>
+
+  </div>
+  <p class="form-note" id="filter-status" role="status" style="margin-top:16px"></p>
+</section>
+
+<!-- ══════════ ROLE FIT ══════════ -->
+<section class="band wrap" id="roles" aria-labelledby="roles-h">
+  <p class="eyebrow">Where I fit</p>
+  <h2 class="title" id="roles-h">Four ways to read this CV</h2>
+  <p class="lede" style="margin-bottom:30px">The same projects support different roles. Here is the evidence for each.</p>
+  <div class="roles reveal">
+    <div class="role">
+      <h3>UX research</h3>
+      <ul>
+        <li>Ran focus groups, coded them in NVivo and used the findings to design the next study</li>
+        <li>Designed and analysed a 759 person choice experiment end to end</li>
+        <li>Taught user centred design methods as a teaching assistant</li>
+      </ul>
+    </div>
+    <div class="role">
+      <h3>Product and operations</h3>
+      <ul>
+        <li>Turned research into specific product rules, including thresholds and a personalisation policy</li>
+        <li>Worked with a corporate stakeholder at NS from brief to delivery</li>
+        <li>Business Administration minor covering marketing, strategy and organisational behaviour</li>
+      </ul>
+    </div>
+    <div class="role">
+      <h3>Data and AI</h3>
+      <ul>
+        <li>Built the full analysis pipeline in Python, from raw export to model output</li>
+        <li>Regression, model selection, confidence intervals and robustness checks</li>
+        <li>Machine learning, computer vision and logic based AI projects on GitHub</li>
+      </ul>
+    </div>
+    <div class="role">
+      <h3>Software engineering</h3>
+      <ul>
+        <li>Full stack bachelor thesis platform with an OpenAI integration</li>
+        <li>Test design and automation in an agile team at Bank of Cyprus</li>
+        <li>Python, Java, C and C plus plus, SQL, JavaScript, HTML and CSS</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ EXPERIENCE ══════════ -->
+<section class="band wrap" id="experience" aria-labelledby="exp-h">
+  <div class="split">
+    <div class="split-head">
+      <p class="eyebrow">Experience</p>
+      <h2 class="title" id="exp-h">Roles</h2>
+    </div>
+    <div>
+      <div class="entry reveal">
+        <p class="when">Apr 2026 to Jun 2026</p>
+        <div>
+          <h3>Teaching Assistant</h3>
+          <span class="where">Utrecht University, Interaction Technology Innovation</span>
           <ul>
-            <li>Guided students through user-centred design, prototyping, and iterative development of interactive systems</li>
-            <li>Provided structured feedback on UX methods, design rationale, and ethical considerations in design</li>
+            <li>Coached student teams through user research, prototyping and iteration on interactive systems</li>
+            <li>Gave structured feedback on method choice, design rationale and research ethics</li>
           </ul>
-          <div class="tl-chips"><span class="tl-chip">Teaching</span><span class="tl-chip">UCD</span><span class="tl-chip">Prototyping</span></div>
         </div>
       </div>
-
-      <div class="tl-row">
-        <div class="tl-date">Oct 2024 –<br>Feb 2025</div>
-        <div class="tl-body">
-          <div class="tl-role">Special Scientist Researcher</div>
-          <span class="tl-org">SEIT Lab, University of Cyprus · DigiComPass (Erasmus+)</span>
+      <div class="entry reveal">
+        <p class="when">Oct 2024 to Feb 2025</p>
+        <div>
+          <h3>Special Scientist Researcher</h3>
+          <span class="where">SEIT Lab, University of Cyprus, DigiComPass Erasmus Plus</span>
           <ul>
-            <li>Managed the Moodle-based e-learning platform for an EU-funded digital skills course</li>
-            <li>Organised and uploaded interactive H5P content with a focus on learner experience and navigation</li>
-            <li>Coordinated translation of all materials into six languages across international partners</li>
-            <li>Applied UX-focused design thinking to improve platform structure and learner engagement</li>
+            <li>Ran the Moodle platform for an EU funded digital skills course used across partner universities</li>
+            <li>Coordinated translation of all course material into six languages with international partners</li>
+            <li>Restructured navigation and interactive content to make the course easier to complete</li>
           </ul>
-          <div class="tl-chips"><span class="tl-chip">E-learning</span><span class="tl-chip">Moodle</span><span class="tl-chip">Erasmus+</span><span class="tl-chip">Multilingual UX</span></div>
         </div>
       </div>
-
-      <div class="tl-row">
-        <div class="tl-date">May – Aug<br>2023</div>
-        <div class="tl-body">
-          <div class="tl-role">Test Engineer Intern</div>
-          <span class="tl-org">Bank of Cyprus · Nicosia</span>
+      <div class="entry reveal">
+        <p class="when">May 2023 to Aug 2023</p>
+        <div>
+          <h3>Test Engineer, internship</h3>
+          <span class="where">Bank of Cyprus, Nicosia</span>
           <ul>
-            <li>Designed user-focused test scripts for Internet Banking features in an Agile Scrum team</li>
-            <li>Developed automated test scripts using Katalon Automation Studio</li>
-            <li>Contributed to UI/UX brainstorming sessions for future product features</li>
+            <li>Wrote test scripts for Internet Banking features inside an agile Scrum team</li>
+            <li>Built automated regression tests with Katalon Studio</li>
+            <li>Contributed to feature and interface design sessions for upcoming releases</li>
           </ul>
-          <div class="tl-chips"><span class="tl-chip">QA Testing</span><span class="tl-chip">Katalon</span><span class="tl-chip">Agile / Scrum</span><span class="tl-chip">UI/UX</span></div>
+        </div>
+      </div>
+      <div class="entry reveal">
+        <p class="when">Seasonal</p>
+        <div>
+          <h3>Sales Assistant</h3>
+          <span class="where">George N. Vakis Jewellery, Ayia Napa</span>
+          <ul><li>Customer facing sales and service in a luxury retail environment</li></ul>
         </div>
       </div>
 
-      <div class="tl-row">
-        <div class="tl-date">Seasonal</div>
-        <div class="tl-body">
-          <div class="tl-role">Sales Assistant</div>
-          <span class="tl-org">George N. Vakis Jewellery · Ayia Napa, Cyprus</span>
-          <p class="tl-note">Customer-facing sales and service in a luxury retail environment.</p>
+      <h3 style="margin:48px 0 18px;font-size:1.2rem">Education</h3>
+
+      <div class="entry reveal">
+        <p class="when">2024 to 2026</p>
+        <div>
+          <h3>MSc Human Computer Interaction</h3>
+          <span class="where">Utrecht University, Netherlands</span>
+          <ul>
+            <li>Thesis with Nederlandse Spoorwegen on willingness to wait for less crowded trains</li>
+            <li>Coursework in qualitative and quantitative methods, adaptive systems, mobile interaction, information visualisation and responsible ICT</li>
+            <li>Student Ambassador, Programme Advisory Committee member and Student Consultation Board member</li>
+          </ul>
         </div>
       </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- ══════════════════ EDUCATION ══════════════════ -->
-<section id="education" aria-labelledby="edu-h">
-  <div class="container">
-    <p class="lbl rev">Education</p>
-    <h2 class="sec-title rev" id="edu-h">Academic<br><span>journey</span>.</h2>
-
-    <div class="tl">
-      <div class="tl-row">
-        <div class="tl-date">2024–2026</div>
-        <div class="tl-body">
-          <div class="tl-role">Master in Human-Computer Interaction</div>
-          <span class="tl-org">Utrecht University · Netherlands</span>
-          <p class="tl-note">Thesis: <em>Exploring the Willingness of Passengers to Wait in Order to Avoid Crowded Trains</em> — examining user preferences around crowding to support more personalised recommendations and better crowdedness communication in travel planners.</p>
-          <div class="tl-chips"><span class="tl-chip">Student Ambassador 2025–26</span><span class="tl-chip">Program Advisory Committee</span><span class="tl-chip">Student Consultation Board</span></div>
+      <div class="entry reveal">
+        <p class="when">2019 to 2024</p>
+        <div>
+          <h3>BSc Computer Science, minor in Business Administration</h3>
+          <span class="where">University of Cyprus, Nicosia</span>
+          <ul>
+            <li>Thesis on a learning platform for building accessible websites for people with visual impairments</li>
+            <li>Electives in artificial intelligence, logic programming, image processing, web data mining and human computer interaction</li>
+          </ul>
         </div>
       </div>
-      <div class="tl-row">
-        <div class="tl-date">2019–2024</div>
-        <div class="tl-body">
-          <div class="tl-role">BSc Computer Science · Minor in Business Administration</div>
-          <span class="tl-org">University of Cyprus · Nicosia</span>
-          <p class="tl-note">Thesis: <em>Learning Management System for web designers and developers to create accessible websites for visually impaired users.</em></p>
-          <p class="tl-note">Courses including AI, Software Engineering, Human-Computer Interaction, Organisational Behaviour, Entrepreneurship &amp; Innovation, Marketing, and Statistics.</p>
-        </div>
-      </div>
-      <div class="tl-row">
-        <div class="tl-date">2021–2023</div>
-        <div class="tl-body">
-          <div class="tl-role">YUFE Student Journey</div>
-          <span class="tl-org">YUFE Alliance · Multiple European Universities</span>
-          <p class="tl-note">Completed online courses at partner institutions: Music &amp; Technology and Security &amp; Intelligence Analysis (UC3M), Financial Risk Management (Antwerp), Business &amp; Human Rights (Torun), Tourism Studies (Eastern Finland), Code Optimization (Rijeka), Narrative &amp; Film (Essex).</p>
+      <div class="entry reveal">
+        <p class="when">2021 to 2023</p>
+        <div>
+          <h3>YUFE Student Journey</h3>
+          <span class="where">YUFE Alliance, multiple European universities</span>
+          <ul><li>Courses at partner universities in music technology, security analysis, financial risk, human rights, tourism, code optimisation and film</li></ul>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ══════════════════ PROJECTS ══════════════════ -->
-<section id="projects" aria-labelledby="proj-h">
-  <div class="container">
-    <p class="lbl rev">Case Studies</p>
-    <h2 class="sec-title rev" id="proj-h">Selected<br><span>work</span>.</h2>
-    <div class="proj-grid">
+<!-- ══════════ CONTACT ══════════ -->
+<section class="band wrap" id="contact" aria-labelledby="contact-h">
+  <div class="contact">
+    <div>
+      <p class="eyebrow">Contact</p>
+      <h2 class="title" id="contact-h">Let us talk</h2>
+      <p class="lede">I am looking for a first role in research, product, data or engineering. If you have something open, or you just want to compare notes, send a message and I will reply within a day.</p>
+      <div class="channels">
+        <a class="channel" href="mailto:nikolasvk@outlook.com">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg>
+          <span>Email<b>nikolasvk@outlook.com</b></span>
+        </a>
+        <a class="channel" href="https://www.linkedin.com/in/nikolas-vaki" target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM2.98 21h4V9h-4v12ZM9.5 9h3.83v1.64h.05c.53-1 1.84-2.06 3.79-2.06 4.05 0 4.8 2.67 4.8 6.14V21h-4v-5.4c0-1.29-.02-2.95-1.8-2.95-1.8 0-2.08 1.4-2.08 2.86V21h-4V9Z"/></svg>
+          <span>LinkedIn<b>linkedin.com/in/nikolas-vaki</b></span>
+        </a>
+        <a class="channel" href="https://github.com/nklsvk" target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.9 1.53 2.34 1.09 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02a9.5 9.5 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0 0 12 2Z"/></svg>
+          <span>GitHub<b>github.com/nklsvk</b></span>
+        </a>
+        <div class="channel">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span>Location<b>Utrecht, Netherlands</b></span>
+        </div>
+      </div>
+    </div>
 
-      <article class="pcard" data-project="1" role="button" tabindex="0" aria-label="Open Festify case study">
-        <div class="pthumb">
-          <div class="pthumb-overlay"></div>
-          <div class="pthumb-cta"><div class="pthumb-cta-inner"><i class="fas fa-arrow-right"></i></div></div>
+    <div>
+      <form id="contact-form" action="https://formspree.io/f/mqabyvyo" method="POST" novalidate>
+        <div class="field">
+          <label for="f-name">Your name</label>
+          <input id="f-name" name="name" type="text" autocomplete="name" placeholder="Jane de Vries" required aria-describedby="e-name">
+          <p class="err" id="e-name"></p>
         </div>
-        <div class="pbody">
-          <div class="pnum">01 · Festify</div>
-          <h3>Music Event Discovery App</h3>
-          <p>Personalised event discovery with a trust-first onboarding flow and adaptive filtering UI. Designed around real user frustrations with existing concert apps.</p>
-          <div class="ptags"><span class="ptag">Usability</span><span class="ptag">Onboarding UX</span><span class="ptag">Personalisation</span><span class="ptag">Figma</span></div>
+        <div class="field">
+          <label for="f-email">Your email</label>
+          <input id="f-email" name="email" type="email" autocomplete="email" placeholder="jane@company.com" required aria-describedby="e-email">
+          <p class="err" id="e-email"></p>
         </div>
-        <div class="pfooter">View case study <i class="fas fa-arrow-right"></i></div>
-      </article>
-
-      <article class="pcard" data-project="2" role="button" tabindex="0" aria-label="Open WebWise case study">
-        <div class="pthumb">
-          <div class="pthumb-overlay"></div>
-          <div class="pthumb-cta"><div class="pthumb-cta-inner"><i class="fas fa-arrow-right"></i></div></div>
+        <div class="field">
+          <label for="f-msg">Message</label>
+          <textarea id="f-msg" name="message" placeholder="Which role, and what you are looking for." required aria-describedby="e-msg"></textarea>
+          <p class="err" id="e-msg"></p>
         </div>
-        <div class="pbody">
-          <div class="pnum">02 · WebWise Academy</div>
-          <h3>Accessible Web Design LMS</h3>
-          <p>BSc thesis: a full-stack learning management system teaching developers to build accessible websites for visually impaired users. Built with Moodle, H5P, and an OpenAI API integration.</p>
-          <div class="ptags"><span class="ptag">WCAG</span><span class="ptag">Accessibility</span><span class="ptag">LMS</span><span class="ptag">BSc Thesis</span></div>
-        </div>
-        <div class="pfooter">View case study <i class="fas fa-arrow-right"></i></div>
-      </article>
-
-      <article class="pcard" data-project="3" role="button" tabindex="0" aria-label="Open Skoupa case study">
-        <div class="pthumb">
-          <div class="pthumb-overlay"></div>
-          <div class="pthumb-cta"><div class="pthumb-cta-inner"><i class="fas fa-arrow-right"></i></div></div>
-        </div>
-        <div class="pbody">
-          <div class="pnum">03 · Skoupa</div>
-          <h3>AI Meditation Lamp — Tangible UI</h3>
-          <p>Voice-responsive tangible interface for pre-sleep stress relief. The lamp analyses emotional state via voice and suggests personalised meditations using ambient light.</p>
-          <div class="ptags"><span class="ptag">Tangible UI</span><span class="ptag">Wellbeing</span><span class="ptag">Embodied Interaction</span><span class="ptag">AI</span></div>
-        </div>
-        <div class="pfooter">View case study <i class="fas fa-arrow-right"></i></div>
-      </article>
-
-      <article class="pcard" data-project="4" role="button" tabindex="0" aria-label="Open Petopia case study">
-        <div class="pthumb">
-          <div class="pthumb-overlay"></div>
-          <div class="pthumb-cta"><div class="pthumb-cta-inner"><i class="fas fa-arrow-right"></i></div></div>
-        </div>
-        <div class="pbody">
-          <div class="pnum">04 · Petopia</div>
-          <h3>Social Network for Pet Owners</h3>
-          <p>High-fidelity mobile prototype for a pet-owner social platform — featuring lost &amp; found reporting, shelter maps, messaging, and familiar social interaction patterns.</p>
-          <div class="ptags"><span class="ptag">Mobile UX</span><span class="ptag">Prototype</span><span class="ptag">Social Platform</span><span class="ptag">Heuristics</span></div>
-        </div>
-        <div class="pfooter">View case study <i class="fas fa-arrow-right"></i></div>
-      </article>
-
-      <article class="pcard pcard-thesis" data-project="5" role="button" tabindex="0" aria-label="Open MSc Thesis case study">
-        <div class="pthumb pthumb-thesis">
-          <div class="pthumb-overlay"></div>
-          <div class="pthumb-cta"><div class="pthumb-cta-inner"><i class="fas fa-arrow-right"></i></div></div>
-        </div>
-        <div class="pbody">
-          <div class="pnum">05 · MSc Thesis</div>
-          <h3>Willingness to Wait — Avoiding Crowded Trains</h3>
-          <p>Quantitative & Qualitative HCI research exploring how passengers decide whether to board a crowded train or wait for the next one — aiming to improve personalised crowdedness communication in travel apps.</p>
-          <div class="ptags"><span class="ptag">Discrete Choice</span><span class="ptag">Behavioural Research</span><span class="ptag">NS App</span><span class="ptag">In Progress</span></div>
-        </div>
-        <div class="pfooter">Read more <i class="fas fa-arrow-right"></i></div>
-      </article>
-
+        <button type="submit" class="btn btn-primary" style="align-self:flex-start" id="send-btn">Send message</button>
+        <p class="form-note">Your details are only used to reply to you.</p>
+      </form>
+      <div class="sent" id="sent-note" role="status">
+        <h3>Message sent</h3>
+        <p>Thanks for getting in touch. I will reply to the address you gave within a day.</p>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ══════════ PROJECT MODALS ══════════ -->
+</main>
 
-<!-- 1: FESTIFY -->
-<div class="modal" id="project-modal-1" role="dialog" aria-modal="true" aria-labelledby="m1h">
-  <div class="modal-box">
-    <button class="modal-x" aria-label="Close">&times;</button>
-    <h2 id="m1h">Festify</h2>
-    <p class="modal-intro">A personalised music event discovery app with a trust-first onboarding flow and adaptive UI. Designed to balance usability, customisation, and user trust.</p>
-    <div class="gstrip" role="list" aria-label="Project screenshots">
-      <div class="gthumb" role="listitem"><img src="Photos/Festify/1.png" alt="Festify screen 1" loading="lazy"></div>
-      <div class="gthumb" role="listitem"><img src="Photos/Festify/2.png" alt="Festify screen 2" loading="lazy"></div>
-      <div class="gthumb" role="listitem"><img src="Photos/Festify/3.png" alt="Festify screen 3" loading="lazy"></div>
-      <div class="gthumb" role="listitem"><img src="Photos/Festify/4.png" alt="Festify screen 4" loading="lazy"></div>
-      <div class="gthumb" role="listitem"><img src="Photos/Festify/5.png" alt="Festify screen 5" loading="lazy"></div>
-      <div class="gthumb" role="listitem"><img src="Photos/Festify/6.png" alt="Festify screen 6" loading="lazy"></div>
-      <div class="gthumb" role="listitem"><img src="Photos/Festify/7.png" alt="Festify screen 7" loading="lazy"></div>
-      <div class="gthumb" role="listitem"><img src="Photos/Festify/8.png" alt="Festify screen 8" loading="lazy"></div>
-      <div class="gthumb" role="listitem"><img src="Photos/Festify/9.png" alt="Festify screen 9" loading="lazy"></div>
-      <div class="gthumb" role="listitem"><img src="Photos/Festify/10.png" alt="Festify screen 10" loading="lazy"></div>
-      <div class="gthumb" role="listitem"><img src="Photos/Festify/11.png" alt="Festify screen 11" loading="lazy"></div>
-      <div class="gthumb" role="listitem"><img src="Photos/Festify/12.png" alt="Festify screen 12" loading="lazy"></div>
-      <div class="gthumb" role="listitem"><img src="Photos/Festify/13.png" alt="Festify screen 13" loading="lazy"></div>
-      <div class="gthumb" role="listitem"><img src="Photos/Festify/14.png" alt="Festify screen 14" loading="lazy"></div>
-      <div class="gthumb" role="listitem"><img src="Photos/Festify/15.png" alt="Festify screen 15" loading="lazy"></div>
-      <div class="gthumb" role="listitem"><img src="Photos/Festify/16.png" alt="Festify screen 16" loading="lazy"></div>
-      <div class="gthumb" role="listitem"><img src="Photos/Festify/17.png" alt="Festify screen 17" loading="lazy"></div>
-      <div class="gthumb" role="listitem"><img src="Photos/Festify/18.png" alt="Festify screen 18" loading="lazy"></div>
-      <div class="gthumb" role="listitem"><img src="Photos/Festify/19.png" alt="Festify screen 19" loading="lazy"></div>
-      <div class="gthumb" role="listitem"><img src="Photos/Festify/20.png" alt="Festify screen 20" loading="lazy"></div>
-      <div class="gthumb" role="listitem"><img src="Photos/Festify/21.png" alt="Festify screen 21" loading="lazy"></div>
-    </div>
-    <div class="msec"><h3>Reflection (STARR)</h3>
-      <div class="starr">
-        <div class="sbox"><h4>Situation</h4><p>An HCI design course project requiring a fully prototyped mobile app, evaluated on usability rationale and design quality.</p></div>
-        <div class="sbox"><h4>Task</h4><p>I led the UX research phase and owned the onboarding flow, preference screens, and filter system design.</p></div>
-        <div class="sbox"><h4>Action</h4><p>Conducted user interviews about event discovery frustrations, built low-fi wireframes, iterated on peer feedback, and delivered a high-fidelity Figma prototype focused on reducing cognitive load during sign-up.</p></div>
-        <div class="sbox"><h4>Result</h4><p>Onboarding praised for progressive disclosure. Filter system validated as intuitive in informal usability sessions.</p></div>
-        <div class="sbox full"><h4>Reflection</h4><p>I learned that trust is the hidden variable in personalisation: users hesitate to share preferences unless they can see the immediate benefit. This shifted how I think about onboarding — less as data collection, more as a trust contract. If I repeated this, I'd run structured usability tests earlier in the process rather than relying on peer review.</p></div>
-      </div>
-    </div>
-    <div class="msec"><h3>Key Features</h3>
-      <ul>
-        <li>Progressive onboarding collecting genre, artist, location, and event type preferences</li>
-        <li>Personalised home feed with filtering by date, price, and genre</li>
-        <li>Event detail cards with sharing, bookmarking, and ticket links</li>
-        <li>Feedback loop: like/dislike suggestions and 5-star event ratings</li>
-        <li>Accessibility option: brightness toggle and clear typographic hierarchy</li>
-      </ul>
-    </div>
+<footer>
+  <div class="wrap foot">
+    <p>© 2026 Nikolas Vaki. Built to be readable, keyboard friendly and fast.</p>
+    <nav aria-label="Footer">
+      <a href="#top">Top</a>
+      <a href="mailto:nikolasvk@outlook.com">Email</a>
+      <a href="https://www.linkedin.com/in/nikolas-vaki" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://github.com/nklsvk" target="_blank" rel="noopener">GitHub</a>
+    </nav>
   </div>
-</div>
+</footer>
 
-<!-- 2: WEBWISE -->
-<div class="modal" id="project-modal-2" role="dialog" aria-modal="true" aria-labelledby="m2h">
-  <div class="modal-box">
-    <button class="modal-x" aria-label="Close">&times;</button>
-    <h2 id="m2h">WebWise Academy</h2>
-    <p class="modal-intro">My BSc thesis: an LMS teaching developers to build accessible websites for people with visual impairments — combining pedagogical design, WCAG engineering, and full-stack development on Moodle.</p>
-    <div class="gstrip" role="list" aria-label="Project screenshots">
-      <div class="gthumb" role="listitem"><img src="Photos/WebWiseLogo2.png" alt="WebWise logo" loading="lazy"></div>
+<!-- ══════════════ DIALOGS ══════════════ -->
+
+<!-- THESIS -->
+<div class="overlay" id="d-thesis" role="dialog" aria-modal="true" aria-labelledby="d-thesis-h">
+  <div class="sheet">
+    <div class="sheet-head">
+      <div><p class="kicker">Master thesis, Utrecht University and NS</p><h2 id="d-thesis-h">Worth the wait</h2></div>
+      <button class="close" aria-label="Close dialog">✕</button>
     </div>
-    <div class="vid-wrap">
-      <iframe src="https://www.youtube.com/embed/mAABKbpL4Qc" title="WebWise Academy Demo" allowfullscreen loading="lazy"></iframe>
-    </div>
-    <div class="msec"><h3>Reflection (STARR)</h3>
-      <div class="starr">
-        <div class="sbox"><h4>Situation</h4><p>BSc thesis addressing a real gap: most accessibility training focuses on code compliance rather than understanding the lived experience of visually impaired users.</p></div>
-        <div class="sbox"><h4>Task</h4><p>As sole designer and developer, I owned the full lifecycle: literature review, content architecture, UI design, and Moodle implementation.</p></div>
-        <div class="sbox"><h4>Action</h4><p>Reviewed WCAG documentation and AT literature; structured three courses (impairments → standards → tools); integrated H5P interactivity; built a colour blindness simulator and contrast checker; added an OpenAI API integration for contextual guidance.</p></div>
-        <div class="sbox"><h4>Result</h4><p>Evaluated positively by supervisors and pilot users from a developer community. The colour blindness simulation was highlighted as the most impactful learning moment.</p></div>
-        <div class="sbox full"><h4>Reflection</h4><p>Designing a course <em>about</em> accessibility while ensuring the course itself was accessible taught me the concept of dogfooding at its most meaningful level. WCAG guidelines are necessary but insufficient — genuine inclusion requires empathy tools, simulation, and iterative testing with disabled users. This project is the origin point of accessibility as a core thread in my professional identity.</p></div>
-      </div>
-    </div>
-    <div class="msec"><h3>Key Features</h3>
+    <div class="sheet-body">
+      <h3>The problem</h3>
+      <p>The NS journey planner shows how crowded each departure is expected to be. That tells a passenger what is happening, but it does not tell them what to do. NS wanted to know whether the app could go further and suggest a later, quieter train. To do that responsibly you need one number nobody had measured for Dutch rail under normal conditions. How many extra minutes is one level of crowding worth.</p>
+
+      <h3>My approach</h3>
       <ul>
-        <li>Three structured courses: Visual Impairments → WCAG Standards → Assistive Technologies</li>
-        <li>Colour blindness simulation and WCAG contrast checking tools</li>
-        <li>H5P interactive exercises throughout each module</li>
-        <li>OpenAI API integration for organisation-specific accessibility guidance</li>
-        <li>Progress tracking and course completion certificates</li>
+        <li>Two focus groups with 12 passengers, using critical incident reflection, a board and wait argument exercise and a ranking round. Transcripts and reflection sheets were coded in NVivo into eight themes.</li>
+        <li>Those themes decided what the experiment tested. Passengers raised journey length, station facilities, weather and whether they were at home or already on the platform, so those became the four context attributes.</li>
+        <li>A discrete choice experiment in Qualtrics, in Dutch and English, using a resolution four half fraction design across the four context attributes and twelve within subject choice pairs.</li>
+        <li>759 completed responses and 9,108 choices, recruited through the NS panel and an open link so the sample covered both older regular customers and younger travellers.</li>
+        <li>Analysis in Python with generalised estimating equations, stepwise selection on QIC, delta method confidence intervals, and a mixed logit model to check that individual variation did not undermine the population level reading.</li>
       </ul>
-    </div>
-  </div>
-</div>
 
-<!-- 3: SKOUPA -->
-<div class="modal" id="project-modal-3" role="dialog" aria-modal="true" aria-labelledby="m3h">
-  <div class="modal-box">
-    <button class="modal-x" aria-label="Close">&times;</button>
-    <h2 id="m3h">Skoupa — Meditation Lamp</h2>
-    <p class="modal-intro">An AI-powered tangible interface for pre-sleep stress relief. The lamp listens to the user's voice, analyses emotional state, and suggests a personalised meditation with matching ambient light.</p>
-    <div class="gstrip" role="list" aria-label="Project photos">
-      <div class="gthumb" role="listitem"><img src="Photos/skoupa11.jpg" alt="Skoupa prototype" loading="lazy"></div>
-      <div class="gthumb" role="listitem"><img src="Photos/skoupa22.jpg" alt="Skoupa in use" loading="lazy"></div>
-    </div>
-    <div class="msec"><h3>Reflection (STARR)</h3>
-      <div class="starr">
-        <div class="sbox"><h4>Situation</h4><p>Group project in INFOMITI — design and build a tangible interactive system addressing a real user need.</p></div>
-        <div class="sbox"><h4>Task</h4><p>I owned concept development, user research (diary studies on student evening routines), and paper prototype evaluation. I coordinated the iterative design handover between prototype stages.</p></div>
-        <div class="sbox"><h4>Action</h4><p>Ran diary studies and contextual inquiry to map student wind-down habits. Insights led us to voice interaction (low effort, eyes-free). Led low-fi prototype sessions and synthesised feedback that shaped the functional build (touch sensors, ambient LED, voice-triggered AI).</p></div>
-        <div class="sbox"><h4>Result</h4><p>Positive course evaluation. Evaluators noted ecological validity and clear research-to-design rationale. Test users described the voice interaction as "surprisingly natural."</p></div>
-        <div class="sbox full"><h4>Reflection</h4><p>This was my first deep engagement with tangible interaction — designing beyond screens forced me to think about how material, form, and ambient feedback communicate meaning. Leading the research phase also taught me that the quality of insights is directly proportional to the quality of your questions. I grew significantly in facilitating an international, multi-disciplinary team under time pressure.</p></div>
-      </div>
-    </div>
-    <div class="msec"><h3>Team</h3>
+      <h3>What I found</h3>
       <ul>
-        <li>Nikolas V. — User research lead, concept development, prototype evaluation</li>
-        <li>Susan R., Akanksha P.R., Ritesh K., Shivani A., Abdelghaffar A.</li>
+        <li>Passengers trade about 10.3 minutes for one level less crowding when they decide on the platform, and about 14.2 minutes when they decide at home. The confidence intervals do not overlap.</li>
+        <li>Willingness falls steeply with time. 58.8 percent waited for a ten minute gap, 23.7 percent for a thirty minute gap.</li>
+        <li>Doubling the improvement nearly doubles uptake. 32.3 percent waited for one level, 59.3 percent for two.</li>
+        <li>Station size and journey length change how likely someone is to wait at all, but not the rate at which minutes are traded for comfort. Temperature showed no clear effect.</li>
+        <li>Trust in the indicator came first for participants. If passengers do not believe the prediction, the trade off never gets made.</li>
       </ul>
-    </div>
-  </div>
-</div>
 
-<!-- 4: PETOPIA -->
-<div class="modal" id="project-modal-4" role="dialog" aria-modal="true" aria-labelledby="m4h">
-  <div class="modal-box">
-    <button class="modal-x" aria-label="Close">&times;</button>
-    <h2 id="m4h">Petopia</h2>
-    <p class="modal-intro">A high-fidelity mobile prototype for a pet-owner social platform — built around familiar social interaction patterns with a focus on usability heuristics and emotional design.</p>
-    <div class="gstrip" role="list" aria-label="Project screenshots">
-      <div class="gthumb" role="listitem"><img src="Photos/Petopia/petopia1.jpg" alt="Petopia screen 1" loading="lazy"></div>
-      <div class="gthumb" role="listitem"><img src="Photos/Petopia/petopia2.jpg" alt="Petopia screen 2" loading="lazy"></div>
-      <div class="gthumb" role="listitem"><img src="Photos/Petopia/petopia3.jpg" alt="Petopia screen 3" loading="lazy"></div>
-      <div class="gthumb" role="listitem"><img src="Photos/Petopia/petopia4.jpg" alt="Petopia screen 4" loading="lazy"></div>
-      <div class="gthumb" role="listitem"><img src="Photos/Petopia/petopia5.jpg" alt="Petopia screen 5" loading="lazy"></div>
-      <div class="gthumb" role="listitem"><img src="Photos/Petopia/petopia6.jpg" alt="Petopia screen 6" loading="lazy"></div>
-      <div class="gthumb" role="listitem"><img src="Photos/Petopia/petopia7.jpg" alt="Petopia screen 7" loading="lazy"></div>
-      <div class="gthumb" role="listitem"><img src="Photos/Petopia/petopia8.jpg" alt="Petopia screen 8" loading="lazy"></div>
-      <div class="gthumb" role="listitem"><img src="Photos/Petopia/petopia9.jpg" alt="Petopia screen 9" loading="lazy"></div>
-      <div class="gthumb" role="listitem"><img src="Photos/Petopia/petopia10.jpg" alt="Petopia screen 10" loading="lazy"></div>
-      <div class="gthumb" role="listitem"><img src="Photos/Petopia/petopia11.jpg" alt="Petopia screen 11" loading="lazy"></div>
-      <div class="gthumb" role="listitem"><img src="Photos/Petopia/petopia12.jpg" alt="Petopia screen 12" loading="lazy"></div>
-      <div class="gthumb" role="listitem"><img src="Photos/Petopia/petopia13.jpg" alt="Petopia screen 13" loading="lazy"></div>
-      <div class="gthumb" role="listitem"><img src="Photos/Petopia/petopia14.jpg" alt="Petopia screen 14" loading="lazy"></div>
-      <div class="gthumb" role="listitem"><img src="Photos/Petopia/petopia15.jpg" alt="Petopia screen 15" loading="lazy"></div>
-      <div class="gthumb" role="listitem"><img src="Photos/Petopia/petopia16.jpg" alt="Petopia screen 16" loading="lazy"></div>
-      <div class="gthumb" role="listitem"><img src="Photos/Petopia/petopia17.jpg" alt="Petopia screen 17" loading="lazy"></div>
-      <div class="gthumb" role="listitem"><img src="Photos/Petopia/petopia18.jpg" alt="Petopia screen 18" loading="lazy"></div>
-      <div class="gthumb" role="listitem"><img src="Photos/Petopia/petopia19.jpg" alt="Petopia screen 19" loading="lazy"></div>
-      <div class="gthumb" role="listitem"><img src="Photos/Petopia/petopia20.jpg" alt="Petopia screen 20" loading="lazy"></div>
-    </div>
-    <div class="msec"><h3>Reflection (STARR)</h3>
+      <h3>What I recommended</h3>
+      <ul>
+        <li>Offer crowding advice during planning rather than on the platform, where tolerance is roughly four minutes higher.</li>
+        <li>Cap suggested waits at ten to fifteen minutes. Keep showing the indicator for every departure so passengers can still decide for themselves.</li>
+        <li>Scale how prominent a suggestion is to the size of the improvement, and describe it as a likelihood rather than a promise of a seat.</li>
+        <li>Personalise from behaviour rather than demographics, and only to stop showing suggestions to people who keep dismissing them.</li>
+      </ul>
+
+      <h3>Reflection</h3>
       <div class="starr">
-        <div class="sbox"><h4>Situation</h4><p>HCI course project requiring a high-fidelity mobile prototype with documented usability goals and design rationale.</p></div>
-        <div class="sbox"><h4>Task</h4><p>I was responsible for information architecture, the lost &amp; found reporting flow, and heuristic evaluation mapping against Nielsen's 10 principles.</p></div>
-        <div class="sbox"><h4>Action</h4><p>Mapped user journeys for three personas, mirrored familiar social app navigation to reduce learning curve, and explicitly documented error states and recovery flows.</p></div>
-        <div class="sbox"><h4>Result</h4><p>Informal evaluations showed users completing core tasks (post lost pet, find shelter) within 90 seconds without guidance — validating the familiar-patterns strategy.</p></div>
-        <div class="sbox full"><h4>Reflection</h4><p>Petopia taught me that usability is often borrowed — leveraging existing mental models is not a shortcut but a design strategy. Designing for emotionally charged contexts (a missing pet) also revealed how much microcopy and visual hierarchy matter when urgency and clarity compete. This deepened my appreciation for content strategy as a full UX discipline.</p></div>
+        <div class="box"><h4>Situation</h4><p>NS shows crowding information but had no evidence on what passengers would actually give up to act on it.</p></div>
+        <div class="box"><h4>Task</h4><p>Measure the trade off between waiting time and crowding, and find out which situations change it.</p></div>
+        <div class="box"><h4>Action</h4><p>Designed a two phase study so the experiment tested what passengers raised themselves, then built and ran the full analysis pipeline in Python.</p></div>
+        <div class="box"><h4>Result</h4><p>A clear exchange rate of ten to fourteen minutes, one significant contextual moderator, and a set of product rules NS can implement without new infrastructure.</p></div>
+        <div class="box wide"><h4>Learning</h4><p>The proportionality rule participants described in the focus groups did not appear in their choices. That taught me to treat interview findings as hypotheses rather than conclusions, and it is the main reason I now push for a quantitative check before a recommendation goes into a product.</p></div>
       </div>
     </div>
   </div>
 </div>
 
+<!-- WEBWISE -->
+<div class="overlay" id="d-webwise" role="dialog" aria-modal="true" aria-labelledby="d-webwise-h">
+  <div class="sheet">
+    <div class="sheet-head">
+      <div><p class="kicker">Bachelor thesis, University of Cyprus</p><h2 id="d-webwise-h">WebWise Academy</h2></div>
+      <button class="close" aria-label="Close dialog">✕</button>
+    </div>
+    <div class="sheet-body">
+      <h3>The problem</h3>
+      <p>Most accessibility training teaches developers to pass a checklist. It rarely shows them what a website feels like for someone with a visual impairment, which is why compliant sites are still often unusable.</p>
 
-<!-- 5: MSc THESIS -->
-<div class="modal" id="project-modal-5" role="dialog" aria-modal="true" aria-labelledby="m5h">
-  <div class="modal-box">
-    <button class="modal-x" aria-label="Close">&times;</button>
-    <h2 id="m5h">MSc Thesis</h2>
-    <p class="modal-intro"><em style="color:var(--cyan);font-style:normal;font-weight:600">Exploring the Willingness of Passengers to Wait in Order to Avoid Crowded Trains</em></p>
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.65rem;margin-bottom:1.75rem">
-      <div class="sbox" style="text-align:center">
-        <div style="font-family:var(--display);font-size:2rem;color:var(--cyan);letter-spacing:.04em">DCE</div>
-        <div style="font-size:.72rem;color:var(--muted2);margin-top:.25rem">Discrete Choice<br>Experiment</div>
-      </div>
-      <div class="sbox" style="text-align:center">
-        <div style="font-family:var(--display);font-size:2rem;color:var(--cyan);letter-spacing:.04em">NS</div>
-        <div style="font-size:.72rem;color:var(--muted2);margin-top:.25rem">Dutch Railways<br>Application</div>
-      </div>
-      <div class="sbox" style="text-align:center">
-        <div style="font-family:var(--display);font-size:2rem;color:var(--cyan);letter-spacing:.04em">2026</div>
-        <div style="font-size:.72rem;color:var(--muted2);margin-top:.25rem">Expected<br>Graduation</div>
-      </div>
-    </div>
-    <div class="msec">
-      <h3>Background &amp; Motivation</h3>
-      <p style="font-size:.92rem;color:var(--muted2);line-height:1.78;margin:0">Crowded trains are a reality many passengers encounter daily,Travellers face a recurring choice: board the next train even if it is crowded, or wait a few minutes for the following, less crowded service. This thesis investigates how people make that decision, what influences it, and how long they are willing to wait under different circumstances. The goal is to translate findings into recommendations for more proactive and personalised crowdedness communication in travel apps — specifically the NS (Dutch Railways) app.</p>
-    </div>
-    <div class="msec">
-      <h3>Research Aims</h3>
+      <h3>What I built</h3>
       <ul>
-        <li>Understand the factors that influence passengers' willingness to wait for a less crowded train</li>
-        <li>Quantify how long passengers are willing to wait across a range of realistic travel situations</li>
-        <li>Translate findings into design recommendations for personalised crowdedness communication in travel planners</li>
+        <li>Three linked courses running from visual impairments, to WCAG standards, to assistive technologies</li>
+        <li>A colour blindness simulator and a contrast checker so developers experience the problem before learning the rule</li>
+        <li>Interactive exercises built with H5P, progress tracking and completion certificates</li>
+        <li>An OpenAI integration that answers accessibility questions in the context of the learner's own organisation</li>
       </ul>
+
+      <h3>Outcome</h3>
+      <p>Evaluated positively by supervisors and by pilot users from a developer community. The colour blindness simulation was named the most useful part of the course, which supported the argument that empathy tools work better than rules alone.</p>
+
+      <h3>Demo</h3>
+      <div class="embed"><iframe src="https://www.youtube.com/embed/mAABKbpL4Qc" title="WebWise Academy demonstration video" loading="lazy" allowfullscreen></iframe></div>
+
+      <h3>Reflection</h3>
+      <div class="starr">
+        <div class="box"><h4>Situation</h4><p>A gap between accessibility compliance and real usability, with no training that closed it.</p></div>
+        <div class="box"><h4>Task</h4><p>Sole designer and developer for the full project, from literature review to a working platform.</p></div>
+        <div class="box"><h4>Action</h4><p>Structured the curriculum, built the platform on Moodle, wrote the simulation tools and made sure the course itself met the standards it taught.</p></div>
+        <div class="box"><h4>Result</h4><p>A working platform and the start of accessibility as a permanent thread in how I design.</p></div>
+        <div class="box wide"><h4>Learning</h4><p>Building an accessible course about accessibility forced every decision to be tested twice. It is the clearest lesson I have had that constraints improve a design rather than limit it.</p></div>
+      </div>
     </div>
-    <div class="msec">
-      <h3>Research Methods</h3>
+  </div>
+</div>
+
+<!-- MOTION DETECTION -->
+<div class="overlay" id="d-vision" role="dialog" aria-modal="true" aria-labelledby="d-vision-h">
+  <div class="sheet">
+    <div class="sheet-head">
+      <div><p class="kicker">Computer vision, Python and OpenCV</p><h2 id="d-vision-h">Motion detection camera</h2></div>
+      <button class="close" aria-label="Close dialog">✕</button>
+    </div>
+    <div class="sheet-body">
+      <h3>What it does</h3>
+      <p>A security camera application that watches a live or recorded video stream, detects movement, draws a box around whatever moved, saves a snapshot and raises an alert. Built to understand how a vision pipeline behaves in practice rather than in a tutorial.</p>
+      <h3>How it works</h3>
       <ul>
-        <li><strong style="color:var(--text)">Literature Review</strong> — mapping existing research on crowding, public transport behaviour, and passenger decision-making frameworks</li>
-        <li><strong style="color:var(--text)">Focus Group</strong> — identifying and validating realistic travel scenarios that capture the breadth of passenger situations</li>
-        <li><strong style="color:var(--text)">Discrete Choice Experiment (DCE)</strong> — a quantitative stated-preference method presenting passengers with structured trade-off scenarios to measure actual willingness-to-wait thresholds</li>
+        <li>Frame differencing against a rolling background, then blur and threshold to remove noise</li>
+        <li>Contour detection with an area filter so a passing shadow does not trigger the alert</li>
+        <li>Snapshot capture with timestamps, so events can be reviewed afterwards</li>
       </ul>
+      <h3>What I took from it</h3>
+      <p>Tuning the sensitivity threshold is a user experience decision rather than a technical one. Too strict and the camera misses a real event. Too loose and the person stops trusting the alerts, which is the same trust problem that appeared in my thesis.</p>
+      <h3>Code</h3>
+      <p><a class="repo" href="https://github.com/nklsvk/Security-Camera" target="_blank" rel="noopener">View on GitHub
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a></p>
     </div>
-    <div class="msec">
-      <h3>Expected Outcomes &amp; Impact</h3>
+  </div>
+</div>
+
+<!-- HOUSE PRICES -->
+<div class="overlay" id="d-houses" role="dialog" aria-modal="true" aria-labelledby="d-houses-h">
+  <div class="sheet">
+    <div class="sheet-head">
+      <div><p class="kicker">Machine learning, Python and scikit learn</p><h2 id="d-houses-h">House price prediction</h2></div>
+      <button class="close" aria-label="Close dialog">✕</button>
+    </div>
+    <div class="sheet-body">
+      <h3>The task</h3>
+      <p>Predict property prices in Bengaluru from a messy public dataset with inconsistent units, free text location fields and clear outliers.</p>
+      <h3>Approach</h3>
       <ul>
-        <li>Empirical willingness-to-wait thresholds across different passenger profiles and journey contexts</li>
-        <li>Identification of key influencing factors: journey length, crowding severity, time of day, delay context, personal preferences</li>
-        <li>Design recommendations for improved crowdedness communication and personalised advice in travel planning apps</li>
-        <li>Contribution to the growing body of HCI research on adaptive, context-aware information systems in public transport</li>
+        <li>Cleaning first. Standardised area units, parsed size fields and grouped rare locations into a single category</li>
+        <li>Feature engineering including price per square foot, used to remove listings that were not plausible</li>
+        <li>Compared several regression models with cross validation, then tuned the strongest one</li>
+        <li>Best result of 0.86 on the evaluation metric</li>
       </ul>
+      <h3>What I took from it</h3>
+      <p>Most of the gain came from cleaning and feature work rather than from choosing a more complex model. That matches how the thesis analysis went, where the design of the data mattered more than the estimator.</p>
+      <h3>Code</h3>
+      <p><a class="repo" href="https://github.com/nklsvk/Bengaluru-House-Price-Prediction-Model-" target="_blank" rel="noopener">View on GitHub
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a></p>
     </div>
-    <div class="msec">
-      <h3>HCI Relevance</h3>
-      <p style="font-size:.92rem;color:var(--muted2);line-height:1.78;margin:0">This thesis sits at the intersection of behavioural research, preference modelling, and human-centred design. Understanding real-world passenger decision-making enables the design of adaptive information systems that serve people better — reducing friction, building trust, and supporting informed choices in daily mobility.</p>
+  </div>
+</div>
+
+<!-- PROLOG -->
+<div class="overlay" id="d-prolog" role="dialog" aria-modal="true" aria-labelledby="d-prolog-h">
+  <div class="sheet">
+    <div class="sheet-head">
+      <div><p class="kicker">Symbolic AI, Prolog</p><h2 id="d-prolog-h">Context aware food advisor</h2></div>
+      <button class="close" aria-label="Close dialog">✕</button>
+    </div>
+    <div class="sheet-body">
+      <h3>What it does</h3>
+      <p>A reasoning system that recommends whether to cook at home, order in or go out, based on what is in the fridge, the weather, how many people are eating and how much time there is.</p>
+      <h3>Why rules rather than learning</h3>
+      <ul>
+        <li>Every recommendation can be traced back to the facts and rules that produced it, so the system can explain itself</li>
+        <li>New constraints can be added as rules without retraining anything</li>
+        <li>It works with no historical data, which is the situation most real products start in</li>
+      </ul>
+      <h3>What I took from it</h3>
+      <p>An explainable recommendation is easier to trust than an accurate one you cannot question. This shaped the personalisation recommendation in my thesis, where I argued a journey planner should be able to explain why it suggested a later train.</p>
+      <h3>Code</h3>
+      <p><a class="repo" href="https://github.com/nklsvk/Cognitive-assistant-to-decide-where-to-eat-" target="_blank" rel="noopener">View on GitHub
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a></p>
+    </div>
+  </div>
+</div>
+
+<!-- SKOUPA -->
+<div class="overlay" id="d-skoupa" role="dialog" aria-modal="true" aria-labelledby="d-skoupa-h">
+  <div class="sheet">
+    <div class="sheet-head">
+      <div><p class="kicker">Tangible interaction, team project</p><h2 id="d-skoupa-h">Skoupa meditation lamp</h2></div>
+      <button class="close" aria-label="Close dialog">✕</button>
+    </div>
+    <div class="sheet-body">
+      <h3>The idea</h3>
+      <p>A lamp that listens to how you sound at the end of the day, reads your emotional state and offers a short meditation with matching light. Built so that winding down does not require picking up a phone.</p>
+      <h3>Photos</h3>
+      <div class="strip" role="list" aria-label="Skoupa prototype photos">
+        <div class="shot" role="listitem" tabindex="0"><img src="Photos/skoupa11.jpg" alt="Skoupa lamp prototype on a desk" loading="lazy"></div>
+        <div class="shot" role="listitem" tabindex="0"><img src="Photos/skoupa22.jpg" alt="Skoupa lamp in use with ambient light" loading="lazy"></div>
+      </div>
+      <h3>My part</h3>
+      <ul>
+        <li>Led the research phase with diary studies and contextual inquiry on student evening routines</li>
+        <li>Those findings pointed to voice as the interaction, because it works with the lights off and with your eyes closed</li>
+        <li>Ran the paper prototype sessions and translated the feedback into the functional build</li>
+      </ul>
+      <h3>Reflection</h3>
+      <div class="starr">
+        <div class="box"><h4>Situation</h4><p>A course brief to design and build a tangible system for a real user need.</p></div>
+        <div class="box"><h4>Task</h4><p>Own the concept and the research, and keep the build tied to what we learned.</p></div>
+        <div class="box"><h4>Action</h4><p>Ran diary studies, synthesised them into a design direction and coordinated the handover between prototype stages.</p></div>
+        <div class="box"><h4>Result</h4><p>Evaluators highlighted the link from research to design decisions. Test users described the voice interaction as natural.</p></div>
+        <div class="box wide"><h4>Learning</h4><p>Designing away from the screen changed how I think about feedback. Light, material and form carry meaning, and they do it without demanding attention. Leading an international team under deadline was the other half of the lesson.</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FESTIFY -->
+<div class="overlay" id="d-festify" role="dialog" aria-modal="true" aria-labelledby="d-festify-h">
+  <div class="sheet">
+    <div class="sheet-head">
+      <div><p class="kicker">Product design, high fidelity prototype</p><h2 id="d-festify-h">Festify</h2></div>
+      <button class="close" aria-label="Close dialog">✕</button>
+    </div>
+    <div class="sheet-body">
+      <h3>The idea</h3>
+      <p>An event discovery app for live music. The design problem was not the feed, it was the sign up. People will not hand over their taste in music to an app that has not shown them anything yet.</p>
+      <h3>Screens</h3>
+      <div class="strip" role="list" aria-label="Festify screens">
+        <div class="shot" role="listitem" tabindex="0"><img src="Photos/Festify/1.png" alt="Festify onboarding screen" loading="lazy"></div>
+        <div class="shot" role="listitem" tabindex="0"><img src="Photos/Festify/3.png" alt="Festify preference selection" loading="lazy"></div>
+        <div class="shot" role="listitem" tabindex="0"><img src="Photos/Festify/5.png" alt="Festify home feed" loading="lazy"></div>
+        <div class="shot" role="listitem" tabindex="0"><img src="Photos/Festify/8.png" alt="Festify event detail" loading="lazy"></div>
+        <div class="shot" role="listitem" tabindex="0"><img src="Photos/Festify/11.png" alt="Festify filters" loading="lazy"></div>
+        <div class="shot" role="listitem" tabindex="0"><img src="Photos/Festify/14.png" alt="Festify saved events" loading="lazy"></div>
+        <div class="shot" role="listitem" tabindex="0"><img src="Photos/Festify/17.png" alt="Festify ratings" loading="lazy"></div>
+        <div class="shot" role="listitem" tabindex="0"><img src="Photos/Festify/20.png" alt="Festify profile" loading="lazy"></div>
+      </div>
+      <h3>Key decisions</h3>
+      <ul>
+        <li>Onboarding reveals value first and asks for preferences in small steps rather than one long form</li>
+        <li>Filtering by date, price and genre sits on the feed itself, so refining does not mean leaving the results</li>
+        <li>A feedback loop of likes and ratings so the recommendations visibly improve with use</li>
+      </ul>
+      <h3>Reflection</h3>
+      <div class="starr">
+        <div class="box"><h4>Situation</h4><p>A design course project judged on usability rationale rather than visuals alone.</p></div>
+        <div class="box"><h4>Task</h4><p>Led the research and owned onboarding, preferences and filtering.</p></div>
+        <div class="box"><h4>Action</h4><p>Interviewed people about how they currently find concerts, wireframed, iterated on feedback and delivered a high fidelity prototype.</p></div>
+        <div class="box"><h4>Result</h4><p>Onboarding and filtering both tested as clear in informal sessions.</p></div>
+        <div class="box wide"><h4>Learning</h4><p>Personalisation is a trust problem before it is an algorithm problem. If I did it again I would run structured usability tests earlier instead of relying on peer feedback.</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PETOPIA -->
+<div class="overlay" id="d-petopia" role="dialog" aria-modal="true" aria-labelledby="d-petopia-h">
+  <div class="sheet">
+    <div class="sheet-head">
+      <div><p class="kicker">Mobile design, high fidelity prototype</p><h2 id="d-petopia-h">Petopia</h2></div>
+      <button class="close" aria-label="Close dialog">✕</button>
+    </div>
+    <div class="sheet-body">
+      <h3>The idea</h3>
+      <p>A social platform for pet owners with shelter maps, messaging and a lost and found flow. The hardest screen is the one someone reaches when their pet is missing, so that flow set the standard for the rest.</p>
+      <h3>Screens</h3>
+      <div class="strip" role="list" aria-label="Petopia screens">
+        <div class="shot" role="listitem" tabindex="0"><img src="Photos/Petopia/petopia1.jpg" alt="Petopia home feed" loading="lazy"></div>
+        <div class="shot" role="listitem" tabindex="0"><img src="Photos/Petopia/petopia4.jpg" alt="Petopia lost and found report" loading="lazy"></div>
+        <div class="shot" role="listitem" tabindex="0"><img src="Photos/Petopia/petopia7.jpg" alt="Petopia shelter map" loading="lazy"></div>
+        <div class="shot" role="listitem" tabindex="0"><img src="Photos/Petopia/petopia10.jpg" alt="Petopia messaging" loading="lazy"></div>
+        <div class="shot" role="listitem" tabindex="0"><img src="Photos/Petopia/petopia13.jpg" alt="Petopia profile" loading="lazy"></div>
+        <div class="shot" role="listitem" tabindex="0"><img src="Photos/Petopia/petopia16.jpg" alt="Petopia post creation" loading="lazy"></div>
+        <div class="shot" role="listitem" tabindex="0"><img src="Photos/Petopia/petopia19.jpg" alt="Petopia settings" loading="lazy"></div>
+      </div>
+      <h3>Key decisions</h3>
+      <ul>
+        <li>Borrowed navigation patterns from apps people already use, so nothing had to be learned under stress</li>
+        <li>Documented error states and recovery paths for every step of the reporting flow</li>
+        <li>Mapped the interface against Nielsen's usability heuristics and fixed what failed</li>
+      </ul>
+      <h3>Reflection</h3>
+      <div class="starr">
+        <div class="box"><h4>Situation</h4><p>A brief for a high fidelity mobile prototype with documented usability goals.</p></div>
+        <div class="box"><h4>Task</h4><p>Owned information architecture, the lost and found flow and the heuristic evaluation.</p></div>
+        <div class="box"><h4>Action</h4><p>Mapped journeys for three personas and designed around familiar patterns instead of inventing new ones.</p></div>
+        <div class="box"><h4>Result</h4><p>Users completed core tasks such as reporting a lost pet in under ninety seconds without guidance.</p></div>
+        <div class="box wide"><h4>Learning</h4><p>In an emotional context, wording carries more weight than layout. Microcopy became something I now treat as part of the design rather than something to fill in later.</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CV -->
+<div class="overlay" id="d-cv" role="dialog" aria-modal="true" aria-labelledby="d-cv-h">
+  <div class="sheet">
+    <div class="sheet-head">
+      <div><p class="kicker">Curriculum vitae</p><h2 id="d-cv-h">Nikolas Vaki</h2></div>
+      <button class="close" aria-label="Close dialog">✕</button>
+    </div>
+    <div class="sheet-body">
+      <div class="cv">
+        <p style="font-size:.9rem;color:var(--muted);margin-bottom:20px">
+          MSc Human Computer Interaction and BSc Computer Science. Research, data analysis, product thinking and code.<br>
+          Utrecht, Netherlands. <a href="mailto:nikolasvk@outlook.com" style="color:var(--accent-ink);font-weight:500">nikolasvk@outlook.com</a> ·
+          <a href="https://www.linkedin.com/in/nikolas-vaki" target="_blank" rel="noopener" style="color:var(--accent-ink);font-weight:500">LinkedIn</a> ·
+          <a href="https://github.com/nklsvk" target="_blank" rel="noopener" style="color:var(--accent-ink);font-weight:500">GitHub</a>
+        </p>
+
+        <h4>Profile</h4>
+        <p style="font-size:.9rem;color:var(--muted)">I combine a Computer Science foundation with behavioural research and a business minor. My master thesis with Dutch Railways ran from qualitative research through a 759 person experiment to a Python analysis pipeline and a set of product recommendations. I am comfortable owning a question from the first interview to the model output and the decision it supports.</p>
+
+        <h4>Experience</h4>
+        <div class="job"><b>Teaching Assistant, Interaction Technology Innovation</b><em>Utrecht University · Apr 2026 to Jun 2026</em><span>Coached student teams through user research, prototyping and iteration. Gave feedback on method choice, design rationale and research ethics.</span></div>
+        <div class="job"><b>Special Scientist Researcher, DigiComPass Erasmus Plus</b><em>SEIT Lab, University of Cyprus · Oct 2024 to Feb 2025</em><span>Ran the Moodle platform for an EU funded digital skills course. Coordinated translation into six languages across partner universities and restructured the learning experience.</span></div>
+        <div class="job"><b>Test Engineer, internship</b><em>Bank of Cyprus · May 2023 to Aug 2023</em><span>Designed test scripts for Internet Banking in an agile Scrum team, built automation with Katalon Studio and joined interface design sessions.</span></div>
+
+        <h4>Research and AI projects</h4>
+        <div class="job"><b>Worth the wait, master thesis with Nederlandse Spoorwegen</b><em>Mixed methods · Python, statsmodels, Qualtrics, NVivo · 2026</em><span>Two focus groups plus a discrete choice experiment with 759 respondents and 9,108 choices. Logistic regression with generalised estimating equations, stepwise model selection on QIC, delta method confidence intervals and a mixed logit robustness check. Result, passengers trade about 10 minutes for one level less crowding on the platform and about 14 minutes at home. Translated into design rules for the NS journey planner.</span></div>
+        <div class="job"><b>Motion detection security camera</b><em>Python, OpenCV</em><span>Detects movement in live or recorded video, marks the object, saves snapshots and triggers alerts.</span></div>
+        <div class="job"><b>House price prediction</b><em>Python, pandas, scikit learn</em><span>Regression models on Bengaluru housing data with cleaning, feature engineering and tuning. Best score 0.86.</span></div>
+        <div class="job"><b>Context aware food advisor</b><em>Prolog, logic based AI</em><span>Rule based reasoner that decides whether to cook, order or eat out from ingredients, weather, guests and time available.</span></div>
+        <div class="job"><b>WebWise Academy, bachelor thesis</b><em>Moodle, H5P, OpenAI API, JavaScript</em><span>Learning platform teaching developers to build accessible websites, including a colour blindness simulator and a contrast checker.</span></div>
+
+        <h4>Education</h4>
+        <div class="job"><b>MSc Human Computer Interaction</b><em>Utrecht University · 2024 to 2026</em><span>Thesis with Nederlandse Spoorwegen. Student Ambassador, Programme Advisory Committee and Student Consultation Board.</span></div>
+        <div class="job"><b>BSc Computer Science, minor in Business Administration</b><em>University of Cyprus · 2019 to 2024</em><span>Electives in artificial intelligence, logic programming, digital image processing, web data mining and human computer interaction.</span></div>
+        <div class="job"><b>YUFE Student Journey</b><em>YUFE Alliance · 2021 to 2023</em><span>Courses at partner universities across six countries.</span></div>
+        <div class="job"><b>ECDL certification</b><em>Cyprus Computer Society</em><span>Core digital skills including spreadsheets, presentations and IT security.</span></div>
+
+        <h4>Skills</h4>
+        <div class="job"><b>Research</b><span>Focus groups, interviews, thematic analysis, NVivo, survey and experiment design, Qualtrics, usability testing</span></div>
+        <div class="job"><b>Data and AI</b><span>Python, pandas, statsmodels, scikit learn, OpenCV, discrete choice modelling, SQL, Prolog</span></div>
+        <div class="job"><b>Design</b><span>Interaction design, Figma, prototyping, accessibility and WCAG, information visualisation</span></div>
+        <div class="job"><b>Engineering</b><span>Java, C and C plus plus, JavaScript, HTML and CSS, agile and Scrum, test automation</span></div>
+        <div class="job"><b>Languages</b><span>Greek, native. English, fluent.</span></div>
+      </div>
+      <p style="margin-top:20px"><a class="repo" href="mailto:nikolasvk@outlook.com">Request a PDF copy
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></p>
     </div>
   </div>
 </div>
 
 <!-- LIGHTBOX -->
-<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Expanded image viewer">
-  <button class="lb-x" aria-label="Close"><i class="fas fa-times"></i></button>
-  <div class="lb-nav">
-    <button class="lb-btn" id="lb-prev" aria-label="Previous image"><i class="fas fa-chevron-left"></i></button>
-    <button class="lb-btn" id="lb-next" aria-label="Next image"><i class="fas fa-chevron-right"></i></button>
-  </div>
-  <img src="" alt="" id="lb-img">
-</div>
-
-
-<!-- ══════════════════ THESIS ══════════════════ -->
-<section id="thesis" aria-labelledby="thesis-h">
-  <div class="container">
-    <p class="lbl rev">MSc Thesis · Utrecht University</p>
-    <h2 class="sec-title rev" id="thesis-h">Research in<br><span>progress</span>.</h2>
-
-    <!-- Big thesis title block -->
-    <div class="thesis-hero rev">
-      <div class="thesis-hero-text">
-        <p class="thesis-label">Working Title</p>
-        <h3 class="thesis-title">Exploring the Willingness of Passengers to Wait in Order to Avoid Crowded Trains</h3>
-        <p class="thesis-body">Crowded trains are something many people deal with every day. Travellers must decide: take the next train even if it is crowded, or wait a few extra minutes for a less crowded ride? This project explores how people make that choice and what influences it, with the purpose of being able to provide more proactive and personalised advice in travel planning applications.</p>
-      </div>
-      <div class="thesis-meta-col">
-        <div class="thesis-meta-block">
-          <span class="thesis-meta-label">Programme</span>
-          <span class="thesis-meta-val">MSc Human-Computer Interaction</span>
-        </div>
-        <div class="thesis-meta-block">
-          <span class="thesis-meta-label">Institution</span>
-          <span class="thesis-meta-val">Utrecht University</span>
-        </div>
-        <div class="thesis-meta-block">
-          <span class="thesis-meta-label">Domain</span>
-          <span class="thesis-meta-val">Public Transport · Behavioural Research · Adaptive Systems</span>
-        </div>
-        <div class="thesis-meta-block">
-          <span class="thesis-meta-label">Output</span>
-          <span class="thesis-meta-val">Design recommendations for the NS (Dutch Railways) app</span>
-        </div>
-        <div class="thesis-meta-block">
-          <span class="thesis-meta-label">Status</span>
-          <span class="thesis-meta-val thesis-status">In Progress · Expected 2026</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Aims & Methods row -->
-    <div class="thesis-row rev">
-      <div class="thesis-col">
-        <div class="thesis-col-head"><i class="fas fa-bullseye" aria-hidden="true"></i> Research Aims</div>
-        <ul class="thesis-list">
-          <li>Understand the factors that influence passengers' willingness to wait for a less crowded train</li>
-          <li>Quantify how long passengers are willing to wait in specific realistic situations</li>
-          <li>Translate findings into recommendations for personalised crowdedness communication in travel apps</li>
-        </ul>
-      </div>
-      <div class="thesis-col">
-        <div class="thesis-col-head"><i class="fas fa-flask" aria-hidden="true"></i> Methods</div>
-        <ul class="thesis-list">
-          <li><strong style="color:var(--text)">Literature Review</strong> — mapping crowding behaviour, public transport psychology, and decision-making frameworks</li>
-          <li><strong style="color:var(--text)">Focus Group</strong> — identifying and validating realistic travel scenarios</li>
-          <li><strong style="color:var(--text)">Discrete Choice Experiment (DCE)</strong> — quantitative stated-preference method to measure willingness-to-wait thresholds</li>
-        </ul>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<!-- ══════════════════ STUDY PLAN ══════════════════ -->
-<section id="studyplan" aria-labelledby="sp-h">
-  <div class="container">
-    <p class="lbl rev">Utrecht University · MSc HCI</p>
-    <h2 class="sec-title rev" id="sp-h">Study<br><span>plan</span>.</h2>
-
-    <div class="sp-grid">
-      <div class="sp-block rev">
-        <div class="sp-block-title"><i class="fas fa-lock" aria-hidden="true"></i> Compulsory Courses</div>
-        <ul class="clist">
-          <li><span>Introduction to HCI</span><span class="ec">1 EC</span></li>
-          <li><span>Dilemmas of the Scientist</span><span class="ec">1 EC</span></li>
-          <li><span>Colloquium</span><span class="ec">3 EC</span></li>
-          <li><span>Advanced Cognitive &amp; Social Psychology for HCI</span><span class="ec">7.5 EC</span></li>
-          <li><span>Advanced HCI Qualitative Research Methods</span><span class="ec">7.5 EC</span></li>
-          <li><span>Interaction Technology Innovation</span><span class="ec">7.5 EC</span></li>
-          <li><span>Advanced HCI Quantitative Research Methods</span><span class="ec">7.5 EC</span></li>
-          <li><span>HCI Project Proposal (INFOMHCI1)</span><span class="ec">15 EC</span></li>
-          <li><span>HCI MSc Thesis (INFOMHCI2)</span><span class="ec">25 EC</span></li>
-        </ul>
-      </div>
-      <div class="sp-block rev">
-        <div class="sp-block-title"><i class="fas fa-compass" aria-hidden="true"></i> Elective Courses</div>
-        <ul class="clist">
-          <li><span>Adaptive Interactive Systems</span><span class="ec">7.5 EC</span></li>
-          <li><span>Information Visualisation</span><span class="ec">7.5 EC</span></li>
-          <li><span>HCI in Application Domains</span><span class="ec">7.5 EC</span></li>
-          <li><span>Mobile Interaction</span><span class="ec">7.5 EC</span></li>
-          <li><span>AI-Driven Content Generation</span><span class="ec">7.5 EC</span></li>
-          <li><span>Responsible ICT</span><span class="ec">7.5 EC</span></li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="refl rev">
-      <h3>Reflection on my choices</h3>
-     
-<p>The Human-Computer Interaction Master's programme provided a broad foundation in user-centred design, psychology, research methods, and interactive technologies. Through the compulsory courses, I developed skills in both qualitative and quantitative research, gained a deeper understanding of human behaviour and cognition, and learned how to design and evaluate interactive systems.</p>
-
-<p>My elective choices allowed me to explore topics that complemented these foundations. <strong style="color:var(--text)">Adaptive Interactive Systems</strong> and <strong style="color:var(--text)">Mobile Interaction</strong> introduced different approaches to creating personalised and context-aware user experiences. <strong style="color:var(--text)">Information Visualisation</strong> strengthened my understanding of how data can be communicated effectively and meaningfully to users.</p>
-
-<p><strong style="color:var(--text)">AI-Driven Content Generation</strong> provided insight into the capabilities and limitations of generative AI technologies, while <strong style="color:var(--text)">Responsible ICT</strong> encouraged critical reflection on the ethical, social, and societal implications of technology design and deployment.</p>
-
-<p>Overall, the combination of courses helped me develop a balanced perspective on HCI, combining research, design, technology, and responsible innovation. These experiences have shaped the way I approach the development of interactive systems and user experiences.</p>
-
-  </div>
-  </div>
-</section>
-
-<!-- ══════════════════ FUTURE PLANS ══════════════════ -->
-<section id="future" aria-labelledby="future-h">
-  <div class="container">
-    <p class="lbl rev">After Graduation</p>
-    <h2 class="sec-title rev" id="future-h">Future<br><span>goals</span>.</h2>
-
-    <div class="fut-grid">
-      <div class="fcard">
-        <div class="ficon"><i class="fas fa-universal-access" aria-hidden="true"></i></div>
-        <h3>Accessible &amp; Inclusive Design</h3>
-        <p>I want to join an organisation where accessibility is embedded in the product strategy — not treated as a retrofit. Education technology, health tech, and public sector digital services are my target domains.</p>
-      </div>
-      <div class="fcard">
-        <div class="ficon"><i class="fas fa-microscope" aria-hidden="true"></i></div>
-        <h3>Mixed-Methods UX Research</h3>
-        <p>I aim to develop into a mixed-methods UX researcher combining qualitative depth with statistical rigour. I plan to pursue participatory design research with disabled communities — an area I want to deepen beyond academic study.</p>
-      </div>
-      <div class="fcard">
-        <div class="ficon"><i class="fas fa-seedling" aria-hidden="true"></i></div>
-        <h3>Skills to Develop</h3>
-        <p>Formal accessibility auditing (WCAG 2.2, ARIA patterns), advanced statistical analysis in R, and fieldwork with diverse disability communities. I plan to seek these opportunities in my final semester and first professional role.</p>
-      </div>
-    </div>
-
-    <div class="refl rev">
-      <h3>How my programme prepares me</h3>
-      <p>The combination of qualitative and quantitative methods, interaction design, and responsible technology courses has equipped me with a language for arguing design decisions that transcends aesthetics. My thesis on passenger behaviour gives me experience translating ambiguous real-world problems into rigorous research questions — directly transferable to UX research in industry.</p>
-      <p>What I still need to develop is fieldwork experience with disabled user groups. I plan to address this through targeted project choices in my final semester, open-source accessibility contributions, and deliberately seeking roles that place these users at the centre.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ══════════════════ CONTACT ══════════════════ -->
-<section id="contact" aria-labelledby="contact-h">
-  <div class="container">
-    <p class="lbl rev">Get In Touch</p>
-    <h2 class="sec-title rev" id="contact-h">Let's<br><span>connect</span>.</h2>
-    <div class="contact-wrap">
-      <div class="cinfo rev">
-        <div class="cmeth">
-          <div class="cico"><i class="fas fa-envelope" aria-hidden="true"></i></div>
-          <div>
-            <h3>Email</h3>
-            <a href="mailto:nikolasvk@outlook.com">nikolasvk@outlook.com</a>
-          </div>
-        </div>
-        <div class="cmeth">
-          <div class="cico"><i class="fab fa-linkedin" aria-hidden="true"></i></div>
-          <div>
-            <h3>LinkedIn</h3>
-            <a href="https://www.linkedin.com/in/nikolas-vaki" target="_blank" rel="noopener">linkedin.com/in/nikolas-vaki</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="rev">
-        <form class="cform" id="cform" action="https://formspree.io/f/mqabyvyo" method="POST" novalidate>
-          <div class="fg">
-            <label for="name">Name</label>
-            <input type="text" id="name" name="name" placeholder="Your name" required autocomplete="name">
-          </div>
-          <div class="fg">
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" placeholder="your@email.com" required autocomplete="email">
-          </div>
-          <div class="fg">
-            <label for="message">Message</label>
-            <textarea id="message" name="message" placeholder="What would you like to discuss?" required></textarea>
-          </div>
-          <button type="submit" class="sbtn">
-            <i class="fas fa-paper-plane" aria-hidden="true"></i> Send Message
-          </button>
-        </form>
-        <div class="form-ok" id="form-ok" role="alert" aria-live="polite">
-          <i class="fas fa-check-circle" aria-hidden="true"></i>
-          <p>Message sent! I'll be in touch soon.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer>
-  <div class="container">
-    <div class="fsoc">
-      <a href="https://www.linkedin.com/in/nikolas-vaki" target="_blank" rel="noopener" aria-label="LinkedIn">
-        <i class="fab fa-linkedin-in" aria-hidden="true"></i>
-      </a>
-    </div>
-    <p>© 2026 Nikolas Vaki · Designed with care for accessibility &amp; inclusion.</p>
-  </div>
-</footer>
-
-<!-- CV MODAL -->
-<div class="cv-modal" id="cv-modal" role="dialog" aria-modal="true" aria-labelledby="cv-h">
-  <div class="cv-box">
-    <button class="modal-x" aria-label="Close CV">&times;</button>
-    <h2 id="cv-h">Curriculum Vitae</h2>
-    <div class="cv-viewer">
-      <h3>Nikolas Vaki</h3>
-      <p>HCI Master's Student · UX Researcher &amp; Designer<br>
-        <a href="mailto:nikolasvk@outlook.com" style="color:#00a090">nikolasvk@outlook.com</a> ·
-        <a href="https://www.linkedin.com/in/nikolas-vaki" target="_blank" style="color:#00a090">linkedin.com/in/nikolas-vaki</a>
-      </p>
-      <h4>Experience</h4>
-      <ul>
-        <li><strong>Teaching Assistant — INFOMITI</strong><em>Utrecht University | Apr–Jun 2026</em>Guided students in UCD, prototyping, and iterative design. Feedback on methods, rationale, and ethics.</li>
-        <li><strong>Special Scientist Researcher</strong><em>SEIT Lab / DigiComPass (Erasmus+) | Oct 2024 – Feb 2025</em>Managed Moodle platform for EU digital skills course; H5P content; 6-language coordination; learner UX.</li>
-        <li><strong>Test Engineer Intern</strong><em>Bank of Cyprus | May–Aug 2023</em>Agile Scrum; Internet Banking test design and automation (Katalon); UI/UX brainstorming.</li>
-        <li><strong>Sales Assistant</strong><em>George N. Vakis Jewellery | Seasonal</em></li>
-      </ul>
-      <h4>Roles &amp; Representation</h4>
-      <ul>
-        <li>Student Ambassador — MSc HCI (2025–2026)</li>
-        <li>Student Representative — Program Advisory Committee (MSc Information Science)</li>
-        <li>Member — Student Consultation Board (ICS Department)</li>
-      </ul>
-      <h4>Education</h4>
-      <ul>
-        <li><strong>Master in Human-Computer Interaction</strong><em>Utrecht University | 2024–2026</em>Thesis: Exploring passengers' willingness to wait to avoid crowded trains.</li>
-        <li><strong>BSc Computer Science, Minor in Business Administration</strong><em>University of Cyprus | 2019–2024</em>Thesis: LMS for developers to build accessible websites for visually impaired users.</li>
-        <li><strong>YUFE Student Journey</strong><em>2021–2023 · Multiple European Universities</em></li>
-        <li><strong>ECDL Certification</strong><em>Cyprus Computer Society</em></li>
-      </ul>
-      <h4>Skills</h4>
-      <ul>
-        <li><strong>UX / Research:</strong> User Research, Usability Testing, Interaction Design, Accessibility (WCAG), Prototyping (Figma), Qualitative &amp; Quantitative Methods</li>
-        <li><strong>Technical:</strong> HTML / CSS / JavaScript, Python, Java, C/C++, SQL</li>
-        <li><strong>Soft Skills:</strong> Critical Thinking, Teamwork, Communication, Attention to Detail</li>
-      </ul>
-    </div>
-  </div>
+<div class="overlay" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+  <button class="lb-btn" id="lb-close" aria-label="Close image viewer">✕</button>
+  <button class="lb-btn" id="lb-prev" aria-label="Previous image">‹</button>
+  <button class="lb-btn" id="lb-next" aria-label="Next image">›</button>
+  <img id="lb-img" src="" alt="">
 </div>
 
 <script>
-/* ── Cursor ── */
-const cdot=document.getElementById('cdot'),cring=document.getElementById('cring');
-let mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cdot.style.left=mx+'px';cdot.style.top=my+'px'});
-(function ar(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;cring.style.left=rx+'px';cring.style.top=ry+'px';requestAnimationFrame(ar)})();
-document.querySelectorAll('a,button,[role=button]').forEach(el=>{
-  el.addEventListener('mouseenter',()=>{cring.style.width='52px';cring.style.height='52px';cring.style.opacity='.85'});
-  el.addEventListener('mouseleave',()=>{cring.style.width='34px';cring.style.height='34px';cring.style.opacity='.45'});
-});
+(function(){
+  "use strict";
 
-/* ── Nav active + back-to-top ── */
-const secs=document.querySelectorAll('section[id]');
-const navAs=document.querySelectorAll('nav a');
-const btt=document.getElementById('btt');
-window.addEventListener('scroll',()=>{
-  let cur='';
-  secs.forEach(s=>{if(window.scrollY>=s.offsetTop-170)cur=s.id});
-  navAs.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+cur));
-  btt.classList.toggle('on',window.scrollY>500);
-},{passive:true});
-navAs.forEach(a=>a.addEventListener('click',e=>{e.preventDefault();const t=document.querySelector(a.getAttribute('href'));if(t)t.scrollIntoView({behavior:'smooth',block:'start'})}));
-btt.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
-
-/* ── Scroll reveal ── */
-const ro=new IntersectionObserver(en=>{en.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');ro.unobserve(e.target)}})},{threshold:.1});
-document.querySelectorAll('.rev,.tl-row,.pcard,.fcard').forEach(el=>ro.observe(el));
-/* Stagger children */
-const so=new IntersectionObserver(en=>{en.forEach(e=>{if(e.isIntersecting){Array.from(e.target.children).forEach(c=>c.classList.add('vis'));so.unobserve(e.target)}})},{threshold:.1});
-document.querySelectorAll('.rev-stagger').forEach(el=>so.observe(el));
-
-/* ── Modals ── */
-const allM=document.querySelectorAll('.modal');
-function openM(m){m.classList.add('on');document.body.style.overflow='hidden';setTimeout(()=>m.querySelector('.modal-x').focus(),50)}
-function closeM(m){m.classList.remove('on');document.body.style.overflow=''}
-document.querySelectorAll('.pcard').forEach(c=>{
-  const go=()=>{const m=document.getElementById('project-modal-'+c.dataset.project);if(m)openM(m)};
-  c.addEventListener('click',go);
-  c.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();go()}});
-});
-allM.forEach(m=>{
-  m.querySelector('.modal-x').addEventListener('click',()=>closeM(m));
-  m.addEventListener('click',e=>{if(e.target===m)closeM(m)});
-});
-
-/* ── CV ── */
-const cvM=document.getElementById('cv-modal');
-document.getElementById('cv-btn').addEventListener('click',()=>{cvM.classList.add('on');document.body.style.overflow='hidden'});
-cvM.querySelector('.modal-x').addEventListener('click',()=>{cvM.classList.remove('on');document.body.style.overflow=''});
-cvM.addEventListener('click',e=>{if(e.target===cvM){cvM.classList.remove('on');document.body.style.overflow=''}});
-
-/* ── ESC ── */
-document.addEventListener('keydown',e=>{
-  if(e.key!=='Escape')return;
-  allM.forEach(m=>{if(m.classList.contains('on'))closeM(m)});
-  if(cvM.classList.contains('on')){cvM.classList.remove('on');document.body.style.overflow=''}
-  if(document.getElementById('lb').classList.contains('on'))closeLb();
-});
-
-/* ── Lightbox ── */
-const lbEl=document.getElementById('lb'),lbImg=document.getElementById('lb-img');
-let lbArr=[],lbI=0;
-function openLb(imgs,i){lbArr=imgs;lbI=i;lbImg.src=lbArr[lbI].src;lbImg.alt=lbArr[lbI].alt;lbEl.classList.add('on')}
-function closeLb(){lbEl.classList.remove('on')}
-function lbNav(d){lbI=(lbI+d+lbArr.length)%lbArr.length;lbImg.src=lbArr[lbI].src;lbImg.alt=lbArr[lbI].alt}
-document.querySelectorAll('.gthumb img').forEach(img=>{
-  img.addEventListener('click',()=>{
-    const strip=img.closest('.gstrip');
-    const imgs=Array.from(strip.querySelectorAll('img'));
-    openLb(imgs,imgs.indexOf(img));
+  /* ---------- theme ---------- */
+  var root=document.documentElement, toggle=document.getElementById("theme-toggle");
+  function readStored(){ try{ return localStorage.getItem("theme"); }catch(e){ return null; } }
+  function store(v){ try{ localStorage.setItem("theme",v); }catch(e){} }
+  function applyTheme(t){
+    root.setAttribute("data-theme",t);
+    var dark=t==="dark";
+    toggle.setAttribute("aria-pressed",String(dark));
+    toggle.setAttribute("aria-label", dark?"Switch to light theme":"Switch to dark theme");
+  }
+  var stored=readStored();
+  applyTheme(stored || (window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"));
+  toggle.addEventListener("click",function(){
+    var next=root.getAttribute("data-theme")==="dark"?"light":"dark";
+    applyTheme(next); store(next);
   });
-});
-lbEl.querySelector('.lb-x').addEventListener('click',closeLb);
-document.getElementById('lb-prev').addEventListener('click',()=>lbNav(-1));
-document.getElementById('lb-next').addEventListener('click',()=>lbNav(1));
-document.addEventListener('keydown',e=>{
-  if(!lbEl.classList.contains('on'))return;
-  if(e.key==='ArrowLeft')lbNav(-1);
-  if(e.key==='ArrowRight')lbNav(1);
-});
 
-/* ── Contact form (Formspree AJAX) ── */
-const cform=document.getElementById('cform'),fok=document.getElementById('form-ok');
-cform.addEventListener('submit',async e=>{
-  e.preventDefault();
-  const btn=cform.querySelector('.sbtn');
-  btn.disabled=true;btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> Sending…';
-  try{
-    const r=await fetch(cform.action,{method:'POST',body:new FormData(cform),headers:{Accept:'application/json'}});
-    if(r.ok){cform.style.display='none';fok.style.display='block';cform.reset()}
-    else{const d=await r.json();alert(d.errors?d.errors.map(x=>x.message).join(', '):'Something went wrong. Please email directly.');btn.disabled=false;btn.innerHTML='<i class="fas fa-paper-plane"></i> Send Message'}
-  }catch{alert('Network error — please email nikolasvk@outlook.com directly.');btn.disabled=false;btn.innerHTML='<i class="fas fa-paper-plane"></i> Send Message'}
-});
+  /* ---------- scroll reveal ---------- */
+  var reduce=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var revealables=document.querySelectorAll(".reveal");
+  if(reduce || !("IntersectionObserver" in window)){
+    revealables.forEach(function(el){ el.classList.add("in"); });
+  }else{
+    var io=new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target); } });
+    },{threshold:.12,rootMargin:"0px 0px -40px 0px"});
+    revealables.forEach(function(el){ io.observe(el); });
+  }
+
+  /* ---------- active nav link ---------- */
+  var links=Array.prototype.slice.call(document.querySelectorAll('#mainnav a'));
+  var sections=links.map(function(a){ return document.querySelector(a.getAttribute("href")); }).filter(Boolean);
+  function markActive(){
+    var pos=window.scrollY+140, current=null;
+    sections.forEach(function(s){ if(s.offsetTop<=pos) current=s.id; });
+    links.forEach(function(a){
+      if(a.getAttribute("href")==="#"+current) a.setAttribute("aria-current","true");
+      else a.removeAttribute("aria-current");
+    });
+  }
+  var ticking=false;
+  window.addEventListener("scroll",function(){
+    if(ticking) return; ticking=true;
+    window.requestAnimationFrame(function(){ markActive(); ticking=false; });
+  },{passive:true});
+  markActive();
+
+  /* ---------- project filter ---------- */
+  var filters=document.querySelectorAll(".filter");
+  var cards=Array.prototype.slice.call(document.querySelectorAll("#project-grid .card"));
+  var status=document.getElementById("filter-status");
+  filters.forEach(function(btn){
+    btn.addEventListener("click",function(){
+      var key=btn.dataset.filter, shown=0;
+      filters.forEach(function(b){ b.setAttribute("aria-pressed",String(b===btn)); });
+      cards.forEach(function(c){
+        var match = key==="all" || c.dataset.tags.split(" ").indexOf(key)>-1;
+        c.hidden=!match; if(match) shown++;
+      });
+      status.textContent = key==="all"
+        ? "Showing all "+shown+" projects."
+        : "Showing "+shown+" project"+(shown===1?"":"s")+" in "+btn.textContent.toLowerCase()+".";
+    });
+  });
+
+  /* ---------- dialogs ---------- */
+  var lastFocus=null, openSheet=null;
+  var FOCUSABLE='a[href],button:not([disabled]),input,textarea,select,[tabindex]:not([tabindex="-1"])';
+
+  function open(id){
+    var el=document.getElementById(id); if(!el) return;
+    lastFocus=document.activeElement;
+    el.classList.add("open");
+    document.body.style.overflow="hidden";
+    openSheet=el;
+    var target=el.querySelector(".close")||el;
+    window.setTimeout(function(){ target.focus(); },30);
+  }
+  function close(){
+    if(!openSheet) return;
+    openSheet.classList.remove("open");
+    openSheet=null;
+    document.body.style.overflow="";
+    if(lastFocus) lastFocus.focus();
+  }
+
+  document.querySelectorAll("[data-dialog]").forEach(function(card){
+    card.addEventListener("click",function(){ open(card.dataset.dialog); });
+  });
+  document.getElementById("open-cv").addEventListener("click",function(){ open("d-cv"); });
+  document.querySelectorAll(".overlay").forEach(function(o){
+    var btn=o.querySelector(".close");
+    if(btn) btn.addEventListener("click",close);
+    o.addEventListener("mousedown",function(e){ if(e.target===o) close(); });
+  });
+
+  document.addEventListener("keydown",function(e){
+    if(e.key==="Escape"){ if(lb.classList.contains("open")) closeLb(); else close(); return; }
+    if(e.key==="Tab" && openSheet){
+      var items=Array.prototype.slice.call(openSheet.querySelectorAll(FOCUSABLE)).filter(function(n){ return n.offsetParent!==null; });
+      if(!items.length) return;
+      var first=items[0], last=items[items.length-1];
+      if(e.shiftKey && document.activeElement===first){ e.preventDefault(); last.focus(); }
+      else if(!e.shiftKey && document.activeElement===last){ e.preventDefault(); first.focus(); }
+    }
+  });
+
+  /* ---------- lightbox ---------- */
+  var lb=document.getElementById("lightbox"), lbImg=document.getElementById("lb-img");
+  var group=[], idx=0, lbReturn=null;
+  function show(){ lbImg.src=group[idx].src; lbImg.alt=group[idx].alt; }
+  function openLb(list,i,origin){
+    group=list; idx=i; lbReturn=origin; show();
+    lb.classList.add("open"); document.body.style.overflow="hidden";
+    document.getElementById("lb-close").focus();
+  }
+  function closeLb(){
+    lb.classList.remove("open");
+    if(!openSheet) document.body.style.overflow="";
+    if(lbReturn) lbReturn.focus();
+  }
+  function step(d){ idx=(idx+d+group.length)%group.length; show(); }
+
+  document.querySelectorAll(".shot").forEach(function(shot){
+    function launch(){
+      var imgs=Array.prototype.slice.call(shot.parentElement.querySelectorAll("img"));
+      openLb(imgs,imgs.indexOf(shot.querySelector("img")),shot);
+    }
+    shot.addEventListener("click",launch);
+    shot.addEventListener("keydown",function(e){
+      if(e.key==="Enter"||e.key===" "){ e.preventDefault(); launch(); }
+    });
+  });
+  document.getElementById("lb-close").addEventListener("click",closeLb);
+  document.getElementById("lb-prev").addEventListener("click",function(){ step(-1); });
+  document.getElementById("lb-next").addEventListener("click",function(){ step(1); });
+  lb.addEventListener("mousedown",function(e){ if(e.target===lb) closeLb(); });
+  document.addEventListener("keydown",function(e){
+    if(!lb.classList.contains("open")) return;
+    if(e.key==="ArrowLeft") step(-1);
+    if(e.key==="ArrowRight") step(1);
+  });
+
+  /* ---------- contact form ---------- */
+  var form=document.getElementById("contact-form");
+  var sent=document.getElementById("sent-note");
+  var sendBtn=document.getElementById("send-btn");
+  var rules=[
+    {input:"f-name", err:"e-name", test:function(v){ return v.trim().length>1; }, msg:"Enter your name so I know who I am replying to."},
+    {input:"f-email",err:"e-email",test:function(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim()); }, msg:"Enter an email address I can reply to."},
+    {input:"f-msg",  err:"e-msg",  test:function(v){ return v.trim().length>4; }, msg:"Add a short message about what you are looking for."}
+  ];
+  function validate(){
+    var ok=true, firstBad=null;
+    rules.forEach(function(r){
+      var input=document.getElementById(r.input), out=document.getElementById(r.err);
+      if(r.test(input.value)){ out.textContent=""; input.removeAttribute("aria-invalid"); }
+      else{ out.textContent=r.msg; input.setAttribute("aria-invalid","true"); ok=false; if(!firstBad) firstBad=input; }
+    });
+    if(firstBad) firstBad.focus();
+    return ok;
+  }
+  rules.forEach(function(r){
+    var input=document.getElementById(r.input);
+    input.addEventListener("blur",function(){
+      var out=document.getElementById(r.err);
+      if(input.value && r.test(input.value)){ out.textContent=""; input.removeAttribute("aria-invalid"); }
+    });
+  });
+  form.addEventListener("submit",function(e){
+    e.preventDefault();
+    if(!validate()) return;
+    var label=sendBtn.textContent;
+    sendBtn.disabled=true; sendBtn.textContent="Sending";
+    fetch(form.action,{method:"POST",body:new FormData(form),headers:{Accept:"application/json"}})
+      .then(function(r){
+        if(!r.ok) throw new Error("rejected");
+        form.style.display="none"; sent.style.display="block"; form.reset();
+      })
+      .catch(function(){
+        document.getElementById("e-msg").textContent="The message did not go through. Email nikolasvk@outlook.com instead.";
+        sendBtn.disabled=false; sendBtn.textContent=label;
+      });
+  });
+})();
 </script>
 </body>
 </html>
