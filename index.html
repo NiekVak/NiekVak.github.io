@@ -151,8 +151,19 @@ header{
 .btn-ghost:hover{background:var(--surface);border-color:var(--ink)}
 .btn-sm{padding:8px 14px;font-size:.84rem}
 @media(max-width:860px){
-  .bar nav{display:none}
+  html{scroll-padding-top:128px}
+  .bar{height:auto;flex-wrap:wrap;padding-top:12px}
   .bar-tools{margin-left:auto}
+  .mark{font-size:.8rem}
+  .bar nav{
+    order:3;width:100%;margin-left:0;margin-top:12px;padding-bottom:12px;
+    overflow-x:auto;gap:6px;scrollbar-width:none;-webkit-overflow-scrolling:touch;
+  }
+  .bar nav::-webkit-scrollbar{display:none}
+  .bar nav a{
+    white-space:nowrap;padding:9px 15px;font-size:.85rem;
+    border:1px solid var(--line);background:var(--raised);
+  }
 }
 
 /* ---------- hero ---------- */
@@ -293,6 +304,10 @@ h1{font-size:clamp(2.9rem,7vw,4.9rem);letter-spacing:-.035em;margin-bottom:22px}
   .chart{border-left:none;border-top:1px solid var(--line)}
   .chart:first-child{border-top:none}
 }
+@media(max-width:700px){
+  .tick{font-size:15px}
+  .val{font-size:16px}
+}
 
 /* crowding indicator, the one playful detail, used only here */
 .indicator{display:inline-flex;gap:3px;vertical-align:middle;margin:0 2px}
@@ -317,6 +332,7 @@ h1{font-size:clamp(2.9rem,7vw,4.9rem);letter-spacing:-.035em;margin-bottom:22px}
   overflow:hidden;display:flex;flex-direction:column;
   transition:border-color .25s,transform .25s var(--ease),box-shadow .25s;
 }
+.card[hidden]{display:none}
 .card:hover{border-color:var(--line-2);transform:translateY(-3px);box-shadow:var(--shadow)}
 .card-cover{
   height:150px;background-color:var(--surface);
@@ -480,6 +496,35 @@ footer{border-top:1px solid var(--line);padding:32px 0;background:var(--surface)
 .reveal.in{opacity:1;transform:none}
 @media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none}}
 
+/* ---------- small screens ---------- */
+@media(max-width:620px){
+  body{font-size:15.5px}
+  .band{padding:52px 0}
+  .hero{padding:38px 0 42px}
+  h1{font-size:clamp(2.4rem,12vw,3.2rem)}
+  .hero p.intro{max-width:none}
+  .hero-actions{gap:8px}
+  .hero-actions .btn{flex:1 1 100%;padding:13px 18px}
+  .hero-grid{gap:30px}
+  .portrait{max-width:150px}
+  .side-facts{margin-top:14px}
+  .proof-grid > div{padding:20px 16px}
+  .proof-num{font-size:1.6rem}
+  .filters{flex-wrap:nowrap;overflow-x:auto;margin-left:-4px;padding:2px 4px 10px;scrollbar-width:none}
+  .filters::-webkit-scrollbar{display:none}
+  .filter{flex:none;padding:9px 15px}
+  .strip{-webkit-overflow-scrolling:touch}
+  .shot{width:168px;height:120px}
+  .card-cover{height:132px}
+  .result .big{font-size:1.65rem}
+  .sheet-head{padding:18px}
+  .sheet-body{padding:18px}
+  .lb-btn{width:40px;height:40px}
+  #lb-prev{left:8px}
+  #lb-next{right:8px}
+  .foot{flex-direction:column;align-items:flex-start;gap:12px}
+}
+
 @media print{
   header,.overlay,.filters,form,.hero-actions{display:none !important}
   body{background:#fff}
@@ -515,7 +560,7 @@ footer{border-top:1px solid var(--line);padding:32px 0;background:var(--surface)
 <section class="hero wrap" id="top" aria-labelledby="name">
   <div class="hero-grid">
     <div>
-      <p class="status"><span class="dot" aria-hidden="true"></span> Available from September 2026</p>
+      <p class="status">Research · Product · Data · Engineering</p>
       <h1 id="name">Nikolas Vaki</h1>
       <p class="intro">I turn how people actually behave into decisions a product can act on.</p>
       <p class="sub">MSc Human Computer Interaction at Utrecht University and BSc Computer Science with a minor in Business Administration. I work across research, data analysis, product thinking and code. Based in Utrecht, open to roles across the Netherlands and remote.</p>
@@ -544,7 +589,7 @@ footer{border-top:1px solid var(--line);padding:32px 0;background:var(--surface)
       <div><div class="proof-num">759</div><p class="proof-lab">Passengers surveyed for my master thesis with Dutch Railways</p></div>
       <div><div class="proof-num">9,108</div><p class="proof-lab">Choice observations modelled in Python</p></div>
       <div><div class="proof-num">12</div><p class="proof-lab">Focus group participants coded in NVivo</p></div>
-      <div><div class="proof-num">6</div><p class="proof-lab">Languages coordinated on an EU funded course platform</p></div>
+      <div><div class="proof-num">3</div><p class="proof-lab">Roles across research, engineering and teaching in two countries</p></div>
     </div>
   </div>
 </section>
@@ -593,15 +638,14 @@ footer{border-top:1px solid var(--line);padding:32px 0;background:var(--surface)
 
 <!-- ══════════ THESIS ══════════ -->
 <section class="band wrap" id="thesis" aria-labelledby="thesis-h">
-  <p class="eyebrow">Master thesis, submitted August 2026</p>
+  <p class="eyebrow">Master thesis, Utrecht University and NS, 2026</p>
   <h2 class="title" id="thesis-h">Worth the wait</h2>
   <p class="lede" style="margin-bottom:34px">How long will a train passenger wait for a quieter train, and what changes that answer.</p>
 
   <article class="case reveal">
     <div class="case-head">
       <div class="case-meta">
-        <span class="pill pill-done">Submitted</span>
-        <span class="pill">Nederlandse Spoorwegen</span>
+        <span class="pill pill-done">Nederlandse Spoorwegen</span>
         <span class="pill">Mixed methods</span>
         <span class="pill">Python</span>
       </div>
