@@ -130,7 +130,7 @@ header{
   padding:8px 12px;border-radius:var(--r-md);transition:color .2s,background .2s;
 }
 .bar nav a:hover{color:var(--ink);background:var(--surface)}
-.bar nav a[aria-current="true"]{color:var(--accent-ink);background:var(--accent-soft)}
+.bar nav a[aria-current="location"]{color:var(--accent-ink);background:var(--accent-soft)}
 .bar-tools{display:flex;align-items:center;gap:8px;margin-left:8px}
 .icon-btn{
   width:36px;height:36px;border:1px solid var(--line);border-radius:var(--r-md);
@@ -161,7 +161,8 @@ header{
   }
   .bar nav::-webkit-scrollbar{display:none}
   .bar nav a{
-    white-space:nowrap;padding:9px 15px;font-size:.85rem;
+    display:flex;align-items:center;min-height:44px;
+    white-space:nowrap;padding:0 16px;font-size:.85rem;
     border:1px solid var(--line);background:var(--raised);
   }
 }
@@ -286,27 +287,60 @@ h1{font-size:clamp(2.9rem,7vw,4.9rem);letter-spacing:-.035em;margin-bottom:22px}
   .result > div:first-child{border-top:none}
 }
 
-/* charts */
+/* charts, built in HTML so text stays legible at every width */
+.visually-hidden{
+  position:absolute;width:1px;height:1px;padding:0;margin:-1px;
+  overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0;
+}
 .charts{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--line)}
 .chart{padding:clamp(22px,3vw,34px);border-left:1px solid var(--line)}
 .chart:first-child{border-left:none}
-.chart h4{font-size:.95rem;margin-bottom:4px;font-family:var(--body);font-weight:600}
-.chart p.note{font-size:.82rem;color:var(--muted);margin-bottom:18px}
-.chart svg{width:100%;height:auto;overflow:visible}
-.bar{fill:var(--accent)}
-.bar-alt{fill:var(--amber)}
-.axis{stroke:var(--line-2);stroke-width:1}
-.grid-line{stroke:var(--line-2);stroke-width:1;stroke-dasharray:3 4}
-.tick{font-family:var(--mono);font-size:11px;fill:var(--muted)}
-.val{font-family:var(--mono);font-size:12px;fill:var(--ink);font-weight:500}
+.chart h4{font-size:.98rem;margin-bottom:4px;font-family:var(--body);font-weight:600}
+.chart p.note{font-size:.84rem;color:var(--muted);margin-bottom:20px}
+.chart p.read{font-size:.84rem;color:var(--muted);margin:18px 0 0}
+
+/* bar chart */
+.bars{display:flex;flex-direction:column;gap:9px}
+.bar-row,.bar-scale{display:grid;grid-template-columns:52px minmax(0,1fr) 46px;gap:10px;align-items:center}
+.bar-name{font-family:var(--mono);font-size:.79rem;color:var(--muted);text-align:right}
+.bar-track{position:relative;height:28px;background:var(--surface);border-radius:4px}
+.bar-fill{position:absolute;inset:0 auto 0 0;border-radius:4px;background:var(--accent);min-width:3px}
+.bar-mid{position:absolute;top:-3px;bottom:-3px;left:50%;width:1px;background:var(--line-2)}
+.bar-val{font-family:var(--mono);font-size:.79rem;font-weight:500;color:var(--ink);text-align:right}
+.bar-scale{margin-top:9px;font-family:var(--mono);font-size:.73rem;color:var(--muted)}
+.bar-axis{position:relative;height:14px;border-top:1px solid var(--line)}
+.bar-axis span{position:absolute;top:3px}
+.bar-axis span:nth-child(1){left:0}
+.bar-axis span:nth-child(2){left:50%;transform:translateX(-50%)}
+.bar-axis span:nth-child(3){right:0}
+
+/* estimate plot with confidence intervals */
+.est{display:flex;flex-direction:column;gap:22px}
+.est-item h5{font-family:var(--body);font-size:.9rem;font-weight:600;color:var(--ink);display:flex;justify-content:space-between;gap:12px;margin-bottom:10px}
+.est-item h5 b{font-family:var(--mono);color:var(--accent-ink);font-weight:600}
+.est-track{position:relative;height:26px}
+.est-axis{position:absolute;left:0;right:0;top:50%;height:1px;background:var(--line)}
+.est-ci{
+  position:absolute;top:50%;transform:translateY(-50%);height:10px;
+  background:var(--accent-soft);border:1px solid var(--accent);border-radius:5px;
+}
+.est-pt{
+  position:absolute;top:50%;width:14px;height:14px;margin:-7px 0 0 -7px;
+  border-radius:50%;background:var(--accent);border:2px solid var(--raised);
+}
+.est-scale{position:relative;height:22px;margin-top:2px;border-top:1px solid var(--line)}
+.est-scale span{
+  position:absolute;top:5px;font-family:var(--mono);font-size:.74rem;color:var(--muted);
+  transform:translateX(-50%);white-space:nowrap;
+}
+.est-scale span:first-of-type{transform:none}
+.est-scale span:last-of-type{transform:translateX(-100%)}
+.est-tick{position:absolute;top:0;width:1px;height:5px;background:var(--line-2)}
+
 @media(max-width:800px){
   .charts{grid-template-columns:1fr}
   .chart{border-left:none;border-top:1px solid var(--line)}
   .chart:first-child{border-top:none}
-}
-@media(max-width:700px){
-  .tick{font-size:15px}
-  .val{font-size:16px}
 }
 
 /* crowding indicator, the one playful detail, used only here */
@@ -327,13 +361,14 @@ h1{font-size:clamp(2.9rem,7vw,4.9rem);letter-spacing:-.035em;margin-bottom:22px}
 @media(max-width:900px){.grid{grid-template-columns:1fr 1fr}}
 @media(max-width:600px){.grid{grid-template-columns:1fr}}
 .card{
-  text-align:left;width:100%;
+  position:relative;text-align:left;width:100%;
   border:1px solid var(--line);border-radius:var(--r-lg);background:var(--raised);
   overflow:hidden;display:flex;flex-direction:column;
   transition:border-color .25s,transform .25s var(--ease),box-shadow .25s;
 }
 .card[hidden]{display:none}
 .card:hover{border-color:var(--line-2);transform:translateY(-3px);box-shadow:var(--shadow)}
+.card:focus-within{border-color:var(--accent)}
 .card-cover{
   height:150px;background-color:var(--surface);
   background-image:var(--cover);background-size:cover;background-position:center;
@@ -348,7 +383,12 @@ h1{font-size:clamp(2.9rem,7vw,4.9rem);letter-spacing:-.035em;margin-bottom:22px}
 .card-kind{font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent-ink)}
 .card h3{font-size:1.02rem}
 .card p{font-size:.88rem;color:var(--muted);flex:1;margin:0}
-.card-foot{display:flex;align-items:center;gap:7px;font-size:.83rem;font-weight:600;color:var(--ink);margin-top:4px}
+.card-foot{
+  display:inline-flex;align-items:center;gap:7px;align-self:flex-start;
+  font-size:.85rem;font-weight:600;color:var(--accent-ink);
+  margin-top:6px;padding:4px 0;cursor:pointer;
+}
+.card-foot::after{content:"";position:absolute;inset:0}
 .card-foot svg{transition:transform .25s var(--ease)}
 .card:hover .card-foot svg{transform:translateX(4px)}
 
@@ -512,14 +552,15 @@ footer{border-top:1px solid var(--line);padding:32px 0;background:var(--surface)
   .proof-num{font-size:1.6rem}
   .filters{flex-wrap:nowrap;overflow-x:auto;margin-left:-4px;padding:2px 4px 10px;scrollbar-width:none}
   .filters::-webkit-scrollbar{display:none}
-  .filter{flex:none;padding:9px 15px}
+  .filter{flex:none;display:inline-flex;align-items:center;min-height:44px;padding:0 16px}
   .strip{-webkit-overflow-scrolling:touch}
   .shot{width:168px;height:120px}
   .card-cover{height:132px}
   .result .big{font-size:1.65rem}
   .sheet-head{padding:18px}
   .sheet-body{padding:18px}
-  .lb-btn{width:40px;height:40px}
+  .lb-btn{width:44px;height:44px}
+  .close{width:44px;height:44px}
   #lb-prev{left:8px}
   #lb-next{right:8px}
   .foot{flex-direction:column;align-items:flex-start;gap:12px}
@@ -653,6 +694,12 @@ footer{border-top:1px solid var(--line);padding:32px 0;background:var(--surface)
       <p>A crowded train arrives. You can board now and stand, or wait for a quieter one and lose time. The NS journey planner already shows a crowding indicator
         <span class="indicator" role="img" aria-label="crowding indicator showing three of three levels"><i class="on"></i><i class="on"></i><i class="on"></i></span>
         for every departure, but nobody had measured what that information is worth in minutes. I measured it, and turned the number into design rules for the app.</p>
+      <p style="margin-top:20px">
+        <a class="repo" href="https://studenttheses.uu.nl/items/28509b88-c971-454e-b42f-cb1fce4faeba" target="_blank" rel="noopener">
+          Read the full thesis in the Utrecht University repository
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+        </a>
+      </p>
     </div>
 
     <div class="case-body">
@@ -683,54 +730,84 @@ footer{border-top:1px solid var(--line);padding:32px 0;background:var(--surface)
 
     <div class="charts">
       <div class="chart">
-        <h4>Willingness drops as the wait grows</h4>
-        <p class="note">Share of choices where passengers waited, by extra waiting time offered.</p>
-        <svg viewBox="0 0 480 210" role="img" aria-label="Bar chart. Passengers chose to wait in 58.8 percent of choices at a 10 minute wait, 46.2 percent at 15 minutes, 36.5 percent at 20 minutes and 23.7 percent at 30 minutes.">
-          <line class="grid-line" x1="60" y1="46.7" x2="460" y2="46.7"/>
-          <text class="tick" x="52" y="50" text-anchor="end">50%</text>
-          <line class="axis" x1="60" y1="180" x2="460" y2="180"/>
-          <text class="tick" x="52" y="184" text-anchor="end">0%</text>
-
-          <rect class="bar" x="83" y="23.2" width="54" height="156.8" rx="2"/>
-          <rect class="bar" x="183" y="56.8" width="54" height="123.2" rx="2"/>
-          <rect class="bar" x="283" y="82.7" width="54" height="97.3" rx="2"/>
-          <rect class="bar" x="383" y="116.8" width="54" height="63.2" rx="2"/>
-
-          <text class="val" x="110" y="16" text-anchor="middle">58.8</text>
-          <text class="val" x="210" y="50" text-anchor="middle">46.2</text>
-          <text class="val" x="310" y="76" text-anchor="middle">36.5</text>
-          <text class="val" x="410" y="110" text-anchor="middle">23.7</text>
-
-          <text class="tick" x="110" y="197" text-anchor="middle">10 min</text>
-          <text class="tick" x="210" y="197" text-anchor="middle">15 min</text>
-          <text class="tick" x="310" y="197" text-anchor="middle">20 min</text>
-          <text class="tick" x="410" y="197" text-anchor="middle">30 min</text>
-        </svg>
+        <h4>Willingness falls as the wait grows</h4>
+        <p class="note">Share of the 9,108 choices where passengers chose to wait, by the extra waiting time offered.</p>
+        <div class="bars" aria-hidden="true">
+          <div class="bar-row">
+            <span class="bar-name">10 min</span>
+            <div class="bar-track"><div class="bar-mid"></div><div class="bar-fill" style="width:58.8%"></div></div>
+            <span class="bar-val">58.8%</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-name">15 min</span>
+            <div class="bar-track"><div class="bar-mid"></div><div class="bar-fill" style="width:46.2%"></div></div>
+            <span class="bar-val">46.2%</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-name">20 min</span>
+            <div class="bar-track"><div class="bar-mid"></div><div class="bar-fill" style="width:36.5%"></div></div>
+            <span class="bar-val">36.5%</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-name">30 min</span>
+            <div class="bar-track"><div class="bar-mid"></div><div class="bar-fill" style="width:23.7%"></div></div>
+            <span class="bar-val">23.7%</span>
+          </div>
+          <div class="bar-scale">
+            <span></span>
+            <div class="bar-axis"><span>0%</span><span>50%</span><span>100%</span></div>
+            <span></span>
+          </div>
+        </div>
+        <p class="read">Halfway between the ten and fifteen minute marks, waiting stops being the majority choice.</p>
+        <table class="visually-hidden">
+          <caption>Share of choices where passengers chose to wait, by extra waiting time</caption>
+          <thead><tr><th scope="col">Extra waiting time</th><th scope="col">Chose to wait</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">10 minutes</th><td>58.8 percent</td></tr>
+            <tr><th scope="row">15 minutes</th><td>46.2 percent</td></tr>
+            <tr><th scope="row">20 minutes</th><td>36.5 percent</td></tr>
+            <tr><th scope="row">30 minutes</th><td>23.7 percent</td></tr>
+          </tbody>
+        </table>
       </div>
+
       <div class="chart">
-        <h4>Where the decision is made matters</h4>
-        <p class="note">Minutes traded for one level less crowding, with 95% confidence intervals.</p>
-        <svg viewBox="0 0 480 210" role="img" aria-label="Chart. Willingness to wait is 10.3 minutes when deciding on the platform and 14.2 minutes when deciding at home. The confidence intervals do not overlap.">
-          <line class="axis" x1="110" y1="165" x2="440" y2="165"/>
-          <text class="tick" x="110" y="182" text-anchor="middle">0</text>
-          <text class="tick" x="201" y="182" text-anchor="middle">5</text>
-          <text class="tick" x="293" y="182" text-anchor="middle">10</text>
-          <text class="tick" x="385" y="182" text-anchor="middle">15 min</text>
-
-          <text class="tick" x="102" y="72" text-anchor="end">On platform</text>
-          <rect class="bar" x="110" y="52" width="189" height="30" rx="2"/>
-          <line class="axis" x1="279" y1="67" x2="321" y2="67"/>
-          <line class="axis" x1="279" y1="60" x2="279" y2="74"/>
-          <line class="axis" x1="321" y1="60" x2="321" y2="74"/>
-          <text class="val" x="332" y="71">10.3</text>
-
-          <text class="tick" x="102" y="130" text-anchor="end">At home</text>
-          <rect class="bar-alt" x="110" y="110" width="260" height="30" rx="2"/>
-          <line class="axis" x1="337" y1="125" x2="401" y2="125"/>
-          <line class="axis" x1="337" y1="118" x2="337" y2="132"/>
-          <line class="axis" x1="401" y1="118" x2="401" y2="132"/>
-          <text class="val" x="412" y="129">14.2</text>
-        </svg>
+        <h4>Where the decision is made changes the price of a minute</h4>
+        <p class="note">Minutes traded for one level less crowding. The dot is the estimate, the bar around it is the 95% confidence interval.</p>
+        <div class="est" aria-hidden="true">
+          <div class="est-item">
+            <h5>Deciding on the platform <b>10.3 min</b></h5>
+            <div class="est-track">
+              <div class="est-axis"></div>
+              <div class="est-ci" style="left:51.1%;width:12.8%"></div>
+              <div class="est-pt" style="left:57.2%"></div>
+            </div>
+          </div>
+          <div class="est-item">
+            <h5>Deciding at home <b>14.2 min</b></h5>
+            <div class="est-track">
+              <div class="est-axis"></div>
+              <div class="est-ci" style="left:68.9%;width:19.4%"></div>
+              <div class="est-pt" style="left:78.9%"></div>
+            </div>
+          </div>
+          <div class="est-scale">
+            <i class="est-tick" style="left:0"></i><span style="left:0">0</span>
+            <i class="est-tick" style="left:33.3%"></i><span style="left:33.3%">6</span>
+            <i class="est-tick" style="left:66.7%"></i><span style="left:66.7%">12</span>
+            <i class="est-tick" style="left:100%"></i><span style="left:100%">18 min</span>
+          </div>
+        </div>
+        <p class="read">The two intervals do not overlap, so the difference holds rather than being noise.</p>
+        <table class="visually-hidden">
+          <caption>Willingness to wait for one level less crowding, with 95 percent confidence intervals</caption>
+          <thead><tr><th scope="col">Decision point</th><th scope="col">Estimate</th><th scope="col">Confidence interval</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">On the platform</th><td>10.3 minutes</td><td>9.2 to 11.5 minutes</td></tr>
+            <tr><th scope="row">At home</th><td>14.2 minutes</td><td>12.4 to 15.9 minutes</td></tr>
+          </tbody>
+        </table>
       </div>
     </div>
 
@@ -746,6 +823,7 @@ footer{border-top:1px solid var(--line);padding:32px 0;background:var(--surface)
           <li><b>Partner</b><span>Nederlandse Spoorwegen, panel access and daily supervision</span></li>
           <li><b>Supervisors</b><span>Judith Masthoff, Christof van Nimwegen, Anouk van Kasteren</span></li>
           <li><b>Stack</b><span>Python, pandas, statsmodels, Qualtrics, NVivo</span></li>
+          <li><b>Published</b><span><a href="https://studenttheses.uu.nl/items/28509b88-c971-454e-b42f-cb1fce4faeba" target="_blank" rel="noopener" style="color:var(--accent-ink);font-weight:500">Utrecht University thesis repository</a></span></li>
         </ul>
       </div>
     </div>
@@ -768,85 +846,85 @@ footer{border-top:1px solid var(--line);padding:32px 0;background:var(--surface)
 
   <div class="grid" id="project-grid">
 
-    <button class="card" data-tags="research ai" data-dialog="d-thesis" aria-haspopup="dialog">
+    <article class="card" data-tags="research ai">
       <div class="card-cover plain" data-label="MSc thesis" style="background:linear-gradient(135deg,var(--accent-soft),var(--surface))"></div>
       <div class="card-body">
         <p class="card-kind">Research and data</p>
         <h3>Worth the wait</h3>
         <p>Mixed methods study with Dutch Railways measuring how long passengers will wait for a quieter train.</p>
-        <span class="card-foot">Read the case study <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        <button type="button" class="card-foot" data-dialog="d-thesis" aria-haspopup="dialog">Read the case study <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
       </div>
-    </button>
+    </article>
 
-    <button class="card" data-tags="design eng research" data-dialog="d-webwise" aria-haspopup="dialog">
+    <article class="card" data-tags="design eng research">
       <div class="card-cover" style="--cover:url('Photos/webwiselogo.jpg')"></div>
       <div class="card-body">
         <p class="card-kind">Bachelor thesis</p>
         <h3>WebWise Academy</h3>
         <p>A learning platform that teaches developers to build websites people with visual impairments can actually use.</p>
-        <span class="card-foot">Read the case study <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        <button type="button" class="card-foot" data-dialog="d-webwise" aria-haspopup="dialog">Read the case study <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
       </div>
-    </button>
+    </article>
 
-    <button class="card" data-tags="ai eng" data-dialog="d-vision" aria-haspopup="dialog">
+    <article class="card" data-tags="ai eng">
       <div class="card-cover plain" data-label="Python, OpenCV" style="background:linear-gradient(135deg,var(--surface),var(--accent-soft))"></div>
       <div class="card-body">
         <p class="card-kind">Computer vision</p>
         <h3>Motion detection camera</h3>
         <p>A vision system that spots movement in live or recorded video, marks the object and saves an alert.</p>
-        <span class="card-foot">Read the case study <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        <button type="button" class="card-foot" data-dialog="d-vision" aria-haspopup="dialog">Read the case study <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
       </div>
-    </button>
+    </article>
 
-    <button class="card" data-tags="ai" data-dialog="d-houses" aria-haspopup="dialog">
+    <article class="card" data-tags="ai">
       <div class="card-cover plain" data-label="scikit learn" style="background:linear-gradient(135deg,var(--amber-soft),var(--surface))"></div>
       <div class="card-body">
         <p class="card-kind">Machine learning</p>
         <h3>House price prediction</h3>
         <p>Regression models on Bengaluru housing data, from cleaning and feature engineering to tuning. Best score 0.86.</p>
-        <span class="card-foot">Read the case study <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        <button type="button" class="card-foot" data-dialog="d-houses" aria-haspopup="dialog">Read the case study <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
       </div>
-    </button>
+    </article>
 
-    <button class="card" data-tags="ai eng" data-dialog="d-prolog" aria-haspopup="dialog">
+    <article class="card" data-tags="ai eng">
       <div class="card-cover plain" data-label="Prolog, logic AI" style="background:linear-gradient(135deg,var(--surface),var(--amber-soft))"></div>
       <div class="card-body">
         <p class="card-kind">Symbolic AI</p>
         <h3>Context aware food advisor</h3>
         <p>A rule based reasoner that decides whether to cook, order or eat out from ingredients, weather and guests.</p>
-        <span class="card-foot">Read the case study <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        <button type="button" class="card-foot" data-dialog="d-prolog" aria-haspopup="dialog">Read the case study <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
       </div>
-    </button>
+    </article>
 
-    <button class="card" data-tags="design research" data-dialog="d-skoupa" aria-haspopup="dialog">
+    <article class="card" data-tags="design research">
       <div class="card-cover" style="--cover:url('Photos/skoupa2.jpg')"></div>
       <div class="card-body">
         <p class="card-kind">Tangible interaction</p>
         <h3>Skoupa meditation lamp</h3>
         <p>A voice driven lamp for winding down before sleep, built from diary studies with students.</p>
-        <span class="card-foot">Read the case study <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        <button type="button" class="card-foot" data-dialog="d-skoupa" aria-haspopup="dialog">Read the case study <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
       </div>
-    </button>
+    </article>
 
-    <button class="card" data-tags="design research" data-dialog="d-festify" aria-haspopup="dialog">
+    <article class="card" data-tags="design research">
       <div class="card-cover" style="--cover:url('Photos/festiffy.png')"></div>
       <div class="card-body">
         <p class="card-kind">Product design</p>
         <h3>Festify</h3>
         <p>Event discovery app where onboarding earns the right to ask for preferences instead of demanding them.</p>
-        <span class="card-foot">Read the case study <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        <button type="button" class="card-foot" data-dialog="d-festify" aria-haspopup="dialog">Read the case study <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
       </div>
-    </button>
+    </article>
 
-    <button class="card" data-tags="design" data-dialog="d-petopia" aria-haspopup="dialog">
+    <article class="card" data-tags="design">
       <div class="card-cover" style="--cover:url('Photos/petopialogo.jpg')"></div>
       <div class="card-body">
         <p class="card-kind">Mobile design</p>
         <h3>Petopia</h3>
         <p>Social platform for pet owners with a lost and found flow designed for people who are panicking.</p>
-        <span class="card-foot">Read the case study <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        <button type="button" class="card-foot" data-dialog="d-petopia" aria-haspopup="dialog">Read the case study <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
       </div>
-    </button>
+    </article>
 
   </div>
   <p class="form-note" id="filter-status" role="status" style="margin-top:16px"></p>
@@ -1014,17 +1092,17 @@ footer{border-top:1px solid var(--line);padding:32px 0;background:var(--surface)
         <div class="field">
           <label for="f-name">Your name</label>
           <input id="f-name" name="name" type="text" autocomplete="name" placeholder="Jane de Vries" required aria-describedby="e-name">
-          <p class="err" id="e-name"></p>
+          <p class="err" id="e-name" role="alert"></p>
         </div>
         <div class="field">
           <label for="f-email">Your email</label>
           <input id="f-email" name="email" type="email" autocomplete="email" placeholder="jane@company.com" required aria-describedby="e-email">
-          <p class="err" id="e-email"></p>
+          <p class="err" id="e-email" role="alert"></p>
         </div>
         <div class="field">
           <label for="f-msg">Message</label>
           <textarea id="f-msg" name="message" placeholder="Which role, and what you are looking for." required aria-describedby="e-msg"></textarea>
-          <p class="err" id="e-msg"></p>
+          <p class="err" id="e-msg" role="alert"></p>
         </div>
         <button type="submit" class="btn btn-primary" style="align-self:flex-start" id="send-btn">Send message</button>
         <p class="form-note">Your details are only used to reply to you.</p>
@@ -1098,6 +1176,10 @@ footer{border-top:1px solid var(--line);padding:32px 0;background:var(--surface)
         <div class="box"><h4>Result</h4><p>A clear exchange rate of ten to fourteen minutes, one significant contextual moderator, and a set of product rules NS can implement without new infrastructure.</p></div>
         <div class="box wide"><h4>Learning</h4><p>The proportionality rule participants described in the focus groups did not appear in their choices. That taught me to treat interview findings as hypotheses rather than conclusions, and it is the main reason I now push for a quantitative check before a recommendation goes into a product.</p></div>
       </div>
+
+      <h3>Read it in full</h3>
+      <p><a class="repo" href="https://studenttheses.uu.nl/items/28509b88-c971-454e-b42f-cb1fce4faeba" target="_blank" rel="noopener">Utrecht University thesis repository
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a></p>
     </div>
   </div>
 </div>
@@ -1226,9 +1308,9 @@ footer{border-top:1px solid var(--line);padding:32px 0;background:var(--surface)
       <h3>The idea</h3>
       <p>A lamp that listens to how you sound at the end of the day, reads your emotional state and offers a short meditation with matching light. Built so that winding down does not require picking up a phone.</p>
       <h3>Photos</h3>
-      <div class="strip" role="list" aria-label="Skoupa prototype photos">
-        <div class="shot" role="listitem" tabindex="0"><img src="Photos/skoupa11.jpg" alt="Skoupa lamp prototype on a desk" loading="lazy"></div>
-        <div class="shot" role="listitem" tabindex="0"><img src="Photos/skoupa22.jpg" alt="Skoupa lamp in use with ambient light" loading="lazy"></div>
+      <div class="strip" role="group" aria-label="Skoupa prototype photos, select an image to enlarge">
+        <button type="button" class="shot"><img src="Photos/skoupa11.jpg" alt="Skoupa lamp prototype on a desk" loading="lazy"></button>
+        <button type="button" class="shot"><img src="Photos/skoupa22.jpg" alt="Skoupa lamp in use with ambient light" loading="lazy"></button>
       </div>
       <h3>My part</h3>
       <ul>
@@ -1259,15 +1341,15 @@ footer{border-top:1px solid var(--line);padding:32px 0;background:var(--surface)
       <h3>The idea</h3>
       <p>An event discovery app for live music. The design problem was not the feed, it was the sign up. People will not hand over their taste in music to an app that has not shown them anything yet.</p>
       <h3>Screens</h3>
-      <div class="strip" role="list" aria-label="Festify screens">
-        <div class="shot" role="listitem" tabindex="0"><img src="Photos/Festify/1.png" alt="Festify onboarding screen" loading="lazy"></div>
-        <div class="shot" role="listitem" tabindex="0"><img src="Photos/Festify/3.png" alt="Festify preference selection" loading="lazy"></div>
-        <div class="shot" role="listitem" tabindex="0"><img src="Photos/Festify/5.png" alt="Festify home feed" loading="lazy"></div>
-        <div class="shot" role="listitem" tabindex="0"><img src="Photos/Festify/8.png" alt="Festify event detail" loading="lazy"></div>
-        <div class="shot" role="listitem" tabindex="0"><img src="Photos/Festify/11.png" alt="Festify filters" loading="lazy"></div>
-        <div class="shot" role="listitem" tabindex="0"><img src="Photos/Festify/14.png" alt="Festify saved events" loading="lazy"></div>
-        <div class="shot" role="listitem" tabindex="0"><img src="Photos/Festify/17.png" alt="Festify ratings" loading="lazy"></div>
-        <div class="shot" role="listitem" tabindex="0"><img src="Photos/Festify/20.png" alt="Festify profile" loading="lazy"></div>
+      <div class="strip" role="group" aria-label="Festify screens, select an image to enlarge">
+        <button type="button" class="shot"><img src="Photos/Festify/1.png" alt="Festify onboarding screen" loading="lazy"></button>
+        <button type="button" class="shot"><img src="Photos/Festify/3.png" alt="Festify preference selection" loading="lazy"></button>
+        <button type="button" class="shot"><img src="Photos/Festify/5.png" alt="Festify home feed" loading="lazy"></button>
+        <button type="button" class="shot"><img src="Photos/Festify/8.png" alt="Festify event detail" loading="lazy"></button>
+        <button type="button" class="shot"><img src="Photos/Festify/11.png" alt="Festify filters" loading="lazy"></button>
+        <button type="button" class="shot"><img src="Photos/Festify/14.png" alt="Festify saved events" loading="lazy"></button>
+        <button type="button" class="shot"><img src="Photos/Festify/17.png" alt="Festify ratings" loading="lazy"></button>
+        <button type="button" class="shot"><img src="Photos/Festify/20.png" alt="Festify profile" loading="lazy"></button>
       </div>
       <h3>Key decisions</h3>
       <ul>
@@ -1298,14 +1380,14 @@ footer{border-top:1px solid var(--line);padding:32px 0;background:var(--surface)
       <h3>The idea</h3>
       <p>A social platform for pet owners with shelter maps, messaging and a lost and found flow. The hardest screen is the one someone reaches when their pet is missing, so that flow set the standard for the rest.</p>
       <h3>Screens</h3>
-      <div class="strip" role="list" aria-label="Petopia screens">
-        <div class="shot" role="listitem" tabindex="0"><img src="Photos/Petopia/petopia1.jpg" alt="Petopia home feed" loading="lazy"></div>
-        <div class="shot" role="listitem" tabindex="0"><img src="Photos/Petopia/petopia4.jpg" alt="Petopia lost and found report" loading="lazy"></div>
-        <div class="shot" role="listitem" tabindex="0"><img src="Photos/Petopia/petopia7.jpg" alt="Petopia shelter map" loading="lazy"></div>
-        <div class="shot" role="listitem" tabindex="0"><img src="Photos/Petopia/petopia10.jpg" alt="Petopia messaging" loading="lazy"></div>
-        <div class="shot" role="listitem" tabindex="0"><img src="Photos/Petopia/petopia13.jpg" alt="Petopia profile" loading="lazy"></div>
-        <div class="shot" role="listitem" tabindex="0"><img src="Photos/Petopia/petopia16.jpg" alt="Petopia post creation" loading="lazy"></div>
-        <div class="shot" role="listitem" tabindex="0"><img src="Photos/Petopia/petopia19.jpg" alt="Petopia settings" loading="lazy"></div>
+      <div class="strip" role="group" aria-label="Petopia screens, select an image to enlarge">
+        <button type="button" class="shot"><img src="Photos/Petopia/petopia1.jpg" alt="Petopia home feed" loading="lazy"></button>
+        <button type="button" class="shot"><img src="Photos/Petopia/petopia4.jpg" alt="Petopia lost and found report" loading="lazy"></button>
+        <button type="button" class="shot"><img src="Photos/Petopia/petopia7.jpg" alt="Petopia shelter map" loading="lazy"></button>
+        <button type="button" class="shot"><img src="Photos/Petopia/petopia10.jpg" alt="Petopia messaging" loading="lazy"></button>
+        <button type="button" class="shot"><img src="Photos/Petopia/petopia13.jpg" alt="Petopia profile" loading="lazy"></button>
+        <button type="button" class="shot"><img src="Photos/Petopia/petopia16.jpg" alt="Petopia post creation" loading="lazy"></button>
+        <button type="button" class="shot"><img src="Photos/Petopia/petopia19.jpg" alt="Petopia settings" loading="lazy"></button>
       </div>
       <h3>Key decisions</h3>
       <ul>
@@ -1350,7 +1432,7 @@ footer{border-top:1px solid var(--line);padding:32px 0;background:var(--surface)
         <div class="job"><b>Test Engineer, internship</b><em>Bank of Cyprus · May 2023 to Aug 2023</em><span>Designed test scripts for Internet Banking in an agile Scrum team, built automation with Katalon Studio and joined interface design sessions.</span></div>
 
         <h4>Research and AI projects</h4>
-        <div class="job"><b>Worth the wait, master thesis with Nederlandse Spoorwegen</b><em>Mixed methods · Python, statsmodels, Qualtrics, NVivo · 2026</em><span>Two focus groups plus a discrete choice experiment with 759 respondents and 9,108 choices. Logistic regression with generalised estimating equations, stepwise model selection on QIC, delta method confidence intervals and a mixed logit robustness check. Result, passengers trade about 10 minutes for one level less crowding on the platform and about 14 minutes at home. Translated into design rules for the NS journey planner.</span></div>
+        <div class="job"><b>Worth the wait, master thesis with Nederlandse Spoorwegen</b><em>Mixed methods · Python, statsmodels, Qualtrics, NVivo · 2026</em><span>Two focus groups plus a discrete choice experiment with 759 respondents and 9,108 choices. Logistic regression with generalised estimating equations, stepwise model selection on QIC, delta method confidence intervals and a mixed logit robustness check. Result, passengers trade about 10 minutes for one level less crowding on the platform and about 14 minutes at home. Translated into design rules for the NS journey planner. <a href="https://studenttheses.uu.nl/items/28509b88-c971-454e-b42f-cb1fce4faeba" target="_blank" rel="noopener" style="color:var(--accent-ink);font-weight:500">Read it in the UU repository</a>.</span></div>
         <div class="job"><b>Motion detection security camera</b><em>Python, OpenCV</em><span>Detects movement in live or recorded video, marks the object, saves snapshots and triggers alerts.</span></div>
         <div class="job"><b>House price prediction</b><em>Python, pandas, scikit learn</em><span>Regression models on Bengaluru housing data with cleaning, feature engineering and tuning. Best score 0.86.</span></div>
         <div class="job"><b>Context aware food advisor</b><em>Prolog, logic based AI</em><span>Rule based reasoner that decides whether to cook, order or eat out from ingredients, weather, guests and time available.</span></div>
@@ -1369,8 +1451,6 @@ footer{border-top:1px solid var(--line);padding:32px 0;background:var(--surface)
         <div class="job"><b>Engineering</b><span>Java, C and C plus plus, JavaScript, HTML and CSS, agile and Scrum, test automation</span></div>
         <div class="job"><b>Languages</b><span>Greek, native. English, fluent.</span></div>
       </div>
-      <p style="margin-top:20px"><a class="repo" href="mailto:nikolasvk@outlook.com">Request a PDF copy
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></p>
     </div>
   </div>
 </div>
@@ -1423,7 +1503,7 @@ footer{border-top:1px solid var(--line);padding:32px 0;background:var(--surface)
     var pos=window.scrollY+140, current=null;
     sections.forEach(function(s){ if(s.offsetTop<=pos) current=s.id; });
     links.forEach(function(a){
-      if(a.getAttribute("href")==="#"+current) a.setAttribute("aria-current","true");
+      if(a.getAttribute("href")==="#"+current) a.setAttribute("aria-current","location");
       else a.removeAttribute("aria-current");
     });
   }
@@ -1455,13 +1535,22 @@ footer{border-top:1px solid var(--line);padding:32px 0;background:var(--surface)
   /* ---------- dialogs ---------- */
   var lastFocus=null, openSheet=null;
   var FOCUSABLE='a[href],button:not([disabled]),input,textarea,select,[tabindex]:not([tabindex="-1"])';
+  var pageParts=[document.querySelector("header"),document.getElementById("main"),document.querySelector("footer")];
 
+  function setPageInert(on){
+    pageParts.forEach(function(el){
+      if(!el) return;
+      if(on){ el.setAttribute("inert",""); el.setAttribute("aria-hidden","true"); }
+      else{ el.removeAttribute("inert"); el.removeAttribute("aria-hidden"); }
+    });
+  }
   function open(id){
     var el=document.getElementById(id); if(!el) return;
     lastFocus=document.activeElement;
     el.classList.add("open");
     document.body.style.overflow="hidden";
     openSheet=el;
+    setPageInert(true);
     var target=el.querySelector(".close")||el;
     window.setTimeout(function(){ target.focus(); },30);
   }
@@ -1469,6 +1558,7 @@ footer{border-top:1px solid var(--line);padding:32px 0;background:var(--surface)
     if(!openSheet) return;
     openSheet.classList.remove("open");
     openSheet=null;
+    setPageInert(false);
     document.body.style.overflow="";
     if(lastFocus) lastFocus.focus();
   }
@@ -1501,23 +1591,22 @@ footer{border-top:1px solid var(--line);padding:32px 0;background:var(--surface)
   function openLb(list,i,origin){
     group=list; idx=i; lbReturn=origin; show();
     lb.classList.add("open"); document.body.style.overflow="hidden";
+    if(openSheet) openSheet.setAttribute("inert","");
+    else setPageInert(true);
     document.getElementById("lb-close").focus();
   }
   function closeLb(){
     lb.classList.remove("open");
-    if(!openSheet) document.body.style.overflow="";
+    if(openSheet){ openSheet.removeAttribute("inert"); }
+    else{ setPageInert(false); document.body.style.overflow=""; }
     if(lbReturn) lbReturn.focus();
   }
   function step(d){ idx=(idx+d+group.length)%group.length; show(); }
 
   document.querySelectorAll(".shot").forEach(function(shot){
-    function launch(){
+    shot.addEventListener("click",function(){
       var imgs=Array.prototype.slice.call(shot.parentElement.querySelectorAll("img"));
       openLb(imgs,imgs.indexOf(shot.querySelector("img")),shot);
-    }
-    shot.addEventListener("click",launch);
-    shot.addEventListener("keydown",function(e){
-      if(e.key==="Enter"||e.key===" "){ e.preventDefault(); launch(); }
     });
   });
   document.getElementById("lb-close").addEventListener("click",closeLb);
